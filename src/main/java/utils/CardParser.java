@@ -1,3 +1,11 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * June 18, 2025
+ * CardParser.java
+ * This class is used to parse through the file attempting to be imported. It is separate to provide some abstraction
+ * for easier changes in the future.
+ */
 package main.java.utils;
 
 import main.java.db.Card;
@@ -16,6 +24,12 @@ public class CardParser {
         this.cardValidator = validator;
     }
 
+    /**
+     * method: parseLine
+     * parameters: line
+     * return: Optional Card
+     * purpose: parses and separates the lines into pieces to be validated and processed
+     */
     public Optional<Card> parseLine(String line) {
         String[] parts = Arrays.stream(line.split(" - "))
                 .map(String::trim)

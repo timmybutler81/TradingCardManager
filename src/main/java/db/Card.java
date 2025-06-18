@@ -1,3 +1,11 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * June 18, 2025
+ * Card.java
+ * This class is the main data storage for each card object. All cards will have this object created and used
+ * to pass around the application.
+ */
 package main.java.db;
 
 import main.java.utils.CardRarity;

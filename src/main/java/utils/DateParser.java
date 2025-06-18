@@ -1,3 +1,11 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * June 18, 2025
+ * DateParser.java
+ * This is a date utility class to enforce my standard of date formatting. It ensures that all dates are formatted
+ * and a reusable class.
+ */
 package main.java.utils;
 
 import java.time.LocalDate;
@@ -10,10 +18,17 @@ public class DateParser {
         this.dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     }
 
-    public LocalDate parse(String input) {
-        LocalDate localDate = LocalDate.parse(input, dateTimeFormatter);
-        return LocalDate.parse(input, dateTimeFormatter);
+    /**
+     * method: parse
+     * parameters: input
+     * return: LocalDate
+     * purpose: returns a proper formatted date from a string from the file
+     */
+    public LocalDate parse(String localDateString) {
+        LocalDate localDate = LocalDate.parse(localDateString, dateTimeFormatter);
+        return LocalDate.parse(localDateString, dateTimeFormatter);
     }
+
 
     public DateTimeFormatter getFormatter() {
         return dateTimeFormatter;

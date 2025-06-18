@@ -1,3 +1,11 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * June 18, 2025
+ * GuiSimulationMainMenu.java
+ * This class simulates how the GUI main menu. It provides the basic user interface for the options the application
+ * can do.
+ */
 package main.gui;
 
 import java.util.Scanner;
@@ -17,6 +25,13 @@ public class GuiSimulationMainMenu {
         this.fileImport = fileImport;
     }
 
+    /**
+     * method: start
+     * parameters: none
+     * return: void
+     * purpose: Simulates the starting of the application, and it's populating the GUI. Currently just a CLI
+     *          menu.
+     */
     public void start() {
         Scanner scanner = new Scanner(System.in);
         int selection = -1;

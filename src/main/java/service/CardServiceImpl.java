@@ -1,15 +1,21 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * June 18, 2025
+ * CardServiceImpl.java
+ * This is the current implementation of the service logic. This contains the majority of the business logic that
+ * should be meeting the user requirements.
+ */
 package main.java.service;
 
 import main.java.db.Card;
 import main.java.db.CardRepository;
-import main.java.db.CardRepositoryImpl;
 import main.java.utils.CardDateUtil;
 import main.java.utils.CardParser;
 import main.java.utils.CardRarity;
 import main.java.utils.FileReader;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,27 +32,57 @@ public class CardServiceImpl implements CardService {
         this.fileReader = reader;
     }
 
+    /**
+     * method: addCard
+     * parameters: card
+     * return: boolean
+     * purpose: pass through to call repository to add card. Used for additional logic when needed
+     */
     @Override
     public boolean addCard(Card card) {
         return cardRepository.saveCard(card);
     }
 
+    /**
+     * method: deleteCard
+     * parameters: cardId
+     * return: boolean
+     * purpose: pass through to call repository to delete card. Used for additional logic when needed
+     */
     @Override
     public boolean deleteCard(int cardId) {
         cardRepository.deleteCard(cardId);
         return false;
     }
 
+    /**
+     * method: getAllCards
+     * parameters: none
+     * return: List of Cards
+     * purpose: pass through to call repository to get all the cards in the "database"
+     */
     @Override
     public List<Card> getAllCards() {
         return cardRepository.findAllCards();
     }
 
+    /**
+     * method: findByCardId
+     * parameters: cardId
+     * return: Card
+     * purpose: pass through to find a card by ID in the "database"
+     */
     @Override
     public Card findByCardId(int cardId) {
         return cardRepository.findByCardId(cardId);
     }
 
+    /**
+     * method: calculateCollectionStatistics
+     * parameters: none
+     * return: Map of Stat and value
+     * purpose: calculated statistics about cards in the "database"
+     */
     @Override
     public Map<String, Object> calculateCollectionStatistics() {
         List<Card> cards = cardRepository.findAllCards();
@@ -74,6 +110,12 @@ public class CardServiceImpl implements CardService {
 
     }
 
+    /**
+     * method: calculateCollectionValues
+     * parameters: none
+     * return: Map of market/owner and the value
+     * purpose: calculated the value of the entire collection based on market increase and decrease
+     */
     @Override
     public Map<String, BigDecimal> calculateCollectionValues() {
         List<Card> cards = cardRepository.findAllCards();
@@ -89,8 +131,8 @@ public class CardServiceImpl implements CardService {
             CardRarity rarity = card.getRarity();
 
             // Calculate intervals
-            long marketIntervals = cardDateUtil.calculateThirtyDayIntervals(card.getDateSetPublished());
-            long ownerIntervals = cardDateUtil.calculateThirtyDayIntervals(card.getDatePurchased());
+            long marketIntervals = cardDateUtil.calculateDayInterval(card.getDateSetPublished());
+            long ownerIntervals = cardDateUtil.calculateDayInterval(card.getDatePurchased());
 
             // Compute multipliers
             double marketRate = rarity.getMarketRate();
@@ -119,6 +161,12 @@ public class CardServiceImpl implements CardService {
         );
     }
 
+    /**
+     * method: addAllCardsFromFile
+     * parameters: filePath
+     * return: List of Cards
+     * purpose: Processes the read lines from util classes and calls the repository to insert them
+     */
     @Override
     public List<Card> addAllCardsFromFile(String filePath) {
         List<Card> importedCards = new ArrayList<>();

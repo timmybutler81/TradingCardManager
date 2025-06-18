@@ -1,3 +1,10 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * June 18, 2025
+ * GuiSimulationCardInput.java
+ * This class simulates how the GUI handle card input. It simulates adding, removing and modifying a card record.
+ */
 package main.gui;
 
 import main.java.controller.CardController;
@@ -13,13 +20,22 @@ public class GuiSimulationCardInput {
     private final CardController controller;
     private final CardValidator validator;
     private final GuiSimulationPrompt prompt;
+    private final GuiSimulationCardDisplay display;
 
-    public GuiSimulationCardInput(CardController controller, CardValidator validator, GuiSimulationPrompt prompt) {
+    public GuiSimulationCardInput(CardController controller, CardValidator validator, GuiSimulationPrompt prompt, GuiSimulationCardDisplay display) {
         this.controller = controller;
         this.validator = validator;
         this.prompt = prompt;
+        this.display = display;
     }
 
+    /**
+     * method: simulateAddCard
+     * parameters: none
+     * return: void
+     * purpose: Simulates adding a card to the system. It handles a lot of validator logic from the class and
+     *          uses the prompt and validate method to complete the add card.
+     */
     public void simulateAddCard() {
         int id = Integer.parseInt(prompt.promptAndValidate(
                 "Card ID", validator::validateCardNumber,
@@ -50,8 +66,15 @@ public class GuiSimulationCardInput {
 
         controller.addCard(new Card(id, game, name, rarity, datePurchased, dateSet, price, foiled));
         System.out.println("Card added.");
+        display.displayAllCards();
     }
 
+    /**
+     * method: simulateDeleteCard
+     * parameters: none
+     * return: void
+     * purpose: Simulates removing a card from the system with some validation.
+     */
     public void simulateDeleteCard() {
         int id = Integer.parseInt(prompt.promptAndValidate(
                 "Card ID to delete", validator::validateCardNumber,
@@ -60,8 +83,17 @@ public class GuiSimulationCardInput {
         ));
         controller.deleteCard(id);
         System.out.println("Card deleted.");
+        display.displayAllCards();
     }
 
+    /**
+     * method: simulateModifyCard
+     * parameters: none
+     * return: void
+     * purpose: Simulates modifying a card. It handles a lot of validator logic from the class. Uses the prompt and
+     *          validate method and prompt optional method to complete to prompt and display info needed and
+     *          current info already available.
+     */
     public void simulateModifyCard() {
         int id = Integer.parseInt(prompt.promptAndValidate(
                 "Card ID to modify", validator::validateCardNumber,
@@ -101,5 +133,6 @@ public class GuiSimulationCardInput {
         card.setFoiled(foiled);
 
         System.out.println("Card updated.");
+        display.displayAllCards();
     }
 }
