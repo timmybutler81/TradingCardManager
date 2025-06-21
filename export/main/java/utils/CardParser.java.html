@@ -1,0 +1,85 @@
+<html>
+<head>
+<title>CardParser.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+CardParser.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* Timothy Butler</span>
+ <span class="s0">* CEN 3024 - Software Development 1</span>
+ <span class="s0">* June 18, 2025</span>
+ <span class="s0">* CardParser.java</span>
+ <span class="s0">* This class is used to parse through the file attempting to be imported. It is separate to provide some abstraction</span>
+ <span class="s0">* for easier changes in the future.</span>
+ <span class="s0">*/</span>
+<span class="s2">package </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">utils</span><span class="s3">;</span>
+
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">db</span><span class="s3">.</span><span class="s1">Card</span><span class="s3">;</span>
+
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">math</span><span class="s3">.</span><span class="s1">BigDecimal</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">time</span><span class="s3">.</span><span class="s1">LocalDate</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">Arrays</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">Optional</span><span class="s3">;</span>
+
+<span class="s2">public class </span><span class="s1">CardParser </span><span class="s3">{</span>
+    <span class="s2">private final </span><span class="s1">DateParser dateParser</span><span class="s3">;</span>
+    <span class="s2">private final </span><span class="s1">CardValidator cardValidator</span><span class="s3">;</span>
+
+    <span class="s2">public </span><span class="s1">CardParser</span><span class="s3">(</span><span class="s1">DateParser dateParser</span><span class="s3">, </span><span class="s1">CardValidator validator</span><span class="s3">) {</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">dateParser </span><span class="s3">= </span><span class="s1">dateParser</span><span class="s3">;</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">cardValidator </span><span class="s3">= </span><span class="s1">validator</span><span class="s3">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: parseLine</span>
+     <span class="s0">* parameters: line</span>
+     <span class="s0">* return: Optional Card</span>
+     <span class="s0">* purpose: parses and separates the lines into pieces to be validated and processed</span>
+     <span class="s0">*/</span>
+    <span class="s2">public </span><span class="s1">Optional</span><span class="s3">&lt;</span><span class="s1">Card</span><span class="s3">&gt; </span><span class="s1">parseLine</span><span class="s3">(</span><span class="s1">String line</span><span class="s3">) {</span>
+        <span class="s1">String</span><span class="s3">[] </span><span class="s1">parts </span><span class="s3">= </span><span class="s1">Arrays</span><span class="s3">.</span><span class="s1">stream</span><span class="s3">(</span><span class="s1">line</span><span class="s3">.</span><span class="s1">split</span><span class="s3">(</span><span class="s4">&quot; - &quot;</span><span class="s3">))</span>
+                <span class="s3">.</span><span class="s1">map</span><span class="s3">(</span><span class="s1">String::trim</span><span class="s3">)</span>
+                <span class="s3">.</span><span class="s1">toArray</span><span class="s3">(</span><span class="s1">String</span><span class="s3">[]</span><span class="s1">::</span><span class="s2">new</span><span class="s3">);</span>
+        <span class="s2">if </span><span class="s3">(</span><span class="s1">parts</span><span class="s3">.</span><span class="s1">length </span><span class="s3">!= </span><span class="s5">8</span><span class="s3">) {</span>
+            <span class="s2">throw new </span><span class="s1">IllegalArgumentException</span><span class="s3">(</span><span class="s4">&quot;File must have all 8 fields&quot;</span><span class="s3">);</span>
+        <span class="s3">}</span>
+
+        <span class="s2">if </span><span class="s3">(!</span><span class="s1">cardValidator</span><span class="s3">.</span><span class="s1">validateCardNumber</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">0</span><span class="s3">])</span>
+                <span class="s3">|| !</span><span class="s1">cardValidator</span><span class="s3">.</span><span class="s1">stringValidator</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">1</span><span class="s3">])</span>
+                <span class="s3">|| !</span><span class="s1">cardValidator</span><span class="s3">.</span><span class="s1">stringValidator</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">2</span><span class="s3">])</span>
+                <span class="s3">|| !</span><span class="s1">cardValidator</span><span class="s3">.</span><span class="s1">validateCardRarity</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">3</span><span class="s3">])</span>
+                <span class="s3">|| !</span><span class="s1">cardValidator</span><span class="s3">.</span><span class="s1">dateValidator</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">4</span><span class="s3">], </span><span class="s1">dateParser</span><span class="s3">.</span><span class="s1">getFormatter</span><span class="s3">())</span>
+                <span class="s3">|| !</span><span class="s1">cardValidator</span><span class="s3">.</span><span class="s1">dateValidator</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">5</span><span class="s3">], </span><span class="s1">dateParser</span><span class="s3">.</span><span class="s1">getFormatter</span><span class="s3">())</span>
+                <span class="s3">|| !</span><span class="s1">cardValidator</span><span class="s3">.</span><span class="s1">validatePurchasePrice</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">6</span><span class="s3">])</span>
+                <span class="s3">|| !</span><span class="s1">cardValidator</span><span class="s3">.</span><span class="s1">validateIsFoiled</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">7</span><span class="s3">])) {</span>
+            <span class="s2">throw new </span><span class="s1">IllegalArgumentException</span><span class="s3">(</span><span class="s4">&quot;Validation failed for line: &quot; </span><span class="s3">+ </span><span class="s1">line</span><span class="s3">);</span>
+        <span class="s3">}</span>
+
+        <span class="s2">int </span><span class="s1">cardNumber </span><span class="s3">= </span><span class="s1">Integer</span><span class="s3">.</span><span class="s1">parseInt</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">0</span><span class="s3">].</span><span class="s1">trim</span><span class="s3">());</span>
+        <span class="s1">String cardGame </span><span class="s3">= </span><span class="s1">parts</span><span class="s3">[</span><span class="s5">1</span><span class="s3">].</span><span class="s1">trim</span><span class="s3">();</span>
+        <span class="s1">String cardName </span><span class="s3">= </span><span class="s1">parts</span><span class="s3">[</span><span class="s5">2</span><span class="s3">].</span><span class="s1">trim</span><span class="s3">();</span>
+        <span class="s1">CardRarity rarity </span><span class="s3">= </span><span class="s1">CardRarity</span><span class="s3">.</span><span class="s1">valueOf</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">3</span><span class="s3">].</span><span class="s1">trim</span><span class="s3">().</span><span class="s1">toUpperCase</span><span class="s3">());</span>
+        <span class="s1">LocalDate datePurchased </span><span class="s3">= </span><span class="s1">dateParser</span><span class="s3">.</span><span class="s1">parse</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">4</span><span class="s3">].</span><span class="s1">trim</span><span class="s3">());</span>
+        <span class="s1">LocalDate datePublished </span><span class="s3">= </span><span class="s1">dateParser</span><span class="s3">.</span><span class="s1">parse</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">5</span><span class="s3">].</span><span class="s1">trim</span><span class="s3">());</span>
+        <span class="s1">BigDecimal purchasePrice </span><span class="s3">= </span><span class="s2">new </span><span class="s1">BigDecimal</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">6</span><span class="s3">].</span><span class="s1">trim</span><span class="s3">());</span>
+        <span class="s2">boolean </span><span class="s1">isFoiled </span><span class="s3">= </span><span class="s1">Boolean</span><span class="s3">.</span><span class="s1">parseBoolean</span><span class="s3">(</span><span class="s1">parts</span><span class="s3">[</span><span class="s5">7</span><span class="s3">].</span><span class="s1">trim</span><span class="s3">());</span>
+
+        <span class="s2">return </span><span class="s1">Optional</span><span class="s3">.</span><span class="s1">of</span><span class="s3">(</span><span class="s2">new </span><span class="s1">Card</span><span class="s3">(</span><span class="s1">cardNumber</span><span class="s3">, </span><span class="s1">cardGame</span><span class="s3">, </span><span class="s1">cardName</span><span class="s3">, </span><span class="s1">rarity</span><span class="s3">, </span><span class="s1">datePurchased</span><span class="s3">, </span><span class="s1">datePublished</span><span class="s3">, </span><span class="s1">purchasePrice</span><span class="s3">, </span><span class="s1">isFoiled</span><span class="s3">));</span>
+    <span class="s3">}</span>
+<span class="s3">}</span>
+</pre>
+</body>
+</html>

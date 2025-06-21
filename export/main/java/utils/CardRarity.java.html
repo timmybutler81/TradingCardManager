@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>CardRarity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+CardRarity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* Timothy Butler</span>
+ <span class="s0">* CEN 3024 - Software Development 1</span>
+ <span class="s0">* June 18, 2025</span>
+ <span class="s0">* CardRarity.java</span>
+ <span class="s0">* This enum stores the rarities for cards. It enforces specific rarities to be used within the application and</span>
+ <span class="s0">* provides some additional storage for calculations based on rarity.</span>
+ <span class="s0">*/</span>
+<span class="s2">package </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">utils</span><span class="s3">;</span>
+
+<span class="s2">public enum </span><span class="s1">CardRarity </span><span class="s3">{</span>
+    <span class="s1">COMMON</span><span class="s3">(-</span><span class="s4">0.05</span><span class="s3">, -</span><span class="s4">0.02</span><span class="s3">),</span>
+    <span class="s1">RARE</span><span class="s3">(-</span><span class="s4">0.02</span><span class="s3">, -</span><span class="s4">0.01</span><span class="s3">),</span>
+    <span class="s1">HERO</span><span class="s3">(</span><span class="s4">0.03</span><span class="s3">, </span><span class="s4">0.015</span><span class="s3">),</span>
+    <span class="s1">LEGENDARY</span><span class="s3">(</span><span class="s4">0.05</span><span class="s3">, </span><span class="s4">0.025</span><span class="s3">);</span>
+
+    <span class="s2">private final double </span><span class="s1">marketRate</span><span class="s3">;</span>
+    <span class="s2">private final double </span><span class="s1">ownerRate</span><span class="s3">;</span>
+
+
+    <span class="s1">CardRarity</span><span class="s3">(</span><span class="s2">double </span><span class="s1">marketRate</span><span class="s3">, </span><span class="s2">double </span><span class="s1">ownerRate</span><span class="s3">) {</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">marketRate </span><span class="s3">= </span><span class="s1">marketRate</span><span class="s3">;</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">ownerRate </span><span class="s3">= </span><span class="s1">ownerRate</span><span class="s3">;</span>
+    <span class="s3">}</span>
+
+    <span class="s2">public double </span><span class="s1">getMarketRate</span><span class="s3">() {</span>
+        <span class="s2">return </span><span class="s1">marketRate</span><span class="s3">;</span>
+    <span class="s3">}</span>
+
+    <span class="s2">public double </span><span class="s1">getOwnerRate</span><span class="s3">() {</span>
+        <span class="s2">return </span><span class="s1">ownerRate</span><span class="s3">;</span>
+    <span class="s3">}</span>
+<span class="s3">}</span></pre>
+</body>
+</html>

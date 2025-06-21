@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>GuiSimulationMainMenu.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #2aacb8;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+GuiSimulationMainMenu.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* Timothy Butler</span>
+ <span class="s0">* CEN 3024 - Software Development 1</span>
+ <span class="s0">* June 18, 2025</span>
+ <span class="s0">* GuiSimulationMainMenu.java</span>
+ <span class="s0">* This class simulates how the GUI main menu. It provides the basic user interface for the options the application</span>
+ <span class="s0">* can do.</span>
+ <span class="s0">*/</span>
+<span class="s2">package </span><span class="s1">main</span><span class="s3">.</span><span class="s1">gui</span><span class="s3">;</span>
+
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">Scanner</span><span class="s3">;</span>
+
+<span class="s2">public class </span><span class="s1">GuiSimulationMainMenu </span><span class="s3">{</span>
+    <span class="s2">private final </span><span class="s1">GuiSimulationCardInput cardInput</span><span class="s3">;</span>
+    <span class="s2">private final </span><span class="s1">GuiSimulationCardDisplay cardDisplay</span><span class="s3">;</span>
+    <span class="s2">private final </span><span class="s1">GuiSimulationFileImport fileImport</span><span class="s3">;</span>
+
+    <span class="s2">public </span><span class="s1">GuiSimulationMainMenu</span><span class="s3">(</span>
+            <span class="s1">GuiSimulationCardInput cardInput</span><span class="s3">,</span>
+            <span class="s1">GuiSimulationCardDisplay cardDisplay</span><span class="s3">,</span>
+            <span class="s1">GuiSimulationFileImport fileImport</span>
+    <span class="s3">) {</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">cardInput </span><span class="s3">= </span><span class="s1">cardInput</span><span class="s3">;</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">cardDisplay </span><span class="s3">= </span><span class="s1">cardDisplay</span><span class="s3">;</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">fileImport </span><span class="s3">= </span><span class="s1">fileImport</span><span class="s3">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: start</span>
+     <span class="s0">* parameters: none</span>
+     <span class="s0">* return: void</span>
+     <span class="s0">* purpose: Simulates the starting of the application, and it's populating the GUI. Currently just a CLI</span>
+     <span class="s0">*          menu.</span>
+     <span class="s0">*/</span>
+    <span class="s2">public void </span><span class="s1">start</span><span class="s3">() {</span>
+        <span class="s1">Scanner scanner </span><span class="s3">= </span><span class="s2">new </span><span class="s1">Scanner</span><span class="s3">(</span><span class="s1">System</span><span class="s3">.</span><span class="s1">in</span><span class="s3">);</span>
+        <span class="s2">int </span><span class="s1">selection </span><span class="s3">= -</span><span class="s4">1</span><span class="s3">;</span>
+
+        <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s5">&quot;Welcome to the Trading Card Manager&quot;</span><span class="s3">);</span>
+
+        <span class="s2">while </span><span class="s3">(</span><span class="s1">selection </span><span class="s3">!= </span><span class="s4">8</span><span class="s3">) {</span>
+            <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s5">&quot;&quot;&quot; 
+                </span><span class="s2">\n</span><span class="s5">Please type the number of the action you want to take: 
+                1. Add Card 
+                2. Remove Card 
+                3. Modify Card 
+                4. Display all Cards 
+                5. Display Card Statistics 
+                6. Calculate Total Collection Value 
+                7. Load Cards from File 
+                8. Exit&quot;&quot;&quot;</span><span class="s3">);</span>
+
+            <span class="s1">String input </span><span class="s3">= </span><span class="s1">scanner</span><span class="s3">.</span><span class="s1">nextLine</span><span class="s3">();</span>
+            <span class="s2">try </span><span class="s3">{</span>
+                <span class="s1">selection </span><span class="s3">= </span><span class="s1">Integer</span><span class="s3">.</span><span class="s1">parseInt</span><span class="s3">(</span><span class="s1">input</span><span class="s3">);</span>
+                <span class="s2">switch </span><span class="s3">(</span><span class="s1">selection</span><span class="s3">) {</span>
+                    <span class="s2">case </span><span class="s4">1 </span><span class="s1">-&gt; cardInput</span><span class="s3">.</span><span class="s1">simulateAddCard</span><span class="s3">();</span>
+                    <span class="s2">case </span><span class="s4">2 </span><span class="s1">-&gt; cardInput</span><span class="s3">.</span><span class="s1">simulateDeleteCard</span><span class="s3">();</span>
+                    <span class="s2">case </span><span class="s4">3 </span><span class="s1">-&gt; cardInput</span><span class="s3">.</span><span class="s1">simulateModifyCard</span><span class="s3">();</span>
+                    <span class="s2">case </span><span class="s4">4 </span><span class="s1">-&gt; cardDisplay</span><span class="s3">.</span><span class="s1">displayAllCards</span><span class="s3">();</span>
+                    <span class="s2">case </span><span class="s4">5 </span><span class="s1">-&gt; cardDisplay</span><span class="s3">.</span><span class="s1">displayCardStatistics</span><span class="s3">();</span>
+                    <span class="s2">case </span><span class="s4">6 </span><span class="s1">-&gt; cardDisplay</span><span class="s3">.</span><span class="s1">simulateCalculateTotalCollectionValue</span><span class="s3">();</span>
+                    <span class="s2">case </span><span class="s4">7 </span><span class="s1">-&gt; fileImport</span><span class="s3">.</span><span class="s1">simulateFileImport</span><span class="s3">();</span>
+                    <span class="s2">case </span><span class="s4">8 </span><span class="s1">-&gt; System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s5">&quot;Exiting...&quot;</span><span class="s3">);</span>
+                    <span class="s2">default </span><span class="s1">-&gt; System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s5">&quot;Invalid option. Enter 1–8.&quot;</span><span class="s3">);</span>
+                <span class="s3">}</span>
+            <span class="s3">} </span><span class="s2">catch </span><span class="s3">(</span><span class="s1">NumberFormatException e</span><span class="s3">) {</span>
+                <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s5">&quot;Invalid input. Enter a number between 1 and 8.&quot;</span><span class="s3">);</span>
+            <span class="s3">}</span>
+        <span class="s3">}</span>
+    <span class="s3">}</span>
+<span class="s3">}</span>
+
+</pre>
+</body>
+</html>

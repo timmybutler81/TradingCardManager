@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>FileReader.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+FileReader.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* Timothy Butler</span>
+ <span class="s0">* CEN 3024 - Software Development 1</span>
+ <span class="s0">* June 18, 2025</span>
+ <span class="s0">* DateParser.java</span>
+ <span class="s0">* This class is used to read the file and ensure that it can read the file. Its abstracted away for future changes</span>
+ <span class="s0">* when we need to read the file from a GUI instead of the cli.</span>
+ <span class="s0">*/</span>
+<span class="s2">package </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">utils</span><span class="s3">;</span>
+
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">io</span><span class="s3">.</span><span class="s1">BufferedReader</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">io</span><span class="s3">.</span><span class="s1">IOException</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">nio</span><span class="s3">.</span><span class="s1">file</span><span class="s3">.</span><span class="s1">Files</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">nio</span><span class="s3">.</span><span class="s1">file</span><span class="s3">.</span><span class="s1">Path</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">List</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">stream</span><span class="s3">.</span><span class="s1">Collectors</span><span class="s3">;</span>
+
+<span class="s2">public class </span><span class="s1">FileReader </span><span class="s3">{</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: readLines</span>
+     <span class="s0">* parameters: path</span>
+     <span class="s0">* return: List of Strings</span>
+     <span class="s0">* purpose: returns a list of strings from it read from the file</span>
+     <span class="s0">*/</span>
+    <span class="s2">public </span><span class="s1">List</span><span class="s3">&lt;</span><span class="s1">String</span><span class="s3">&gt; </span><span class="s1">readLines</span><span class="s3">(</span><span class="s1">String path</span><span class="s3">) {</span>
+        <span class="s2">try </span><span class="s3">(</span><span class="s1">BufferedReader bufferedReader </span><span class="s3">= </span><span class="s1">Files</span><span class="s3">.</span><span class="s1">newBufferedReader</span><span class="s3">(</span><span class="s1">Path</span><span class="s3">.</span><span class="s1">of</span><span class="s3">(</span><span class="s1">path</span><span class="s3">))) {</span>
+            <span class="s2">return </span><span class="s1">bufferedReader</span><span class="s3">.</span><span class="s1">lines</span><span class="s3">().</span><span class="s1">collect</span><span class="s3">(</span><span class="s1">Collectors</span><span class="s3">.</span><span class="s1">toList</span><span class="s3">());</span>
+        <span class="s3">} </span><span class="s2">catch </span><span class="s3">(</span><span class="s1">IOException e</span><span class="s3">) {</span>
+            <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s4">&quot;Could not read file: &quot; </span><span class="s3">+ </span><span class="s1">e</span><span class="s3">.</span><span class="s1">getMessage</span><span class="s3">());</span>
+            <span class="s2">return </span><span class="s1">List</span><span class="s3">.</span><span class="s1">of</span><span class="s3">();</span>
+        <span class="s3">}</span>
+
+    <span class="s3">}</span>
+
+<span class="s3">}</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Main.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Main.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">main</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">main</span><span class="s2">.</span><span class="s1">java</span><span class="s2">.</span><span class="s1">controller</span><span class="s2">.</span><span class="s1">CardController</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">main</span><span class="s2">.</span><span class="s1">java</span><span class="s2">.</span><span class="s1">db</span><span class="s2">.</span><span class="s1">CardRepository</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">main</span><span class="s2">.</span><span class="s1">java</span><span class="s2">.</span><span class="s1">db</span><span class="s2">.</span><span class="s1">CardRepositoryImpl</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">main</span><span class="s2">.</span><span class="s1">java</span><span class="s2">.</span><span class="s1">service</span><span class="s2">.</span><span class="s1">CardService</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">main</span><span class="s2">.</span><span class="s1">java</span><span class="s2">.</span><span class="s1">service</span><span class="s2">.</span><span class="s1">CardServiceImpl</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">main</span><span class="s2">.</span><span class="s1">java</span><span class="s2">.</span><span class="s1">utils</span><span class="s2">.</span><span class="s1">CardParser</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">main</span><span class="s2">.</span><span class="s1">java</span><span class="s2">.</span><span class="s1">utils</span><span class="s2">.</span><span class="s1">CardValidator</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">main</span><span class="s2">.</span><span class="s1">java</span><span class="s2">.</span><span class="s1">utils</span><span class="s2">.</span><span class="s1">DateParser</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">main</span><span class="s2">.</span><span class="s1">java</span><span class="s2">.</span><span class="s1">utils</span><span class="s2">.</span><span class="s1">FileReader</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">main</span><span class="s2">.</span><span class="s1">gui</span><span class="s2">.*;</span>
+
+<span class="s0">public class </span><span class="s1">Main </span><span class="s2">{</span>
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) {</span>
+        <span class="s1">CardRepository repository </span><span class="s2">= </span><span class="s0">new </span><span class="s1">CardRepositoryImpl</span><span class="s2">();</span>
+        <span class="s1">CardValidator validator </span><span class="s2">= </span><span class="s0">new </span><span class="s1">CardValidator</span><span class="s2">();</span>
+        <span class="s1">DateParser dateParser </span><span class="s2">= </span><span class="s0">new </span><span class="s1">DateParser</span><span class="s2">();</span>
+        <span class="s1">CardParser cardParser </span><span class="s2">= </span><span class="s0">new </span><span class="s1">CardParser</span><span class="s2">(</span><span class="s1">dateParser</span><span class="s2">, </span><span class="s1">validator</span><span class="s2">);</span>
+        <span class="s1">FileReader fileReader </span><span class="s2">= </span><span class="s0">new </span><span class="s1">FileReader</span><span class="s2">();</span>
+
+        <span class="s1">CardService cardService </span><span class="s2">= </span><span class="s0">new </span><span class="s1">CardServiceImpl</span><span class="s2">(</span><span class="s1">repository</span><span class="s2">, </span><span class="s1">cardParser</span><span class="s2">, </span><span class="s1">fileReader</span><span class="s2">);</span>
+        <span class="s1">CardController controller </span><span class="s2">= </span><span class="s0">new </span><span class="s1">CardController</span><span class="s2">(</span><span class="s1">cardService</span><span class="s2">);</span>
+        <span class="s1">GuiSimulationPrompt prompt </span><span class="s2">= </span><span class="s0">new </span><span class="s1">GuiSimulationPrompt</span><span class="s2">();</span>
+
+        <span class="s1">GuiSimulationCardDisplay display </span><span class="s2">= </span><span class="s0">new </span><span class="s1">GuiSimulationCardDisplay</span><span class="s2">(</span><span class="s1">controller</span><span class="s2">);</span>
+        <span class="s1">GuiSimulationFileImport fileImport </span><span class="s2">= </span><span class="s0">new </span><span class="s1">GuiSimulationFileImport</span><span class="s2">(</span><span class="s1">controller</span><span class="s2">);</span>
+        <span class="s1">GuiSimulationCardInput input </span><span class="s2">= </span><span class="s0">new </span><span class="s1">GuiSimulationCardInput</span><span class="s2">(</span><span class="s1">controller</span><span class="s2">, </span><span class="s1">validator</span><span class="s2">, </span><span class="s1">prompt</span><span class="s2">, </span><span class="s1">display</span><span class="s2">);</span>
+
+        <span class="s1">GuiSimulationMainMenu menu </span><span class="s2">= </span><span class="s0">new </span><span class="s1">GuiSimulationMainMenu</span><span class="s2">(</span><span class="s1">input</span><span class="s2">, </span><span class="s1">display</span><span class="s2">, </span><span class="s1">fileImport</span><span class="s2">);</span>
+        <span class="s1">menu</span><span class="s2">.</span><span class="s1">start</span><span class="s2">();</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
