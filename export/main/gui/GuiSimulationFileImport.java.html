@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>GuiSimulationFileImport.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+GuiSimulationFileImport.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* Timothy Butler</span>
+ <span class="s0">* CEN 3024 - Software Development 1</span>
+ <span class="s0">* June 18, 2025</span>
+ <span class="s0">* GuiSimulationFileImport.java</span>
+ <span class="s0">* This class simulates how the GUI handles a file import. It asks for the file path and parses it and</span>
+ <span class="s0">* calls the simulation prompt class.</span>
+ <span class="s0">*/</span>
+<span class="s2">package </span><span class="s1">main</span><span class="s3">.</span><span class="s1">gui</span><span class="s3">;</span>
+
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">controller</span><span class="s3">.</span><span class="s1">CardController</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">db</span><span class="s3">.</span><span class="s1">Card</span><span class="s3">;</span>
+
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">io</span><span class="s3">.</span><span class="s1">File</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">List</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">Scanner</span><span class="s3">;</span>
+
+<span class="s2">public class </span><span class="s1">GuiSimulationFileImport </span><span class="s3">{</span>
+    <span class="s2">private final </span><span class="s1">CardController controller</span><span class="s3">;</span>
+
+    <span class="s2">public </span><span class="s1">GuiSimulationFileImport</span><span class="s3">(</span><span class="s1">CardController controller</span><span class="s3">) {</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">controller </span><span class="s3">= </span><span class="s1">controller</span><span class="s3">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: simulateFileImport</span>
+     <span class="s0">* parameters: none</span>
+     <span class="s0">* return: void</span>
+     <span class="s0">* purpose: Simulates how the GUI will handle importing a file to check if the file is in the directory</span>
+     <span class="s0">*          and verify the file is not empty.</span>
+     <span class="s0">*/</span>
+    <span class="s2">public void </span><span class="s1">simulateFileImport</span><span class="s3">() {</span>
+        <span class="s1">Scanner scanner </span><span class="s3">= </span><span class="s2">new </span><span class="s1">Scanner</span><span class="s3">(</span><span class="s1">System</span><span class="s3">.</span><span class="s1">in</span><span class="s3">);</span>
+        <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s4">&quot;Enter path to the card file:&quot;</span><span class="s3">);</span>
+        <span class="s1">String filePath </span><span class="s3">= </span><span class="s1">scanner</span><span class="s3">.</span><span class="s1">nextLine</span><span class="s3">();</span>
+
+        <span class="s2">if </span><span class="s3">(</span><span class="s1">filePath </span><span class="s3">== </span><span class="s2">null </span><span class="s3">|| </span><span class="s1">filePath</span><span class="s3">.</span><span class="s1">trim</span><span class="s3">().</span><span class="s1">isEmpty</span><span class="s3">()) {</span>
+            <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s4">&quot;Invalid file path: Path is blank.&quot;</span><span class="s3">);</span>
+            <span class="s2">return</span><span class="s3">;</span>
+        <span class="s3">}</span>
+
+        <span class="s1">File file </span><span class="s3">= </span><span class="s2">new </span><span class="s1">File</span><span class="s3">(</span><span class="s1">filePath</span><span class="s3">);</span>
+        <span class="s2">if </span><span class="s3">(!</span><span class="s1">file</span><span class="s3">.</span><span class="s1">exists</span><span class="s3">() || </span><span class="s1">file</span><span class="s3">.</span><span class="s1">isDirectory</span><span class="s3">()) {</span>
+            <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s4">&quot;Invalid file path: File does not exist or is a directory.&quot;</span><span class="s3">);</span>
+            <span class="s2">return</span><span class="s3">;</span>
+        <span class="s3">}</span>
+
+        <span class="s1">List</span><span class="s3">&lt;</span><span class="s1">Card</span><span class="s3">&gt; </span><span class="s1">cards </span><span class="s3">= </span><span class="s1">controller</span><span class="s3">.</span><span class="s1">importCardsFromFile</span><span class="s3">(</span><span class="s1">filePath</span><span class="s3">);</span>
+        <span class="s2">if </span><span class="s3">(</span><span class="s1">cards</span><span class="s3">.</span><span class="s1">isEmpty</span><span class="s3">()) {</span>
+            <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s4">&quot;No cards imported.&quot;</span><span class="s3">);</span>
+        <span class="s3">} </span><span class="s2">else </span><span class="s3">{</span>
+            <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s4">&quot;Imported &quot; </span><span class="s3">+ </span><span class="s1">cards</span><span class="s3">.</span><span class="s1">size</span><span class="s3">() + </span><span class="s4">&quot; cards:&quot;</span><span class="s3">);</span>
+            <span class="s1">cards</span><span class="s3">.</span><span class="s1">forEach</span><span class="s3">(</span><span class="s1">System</span><span class="s3">.</span><span class="s1">out::println</span><span class="s3">);</span>
+        <span class="s3">}</span>
+    <span class="s3">}</span>
+<span class="s3">}</span>
+</pre>
+</body>
+</html>

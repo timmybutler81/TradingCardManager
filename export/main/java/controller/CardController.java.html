@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>CardController.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+CardController.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* Timothy Butler</span>
+ <span class="s0">* CEN 3024 - Software Development 1</span>
+ <span class="s0">* June 18, 2025</span>
+ <span class="s0">* CardController.java</span>
+ <span class="s0">* This class is the main access point for the GUI and uses this exclusively to call the back end part of the</span>
+ <span class="s0">* application. It has methods for all functionality of the app.</span>
+ <span class="s0">*/</span>
+<span class="s2">package </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">controller</span><span class="s3">;</span>
+
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">db</span><span class="s3">.</span><span class="s1">Card</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">service</span><span class="s3">.</span><span class="s1">CardService</span><span class="s3">;</span>
+
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">math</span><span class="s3">.</span><span class="s1">BigDecimal</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">List</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">Map</span><span class="s3">;</span>
+
+<span class="s2">public class </span><span class="s1">CardController </span><span class="s3">{</span>
+    <span class="s2">private </span><span class="s1">CardService cardService</span><span class="s3">;</span>
+
+    <span class="s2">public </span><span class="s1">CardController</span><span class="s3">(</span><span class="s1">CardService cardService</span><span class="s3">) {</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">cardService </span><span class="s3">= </span><span class="s1">cardService</span><span class="s3">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: addCard</span>
+     <span class="s0">* parameters: card</span>
+     <span class="s0">* return: boolean</span>
+     <span class="s0">* purpose: access point to add card from GUI</span>
+     <span class="s0">*/</span>
+    <span class="s2">public boolean </span><span class="s1">addCard</span><span class="s3">(</span><span class="s1">Card card</span><span class="s3">) {</span>
+        <span class="s2">return </span><span class="s1">cardService</span><span class="s3">.</span><span class="s1">addCard</span><span class="s3">(</span><span class="s1">card</span><span class="s3">);</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: deleteCard</span>
+     <span class="s0">* parameters: card</span>
+     <span class="s0">* return: boolean</span>
+     <span class="s0">* purpose: access point to delete card from GUI</span>
+     <span class="s0">*/</span>
+    <span class="s2">public void </span><span class="s1">deleteCard</span><span class="s3">(</span><span class="s2">int </span><span class="s1">cardId</span><span class="s3">) {</span>
+        <span class="s1">cardService</span><span class="s3">.</span><span class="s1">deleteCard</span><span class="s3">(</span><span class="s1">cardId</span><span class="s3">);</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: getAllCards</span>
+     <span class="s0">* parameters: none</span>
+     <span class="s0">* return: List of Cards</span>
+     <span class="s0">* purpose: access point to list all cards from GUI</span>
+     <span class="s0">*/</span>
+    <span class="s2">public </span><span class="s1">List</span><span class="s3">&lt;</span><span class="s1">Card</span><span class="s3">&gt; </span><span class="s1">getAllCards</span><span class="s3">() {</span>
+        <span class="s2">return </span><span class="s1">cardService</span><span class="s3">.</span><span class="s1">getAllCards</span><span class="s3">();</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: getCardById</span>
+     <span class="s0">* parameters: cardId</span>
+     <span class="s0">* return: Card</span>
+     <span class="s0">* purpose: access point to look up a card by ID from GUI</span>
+     <span class="s0">*/</span>
+    <span class="s2">public </span><span class="s1">Card getCardById</span><span class="s3">(</span><span class="s2">int </span><span class="s1">cardId</span><span class="s3">) {</span>
+        <span class="s2">return </span><span class="s1">cardService</span><span class="s3">.</span><span class="s1">findByCardId</span><span class="s3">(</span><span class="s1">cardId</span><span class="s3">);</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: calculateCollectionStatistics</span>
+     <span class="s0">* parameters: none</span>
+     <span class="s0">* return: Map of Stats and values</span>
+     <span class="s0">* purpose: access point to retrieve card statistics for the GUI</span>
+     <span class="s0">*/</span>
+    <span class="s2">public </span><span class="s1">Map</span><span class="s3">&lt;</span><span class="s1">String</span><span class="s3">, </span><span class="s1">Object</span><span class="s3">&gt; </span><span class="s1">calculateCollectionStatistics</span><span class="s3">() {</span>
+        <span class="s2">return </span><span class="s1">cardService</span><span class="s3">.</span><span class="s1">calculateCollectionStatistics</span><span class="s3">();</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: calculateCollectionValue</span>
+     <span class="s0">* parameters: none</span>
+     <span class="s0">* return: Map of owner/market and values</span>
+     <span class="s0">* purpose: access point to retrieve collection value for the GUI</span>
+     <span class="s0">*/</span>
+    <span class="s2">public </span><span class="s1">Map</span><span class="s3">&lt;</span><span class="s1">String</span><span class="s3">, </span><span class="s1">BigDecimal</span><span class="s3">&gt; </span><span class="s1">calculateCollectionValue</span><span class="s3">() {</span>
+        <span class="s2">return </span><span class="s1">cardService</span><span class="s3">.</span><span class="s1">calculateCollectionValues</span><span class="s3">();</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: importCardsFromFile</span>
+     <span class="s0">* parameters: filePath</span>
+     <span class="s0">* return: List of cards</span>
+     <span class="s0">* purpose: access point to import cards from file for the GUI</span>
+     <span class="s0">*/</span>
+    <span class="s2">public </span><span class="s1">List</span><span class="s3">&lt;</span><span class="s1">Card</span><span class="s3">&gt; </span><span class="s1">importCardsFromFile</span><span class="s3">(</span><span class="s1">String filePath</span><span class="s3">) {</span>
+        <span class="s2">return </span><span class="s1">cardService</span><span class="s3">.</span><span class="s1">addAllCardsFromFile</span><span class="s3">(</span><span class="s1">filePath</span><span class="s3">);</span>
+    <span class="s3">}</span>
+<span class="s3">}</span>
+</pre>
+</body>
+</html>

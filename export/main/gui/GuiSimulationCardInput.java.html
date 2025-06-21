@@ -1,0 +1,158 @@
+<html>
+<head>
+<title>GuiSimulationCardInput.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+GuiSimulationCardInput.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* Timothy Butler</span>
+ <span class="s0">* CEN 3024 - Software Development 1</span>
+ <span class="s0">* June 18, 2025</span>
+ <span class="s0">* GuiSimulationCardInput.java</span>
+ <span class="s0">* This class simulates how the GUI handle card input. It simulates adding, removing and modifying a card record.</span>
+ <span class="s0">*/</span>
+<span class="s2">package </span><span class="s1">main</span><span class="s3">.</span><span class="s1">gui</span><span class="s3">;</span>
+
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">controller</span><span class="s3">.</span><span class="s1">CardController</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">db</span><span class="s3">.</span><span class="s1">Card</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">utils</span><span class="s3">.</span><span class="s1">CardRarity</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">utils</span><span class="s3">.</span><span class="s1">CardValidator</span><span class="s3">;</span>
+
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">math</span><span class="s3">.</span><span class="s1">BigDecimal</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">time</span><span class="s3">.</span><span class="s1">LocalDate</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">time</span><span class="s3">.</span><span class="s1">format</span><span class="s3">.</span><span class="s1">DateTimeFormatter</span><span class="s3">;</span>
+
+<span class="s2">public class </span><span class="s1">GuiSimulationCardInput </span><span class="s3">{</span>
+    <span class="s2">private final </span><span class="s1">CardController controller</span><span class="s3">;</span>
+    <span class="s2">private final </span><span class="s1">CardValidator validator</span><span class="s3">;</span>
+    <span class="s2">private final </span><span class="s1">GuiSimulationPrompt prompt</span><span class="s3">;</span>
+    <span class="s2">private final </span><span class="s1">GuiSimulationCardDisplay display</span><span class="s3">;</span>
+
+    <span class="s2">public </span><span class="s1">GuiSimulationCardInput</span><span class="s3">(</span><span class="s1">CardController controller</span><span class="s3">, </span><span class="s1">CardValidator validator</span><span class="s3">, </span><span class="s1">GuiSimulationPrompt prompt</span><span class="s3">, </span><span class="s1">GuiSimulationCardDisplay display</span><span class="s3">) {</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">controller </span><span class="s3">= </span><span class="s1">controller</span><span class="s3">;</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">validator </span><span class="s3">= </span><span class="s1">validator</span><span class="s3">;</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">prompt </span><span class="s3">= </span><span class="s1">prompt</span><span class="s3">;</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">display </span><span class="s3">= </span><span class="s1">display</span><span class="s3">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: simulateAddCard</span>
+     <span class="s0">* parameters: none</span>
+     <span class="s0">* return: void</span>
+     <span class="s0">* purpose: Simulates adding a card to the system. It handles a lot of validator logic from the class and</span>
+     <span class="s0">*          uses the prompt and validate method to complete the add card.</span>
+     <span class="s0">*/</span>
+    <span class="s2">public void </span><span class="s1">simulateAddCard</span><span class="s3">() {</span>
+        <span class="s2">int </span><span class="s1">id </span><span class="s3">= </span><span class="s1">Integer</span><span class="s3">.</span><span class="s1">parseInt</span><span class="s3">(</span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptAndValidate</span><span class="s3">(</span>
+                <span class="s4">&quot;Card ID&quot;</span><span class="s3">, </span><span class="s1">validator::validateCardNumber</span><span class="s3">,</span>
+                <span class="s1">input -&gt; controller</span><span class="s3">.</span><span class="s1">getCardById</span><span class="s3">(</span><span class="s1">Integer</span><span class="s3">.</span><span class="s1">parseInt</span><span class="s3">(</span><span class="s1">input</span><span class="s3">)) == </span><span class="s2">null</span><span class="s3">,</span>
+                <span class="s4">&quot;Duplicate ID&quot;</span>
+        <span class="s3">));</span>
+
+        <span class="s1">String game </span><span class="s3">= </span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptAndValidate</span><span class="s3">(</span><span class="s4">&quot;Card Game&quot;</span><span class="s3">, </span><span class="s1">validator::stringValidator</span><span class="s3">, </span><span class="s2">null</span><span class="s3">, </span><span class="s2">null</span><span class="s3">);</span>
+        <span class="s1">String name </span><span class="s3">= </span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptAndValidate</span><span class="s3">(</span><span class="s4">&quot;Card Name&quot;</span><span class="s3">, </span><span class="s1">validator::stringValidator</span><span class="s3">, </span><span class="s2">null</span><span class="s3">, </span><span class="s2">null</span><span class="s3">);</span>
+
+        <span class="s1">String rarityStr </span><span class="s3">= </span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptAndValidate</span><span class="s3">(</span><span class="s4">&quot;Card Rarity (COMMON, RARE, HERO, LEGENDARY)&quot;</span><span class="s3">,</span>
+                <span class="s1">validator::validateCardRarity</span><span class="s3">, </span><span class="s2">null</span><span class="s3">, </span><span class="s2">null</span><span class="s3">);</span>
+        <span class="s1">CardRarity rarity </span><span class="s3">= </span><span class="s1">CardRarity</span><span class="s3">.</span><span class="s1">valueOf</span><span class="s3">(</span><span class="s1">rarityStr</span><span class="s3">.</span><span class="s1">toUpperCase</span><span class="s3">());</span>
+
+        <span class="s1">DateTimeFormatter fmt </span><span class="s3">= </span><span class="s1">DateTimeFormatter</span><span class="s3">.</span><span class="s1">ofPattern</span><span class="s3">(</span><span class="s4">&quot;yyyy-MM-dd&quot;</span><span class="s3">);</span>
+
+        <span class="s1">LocalDate datePurchased </span><span class="s3">= </span><span class="s1">LocalDate</span><span class="s3">.</span><span class="s1">parse</span><span class="s3">(</span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptAndValidate</span><span class="s3">(</span>
+                <span class="s4">&quot;Date Purchased (yyyy-MM-dd)&quot;</span><span class="s3">, </span><span class="s1">s -&gt; validator</span><span class="s3">.</span><span class="s1">dateValidator</span><span class="s3">(</span><span class="s1">s</span><span class="s3">, </span><span class="s1">fmt</span><span class="s3">), </span><span class="s2">null</span><span class="s3">, </span><span class="s2">null</span><span class="s3">));</span>
+
+        <span class="s1">LocalDate dateSet </span><span class="s3">= </span><span class="s1">LocalDate</span><span class="s3">.</span><span class="s1">parse</span><span class="s3">(</span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptAndValidate</span><span class="s3">(</span>
+                <span class="s4">&quot;Date Set Published (yyyy-MM-dd)&quot;</span><span class="s3">, </span><span class="s1">s -&gt; validator</span><span class="s3">.</span><span class="s1">dateValidator</span><span class="s3">(</span><span class="s1">s</span><span class="s3">, </span><span class="s1">fmt</span><span class="s3">), </span><span class="s2">null</span><span class="s3">, </span><span class="s2">null</span><span class="s3">));</span>
+
+        <span class="s1">BigDecimal price </span><span class="s3">= </span><span class="s2">new </span><span class="s1">BigDecimal</span><span class="s3">(</span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptAndValidate</span><span class="s3">(</span><span class="s4">&quot;Purchase Price&quot;</span><span class="s3">,</span>
+                <span class="s1">validator::validatePurchasePrice</span><span class="s3">, </span><span class="s2">null</span><span class="s3">, </span><span class="s2">null</span><span class="s3">));</span>
+
+        <span class="s2">boolean </span><span class="s1">foiled </span><span class="s3">= </span><span class="s1">Boolean</span><span class="s3">.</span><span class="s1">parseBoolean</span><span class="s3">(</span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptAndValidate</span><span class="s3">(</span><span class="s4">&quot;Is Foiled (true/false)&quot;</span><span class="s3">,</span>
+                <span class="s1">validator::validateIsFoiled</span><span class="s3">, </span><span class="s2">null</span><span class="s3">, </span><span class="s2">null</span><span class="s3">));</span>
+
+        <span class="s1">controller</span><span class="s3">.</span><span class="s1">addCard</span><span class="s3">(</span><span class="s2">new </span><span class="s1">Card</span><span class="s3">(</span><span class="s1">id</span><span class="s3">, </span><span class="s1">game</span><span class="s3">, </span><span class="s1">name</span><span class="s3">, </span><span class="s1">rarity</span><span class="s3">, </span><span class="s1">datePurchased</span><span class="s3">, </span><span class="s1">dateSet</span><span class="s3">, </span><span class="s1">price</span><span class="s3">, </span><span class="s1">foiled</span><span class="s3">));</span>
+        <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s4">&quot;Card added.&quot;</span><span class="s3">);</span>
+        <span class="s1">display</span><span class="s3">.</span><span class="s1">displayAllCards</span><span class="s3">();</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: simulateDeleteCard</span>
+     <span class="s0">* parameters: none</span>
+     <span class="s0">* return: void</span>
+     <span class="s0">* purpose: Simulates removing a card from the system with some validation.</span>
+     <span class="s0">*/</span>
+    <span class="s2">public void </span><span class="s1">simulateDeleteCard</span><span class="s3">() {</span>
+        <span class="s2">int </span><span class="s1">id </span><span class="s3">= </span><span class="s1">Integer</span><span class="s3">.</span><span class="s1">parseInt</span><span class="s3">(</span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptAndValidate</span><span class="s3">(</span>
+                <span class="s4">&quot;Card ID to delete&quot;</span><span class="s3">, </span><span class="s1">validator::validateCardNumber</span><span class="s3">,</span>
+                <span class="s1">input -&gt; controller</span><span class="s3">.</span><span class="s1">getCardById</span><span class="s3">(</span><span class="s1">Integer</span><span class="s3">.</span><span class="s1">parseInt</span><span class="s3">(</span><span class="s1">input</span><span class="s3">)) != </span><span class="s2">null</span><span class="s3">,</span>
+                <span class="s4">&quot;Card not found.&quot;</span>
+        <span class="s3">));</span>
+        <span class="s1">controller</span><span class="s3">.</span><span class="s1">deleteCard</span><span class="s3">(</span><span class="s1">id</span><span class="s3">);</span>
+        <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s4">&quot;Card deleted.&quot;</span><span class="s3">);</span>
+        <span class="s1">display</span><span class="s3">.</span><span class="s1">displayAllCards</span><span class="s3">();</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: simulateModifyCard</span>
+     <span class="s0">* parameters: none</span>
+     <span class="s0">* return: void</span>
+     <span class="s0">* purpose: Simulates modifying a card. It handles a lot of validator logic from the class. Uses the prompt and</span>
+     <span class="s0">*          validate method and prompt optional method to complete to prompt and display info needed and</span>
+     <span class="s0">*          current info already available.</span>
+     <span class="s0">*/</span>
+    <span class="s2">public void </span><span class="s1">simulateModifyCard</span><span class="s3">() {</span>
+        <span class="s2">int </span><span class="s1">id </span><span class="s3">= </span><span class="s1">Integer</span><span class="s3">.</span><span class="s1">parseInt</span><span class="s3">(</span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptAndValidate</span><span class="s3">(</span>
+                <span class="s4">&quot;Card ID to modify&quot;</span><span class="s3">, </span><span class="s1">validator::validateCardNumber</span><span class="s3">,</span>
+                <span class="s1">input -&gt; controller</span><span class="s3">.</span><span class="s1">getCardById</span><span class="s3">(</span><span class="s1">Integer</span><span class="s3">.</span><span class="s1">parseInt</span><span class="s3">(</span><span class="s1">input</span><span class="s3">)) != </span><span class="s2">null</span><span class="s3">,</span>
+                <span class="s4">&quot;Card not found.&quot;</span>
+        <span class="s3">));</span>
+        <span class="s1">Card card </span><span class="s3">= </span><span class="s1">controller</span><span class="s3">.</span><span class="s1">getCardById</span><span class="s3">(</span><span class="s1">id</span><span class="s3">);</span>
+
+        <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s4">&quot;Leave field blank to keep current.&quot;</span><span class="s3">);</span>
+
+        <span class="s1">String newGame </span><span class="s3">= </span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptOptional</span><span class="s3">(</span><span class="s4">&quot;Card Game&quot;</span><span class="s3">, </span><span class="s1">card</span><span class="s3">.</span><span class="s1">getCardGame</span><span class="s3">(), </span><span class="s1">validator::stringValidator</span><span class="s3">);</span>
+        <span class="s1">String newName </span><span class="s3">= </span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptOptional</span><span class="s3">(</span><span class="s4">&quot;Card Name&quot;</span><span class="s3">, </span><span class="s1">card</span><span class="s3">.</span><span class="s1">getCardName</span><span class="s3">(), </span><span class="s1">validator::stringValidator</span><span class="s3">);</span>
+
+        <span class="s1">String rarityStr </span><span class="s3">= </span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptOptional</span><span class="s3">(</span><span class="s4">&quot;Rarity&quot;</span><span class="s3">, </span><span class="s1">card</span><span class="s3">.</span><span class="s1">getRarity</span><span class="s3">().</span><span class="s1">name</span><span class="s3">(), </span><span class="s1">validator::validateCardRarity</span><span class="s3">);</span>
+        <span class="s1">CardRarity newRarity </span><span class="s3">= </span><span class="s1">CardRarity</span><span class="s3">.</span><span class="s1">valueOf</span><span class="s3">(</span><span class="s1">rarityStr</span><span class="s3">.</span><span class="s1">toUpperCase</span><span class="s3">());</span>
+
+        <span class="s1">DateTimeFormatter fmt </span><span class="s3">= </span><span class="s1">DateTimeFormatter</span><span class="s3">.</span><span class="s1">ofPattern</span><span class="s3">(</span><span class="s4">&quot;yyyy-MM-dd&quot;</span><span class="s3">);</span>
+
+        <span class="s1">LocalDate datePurchased </span><span class="s3">= </span><span class="s1">LocalDate</span><span class="s3">.</span><span class="s1">parse</span><span class="s3">(</span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptOptional</span><span class="s3">(</span><span class="s4">&quot;Date Purchased&quot;</span><span class="s3">, </span><span class="s1">card</span><span class="s3">.</span><span class="s1">getDatePurchased</span><span class="s3">().</span><span class="s1">toString</span><span class="s3">(),</span>
+                <span class="s1">s -&gt; validator</span><span class="s3">.</span><span class="s1">dateValidator</span><span class="s3">(</span><span class="s1">s</span><span class="s3">, </span><span class="s1">fmt</span><span class="s3">)));</span>
+
+        <span class="s1">LocalDate dateSet </span><span class="s3">= </span><span class="s1">LocalDate</span><span class="s3">.</span><span class="s1">parse</span><span class="s3">(</span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptOptional</span><span class="s3">(</span><span class="s4">&quot;Date Set Published&quot;</span><span class="s3">, </span><span class="s1">card</span><span class="s3">.</span><span class="s1">getDateSetPublished</span><span class="s3">().</span><span class="s1">toString</span><span class="s3">(),</span>
+                <span class="s1">s -&gt; validator</span><span class="s3">.</span><span class="s1">dateValidator</span><span class="s3">(</span><span class="s1">s</span><span class="s3">, </span><span class="s1">fmt</span><span class="s3">)));</span>
+
+        <span class="s1">BigDecimal price </span><span class="s3">= </span><span class="s2">new </span><span class="s1">BigDecimal</span><span class="s3">(</span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptOptional</span><span class="s3">(</span><span class="s4">&quot;Purchase Price&quot;</span><span class="s3">, </span><span class="s1">card</span><span class="s3">.</span><span class="s1">getPurchasePrice</span><span class="s3">().</span><span class="s1">toString</span><span class="s3">(),</span>
+                <span class="s1">validator::validatePurchasePrice</span><span class="s3">));</span>
+
+        <span class="s2">boolean </span><span class="s1">foiled </span><span class="s3">= </span><span class="s1">Boolean</span><span class="s3">.</span><span class="s1">parseBoolean</span><span class="s3">(</span><span class="s1">prompt</span><span class="s3">.</span><span class="s1">promptOptional</span><span class="s3">(</span><span class="s4">&quot;Is Foiled&quot;</span><span class="s3">, </span><span class="s1">String</span><span class="s3">.</span><span class="s1">valueOf</span><span class="s3">(</span><span class="s1">card</span><span class="s3">.</span><span class="s1">isFoiled</span><span class="s3">()),</span>
+                <span class="s1">validator::validateIsFoiled</span><span class="s3">));</span>
+
+        <span class="s1">card</span><span class="s3">.</span><span class="s1">setCardGame</span><span class="s3">(</span><span class="s1">newGame</span><span class="s3">);</span>
+        <span class="s1">card</span><span class="s3">.</span><span class="s1">setCardName</span><span class="s3">(</span><span class="s1">newName</span><span class="s3">);</span>
+        <span class="s1">card</span><span class="s3">.</span><span class="s1">setRarity</span><span class="s3">(</span><span class="s1">newRarity</span><span class="s3">);</span>
+        <span class="s1">card</span><span class="s3">.</span><span class="s1">setDatePurchased</span><span class="s3">(</span><span class="s1">datePurchased</span><span class="s3">);</span>
+        <span class="s1">card</span><span class="s3">.</span><span class="s1">setDateSetPublished</span><span class="s3">(</span><span class="s1">dateSet</span><span class="s3">);</span>
+        <span class="s1">card</span><span class="s3">.</span><span class="s1">setPurchasePrice</span><span class="s3">(</span><span class="s1">price</span><span class="s3">);</span>
+        <span class="s1">card</span><span class="s3">.</span><span class="s1">setFoiled</span><span class="s3">(</span><span class="s1">foiled</span><span class="s3">);</span>
+
+        <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s4">&quot;Card updated.&quot;</span><span class="s3">);</span>
+        <span class="s1">display</span><span class="s3">.</span><span class="s1">displayAllCards</span><span class="s3">();</span>
+    <span class="s3">}</span>
+<span class="s3">}</span></pre>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<html>
+<head>
+<title>CardServiceImpl.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #2aacb8;}
+.s5 { color: #6aab73;}
+.s6 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+CardServiceImpl.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* Timothy Butler</span>
+ <span class="s0">* CEN 3024 - Software Development 1</span>
+ <span class="s0">* June 18, 2025</span>
+ <span class="s0">* CardServiceImpl.java</span>
+ <span class="s0">* This is the current implementation of the service logic. This contains the majority of the business logic that</span>
+ <span class="s0">* should be meeting the user requirements.</span>
+ <span class="s0">*/</span>
+<span class="s2">package </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">service</span><span class="s3">;</span>
+
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">db</span><span class="s3">.</span><span class="s1">Card</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">db</span><span class="s3">.</span><span class="s1">CardRepository</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">utils</span><span class="s3">.</span><span class="s1">CardDateUtil</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">utils</span><span class="s3">.</span><span class="s1">CardParser</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">utils</span><span class="s3">.</span><span class="s1">CardRarity</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">main</span><span class="s3">.</span><span class="s1">java</span><span class="s3">.</span><span class="s1">utils</span><span class="s3">.</span><span class="s1">FileReader</span><span class="s3">;</span>
+
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">math</span><span class="s3">.</span><span class="s1">BigDecimal</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">ArrayList</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">List</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">Map</span><span class="s3">;</span>
+<span class="s2">import </span><span class="s1">java</span><span class="s3">.</span><span class="s1">util</span><span class="s3">.</span><span class="s1">Optional</span><span class="s3">;</span>
+
+<span class="s2">public class </span><span class="s1">CardServiceImpl </span><span class="s2">implements </span><span class="s1">CardService </span><span class="s3">{</span>
+    <span class="s2">private final </span><span class="s1">CardRepository cardRepository</span><span class="s3">;</span>
+    <span class="s1">CardParser cardParser</span><span class="s3">;</span>
+    <span class="s1">FileReader fileReader</span><span class="s3">;</span>
+
+    <span class="s2">public </span><span class="s1">CardServiceImpl</span><span class="s3">(</span><span class="s1">CardRepository repository</span><span class="s3">, </span><span class="s1">CardParser parser</span><span class="s3">, </span><span class="s1">FileReader reader</span><span class="s3">) {</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">cardRepository </span><span class="s3">= </span><span class="s1">repository</span><span class="s3">;</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">cardParser </span><span class="s3">= </span><span class="s1">parser</span><span class="s3">;</span>
+        <span class="s2">this</span><span class="s3">.</span><span class="s1">fileReader </span><span class="s3">= </span><span class="s1">reader</span><span class="s3">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: addCard</span>
+     <span class="s0">* parameters: card</span>
+     <span class="s0">* return: boolean</span>
+     <span class="s0">* purpose: pass through to call repository to add card. Used for additional logic when needed</span>
+     <span class="s0">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s2">public boolean </span><span class="s1">addCard</span><span class="s3">(</span><span class="s1">Card card</span><span class="s3">) {</span>
+        <span class="s2">return </span><span class="s1">cardRepository</span><span class="s3">.</span><span class="s1">saveCard</span><span class="s3">(</span><span class="s1">card</span><span class="s3">);</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: deleteCard</span>
+     <span class="s0">* parameters: cardId</span>
+     <span class="s0">* return: boolean</span>
+     <span class="s0">* purpose: pass through to call repository to delete card. Used for additional logic when needed</span>
+     <span class="s0">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s2">public boolean </span><span class="s1">deleteCard</span><span class="s3">(</span><span class="s2">int </span><span class="s1">cardId</span><span class="s3">) {</span>
+        <span class="s1">cardRepository</span><span class="s3">.</span><span class="s1">deleteCard</span><span class="s3">(</span><span class="s1">cardId</span><span class="s3">);</span>
+        <span class="s2">return false</span><span class="s3">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: getAllCards</span>
+     <span class="s0">* parameters: none</span>
+     <span class="s0">* return: List of Cards</span>
+     <span class="s0">* purpose: pass through to call repository to get all the cards in the &quot;database&quot;</span>
+     <span class="s0">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s2">public </span><span class="s1">List</span><span class="s3">&lt;</span><span class="s1">Card</span><span class="s3">&gt; </span><span class="s1">getAllCards</span><span class="s3">() {</span>
+        <span class="s2">return </span><span class="s1">cardRepository</span><span class="s3">.</span><span class="s1">findAllCards</span><span class="s3">();</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: findByCardId</span>
+     <span class="s0">* parameters: cardId</span>
+     <span class="s0">* return: Card</span>
+     <span class="s0">* purpose: pass through to find a card by ID in the &quot;database&quot;</span>
+     <span class="s0">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s2">public </span><span class="s1">Card findByCardId</span><span class="s3">(</span><span class="s2">int </span><span class="s1">cardId</span><span class="s3">) {</span>
+        <span class="s2">return </span><span class="s1">cardRepository</span><span class="s3">.</span><span class="s1">findByCardId</span><span class="s3">(</span><span class="s1">cardId</span><span class="s3">);</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: calculateCollectionStatistics</span>
+     <span class="s0">* parameters: none</span>
+     <span class="s0">* return: Map of Stat and value</span>
+     <span class="s0">* purpose: calculated statistics about cards in the &quot;database&quot;</span>
+     <span class="s0">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s2">public </span><span class="s1">Map</span><span class="s3">&lt;</span><span class="s1">String</span><span class="s3">, </span><span class="s1">Object</span><span class="s3">&gt; </span><span class="s1">calculateCollectionStatistics</span><span class="s3">() {</span>
+        <span class="s1">List</span><span class="s3">&lt;</span><span class="s1">Card</span><span class="s3">&gt; </span><span class="s1">cards </span><span class="s3">= </span><span class="s1">cardRepository</span><span class="s3">.</span><span class="s1">findAllCards</span><span class="s3">();</span>
+        <span class="s1">BigDecimal totalSpend </span><span class="s3">= </span><span class="s1">BigDecimal</span><span class="s3">.</span><span class="s1">ZERO</span><span class="s3">;</span>
+        <span class="s2">int </span><span class="s1">foilCount </span><span class="s3">= </span><span class="s4">0</span><span class="s3">;</span>
+        <span class="s2">int </span><span class="s1">totalCards </span><span class="s3">= </span><span class="s1">cards</span><span class="s3">.</span><span class="s1">size</span><span class="s3">();</span>
+
+        <span class="s2">for </span><span class="s3">(</span><span class="s1">Card card </span><span class="s3">: </span><span class="s1">cards</span><span class="s3">) {</span>
+            <span class="s2">if </span><span class="s3">(</span><span class="s1">card</span><span class="s3">.</span><span class="s1">isFoiled</span><span class="s3">()) {</span>
+                <span class="s1">foilCount</span><span class="s3">++;</span>
+            <span class="s3">}</span>
+            <span class="s2">if </span><span class="s3">(</span><span class="s1">card</span><span class="s3">.</span><span class="s1">getPurchasePrice</span><span class="s3">() != </span><span class="s2">null</span><span class="s3">) {</span>
+                <span class="s1">totalSpend </span><span class="s3">= </span><span class="s1">totalSpend</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s1">card</span><span class="s3">.</span><span class="s1">getPurchasePrice</span><span class="s3">());</span>
+            <span class="s3">}</span>
+        <span class="s3">}</span>
+
+        <span class="s2">double </span><span class="s1">percentFoiled </span><span class="s3">= </span><span class="s1">cards</span><span class="s3">.</span><span class="s1">isEmpty</span><span class="s3">() ? </span><span class="s4">0.0 </span><span class="s3">: (</span><span class="s1">foilCount </span><span class="s3">* </span><span class="s4">100.0</span><span class="s3">) / </span><span class="s1">totalCards</span><span class="s3">;</span>
+
+        <span class="s2">return </span><span class="s1">Map</span><span class="s3">.</span><span class="s1">of</span><span class="s3">(</span>
+                <span class="s5">&quot;totalSpent&quot;</span><span class="s3">, </span><span class="s1">totalSpend</span><span class="s3">,</span>
+                <span class="s5">&quot;totalCards&quot;</span><span class="s3">, </span><span class="s1">totalCards</span><span class="s3">,</span>
+                <span class="s5">&quot;totalFoiled&quot;</span><span class="s3">, </span><span class="s1">foilCount</span><span class="s3">,</span>
+                <span class="s5">&quot;percentFoiled&quot;</span><span class="s3">, </span><span class="s1">percentFoiled</span>
+        <span class="s3">);</span>
+
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: calculateCollectionValues</span>
+     <span class="s0">* parameters: none</span>
+     <span class="s0">* return: Map of market/owner and the value</span>
+     <span class="s0">* purpose: calculated the value of the entire collection based on market increase and decrease</span>
+     <span class="s0">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s2">public </span><span class="s1">Map</span><span class="s3">&lt;</span><span class="s1">String</span><span class="s3">, </span><span class="s1">BigDecimal</span><span class="s3">&gt; </span><span class="s1">calculateCollectionValues</span><span class="s3">() {</span>
+        <span class="s1">List</span><span class="s3">&lt;</span><span class="s1">Card</span><span class="s3">&gt; </span><span class="s1">cards </span><span class="s3">= </span><span class="s1">cardRepository</span><span class="s3">.</span><span class="s1">findAllCards</span><span class="s3">();</span>
+        <span class="s1">CardDateUtil cardDateUtil </span><span class="s3">= </span><span class="s2">new </span><span class="s1">CardDateUtil</span><span class="s3">();</span>
+
+        <span class="s1">BigDecimal totalMarketValue </span><span class="s3">= </span><span class="s1">BigDecimal</span><span class="s3">.</span><span class="s1">ZERO</span><span class="s3">;</span>
+        <span class="s1">BigDecimal totalOwnerValue </span><span class="s3">= </span><span class="s1">BigDecimal</span><span class="s3">.</span><span class="s1">ZERO</span><span class="s3">;</span>
+
+        <span class="s2">for </span><span class="s3">(</span><span class="s1">Card card </span><span class="s3">: </span><span class="s1">cards</span><span class="s3">) {</span>
+            <span class="s1">BigDecimal basePrice </span><span class="s3">= </span><span class="s1">card</span><span class="s3">.</span><span class="s1">getPurchasePrice</span><span class="s3">();</span>
+            <span class="s2">if </span><span class="s3">(</span><span class="s1">basePrice </span><span class="s3">== </span><span class="s2">null</span><span class="s3">) </span><span class="s2">continue</span><span class="s3">;</span>
+
+            <span class="s1">CardRarity rarity </span><span class="s3">= </span><span class="s1">card</span><span class="s3">.</span><span class="s1">getRarity</span><span class="s3">();</span>
+
+            <span class="s6">// Calculate intervals</span>
+            <span class="s2">long </span><span class="s1">marketIntervals </span><span class="s3">= </span><span class="s1">cardDateUtil</span><span class="s3">.</span><span class="s1">calculateDayInterval</span><span class="s3">(</span><span class="s1">card</span><span class="s3">.</span><span class="s1">getDateSetPublished</span><span class="s3">());</span>
+            <span class="s2">long </span><span class="s1">ownerIntervals </span><span class="s3">= </span><span class="s1">cardDateUtil</span><span class="s3">.</span><span class="s1">calculateDayInterval</span><span class="s3">(</span><span class="s1">card</span><span class="s3">.</span><span class="s1">getDatePurchased</span><span class="s3">());</span>
+
+            <span class="s6">// Compute multipliers</span>
+            <span class="s2">double </span><span class="s1">marketRate </span><span class="s3">= </span><span class="s1">rarity</span><span class="s3">.</span><span class="s1">getMarketRate</span><span class="s3">();</span>
+            <span class="s2">double </span><span class="s1">ownerRate </span><span class="s3">= </span><span class="s1">rarity</span><span class="s3">.</span><span class="s1">getOwnerRate</span><span class="s3">();</span>
+
+            <span class="s1">BigDecimal marketMultiplier </span><span class="s3">= </span><span class="s1">BigDecimal</span><span class="s3">.</span><span class="s1">valueOf</span><span class="s3">(</span><span class="s1">Math</span><span class="s3">.</span><span class="s1">pow</span><span class="s3">(</span><span class="s4">1 </span><span class="s3">+ </span><span class="s1">marketRate</span><span class="s3">, </span><span class="s1">marketIntervals</span><span class="s3">));</span>
+            <span class="s1">BigDecimal ownerMultiplier  </span><span class="s3">= </span><span class="s1">BigDecimal</span><span class="s3">.</span><span class="s1">valueOf</span><span class="s3">(</span><span class="s1">Math</span><span class="s3">.</span><span class="s1">pow</span><span class="s3">(</span><span class="s4">1 </span><span class="s3">+ </span><span class="s1">ownerRate</span><span class="s3">, </span><span class="s1">ownerIntervals</span><span class="s3">));</span>
+
+            <span class="s1">BigDecimal marketValue </span><span class="s3">= </span><span class="s1">basePrice</span><span class="s3">.</span><span class="s1">multiply</span><span class="s3">(</span><span class="s1">marketMultiplier</span><span class="s3">);</span>
+            <span class="s1">BigDecimal ownerValue  </span><span class="s3">= </span><span class="s1">basePrice</span><span class="s3">.</span><span class="s1">multiply</span><span class="s3">(</span><span class="s1">ownerMultiplier</span><span class="s3">);</span>
+
+            <span class="s6">// Apply floor for COMMON rarity</span>
+            <span class="s2">if </span><span class="s3">(</span><span class="s1">rarity </span><span class="s3">== </span><span class="s1">CardRarity</span><span class="s3">.</span><span class="s1">COMMON</span><span class="s3">) {</span>
+                <span class="s1">BigDecimal floor </span><span class="s3">= </span><span class="s2">new </span><span class="s1">BigDecimal</span><span class="s3">(</span><span class="s5">&quot;0.20&quot;</span><span class="s3">);</span>
+                <span class="s2">if </span><span class="s3">(</span><span class="s1">marketValue</span><span class="s3">.</span><span class="s1">compareTo</span><span class="s3">(</span><span class="s1">floor</span><span class="s3">) &lt; </span><span class="s4">0</span><span class="s3">) </span><span class="s1">marketValue </span><span class="s3">= </span><span class="s1">floor</span><span class="s3">;</span>
+                <span class="s2">if </span><span class="s3">(</span><span class="s1">ownerValue</span><span class="s3">.</span><span class="s1">compareTo</span><span class="s3">(</span><span class="s1">floor</span><span class="s3">) &lt; </span><span class="s4">0</span><span class="s3">) </span><span class="s1">ownerValue </span><span class="s3">= </span><span class="s1">floor</span><span class="s3">;</span>
+            <span class="s3">}</span>
+
+            <span class="s1">totalMarketValue </span><span class="s3">= </span><span class="s1">totalMarketValue</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s1">marketValue</span><span class="s3">);</span>
+            <span class="s1">totalOwnerValue </span><span class="s3">= </span><span class="s1">totalOwnerValue</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s1">ownerValue</span><span class="s3">);</span>
+        <span class="s3">}</span>
+
+        <span class="s2">return </span><span class="s1">Map</span><span class="s3">.</span><span class="s1">of</span><span class="s3">(</span>
+                <span class="s5">&quot;marketValue&quot;</span><span class="s3">, </span><span class="s1">totalMarketValue</span><span class="s3">,</span>
+                <span class="s5">&quot;ownerValue&quot;</span><span class="s3">, </span><span class="s1">totalOwnerValue</span>
+        <span class="s3">);</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* method: addAllCardsFromFile</span>
+     <span class="s0">* parameters: filePath</span>
+     <span class="s0">* return: List of Cards</span>
+     <span class="s0">* purpose: Processes the read lines from util classes and calls the repository to insert them</span>
+     <span class="s0">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s2">public </span><span class="s1">List</span><span class="s3">&lt;</span><span class="s1">Card</span><span class="s3">&gt; </span><span class="s1">addAllCardsFromFile</span><span class="s3">(</span><span class="s1">String filePath</span><span class="s3">) {</span>
+        <span class="s1">List</span><span class="s3">&lt;</span><span class="s1">Card</span><span class="s3">&gt; </span><span class="s1">importedCards </span><span class="s3">= </span><span class="s2">new </span><span class="s1">ArrayList</span><span class="s3">&lt;&gt;();</span>
+        <span class="s1">List</span><span class="s3">&lt;</span><span class="s1">String</span><span class="s3">&gt; </span><span class="s1">lines </span><span class="s3">= </span><span class="s1">fileReader</span><span class="s3">.</span><span class="s1">readLines</span><span class="s3">(</span><span class="s1">filePath</span><span class="s3">);</span>
+
+        <span class="s2">for </span><span class="s3">(</span><span class="s1">String line</span><span class="s3">: </span><span class="s1">lines</span><span class="s3">) {</span>
+            <span class="s2">try </span><span class="s3">{</span>
+                <span class="s1">Optional</span><span class="s3">&lt;</span><span class="s1">Card</span><span class="s3">&gt; </span><span class="s1">tempCard </span><span class="s3">= </span><span class="s1">cardParser</span><span class="s3">.</span><span class="s1">parseLine</span><span class="s3">(</span><span class="s1">line</span><span class="s3">);</span>
+                <span class="s1">tempCard</span><span class="s3">.</span><span class="s1">ifPresent</span><span class="s3">(</span><span class="s1">card -&gt; </span><span class="s3">{</span>
+                    <span class="s2">if </span><span class="s3">(</span><span class="s1">cardRepository</span><span class="s3">.</span><span class="s1">saveCard</span><span class="s3">(</span><span class="s1">card</span><span class="s3">)) {</span>
+                        <span class="s1">importedCards</span><span class="s3">.</span><span class="s1">add</span><span class="s3">(</span><span class="s1">card</span><span class="s3">);</span>
+                    <span class="s3">} </span><span class="s2">else </span><span class="s3">{</span>
+                        <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s5">&quot;Duplicate card not added: &quot; </span><span class="s3">+ </span><span class="s1">card</span><span class="s3">.</span><span class="s1">getCardNumber</span><span class="s3">());</span>
+                    <span class="s3">}</span>
+                <span class="s3">});</span>
+            <span class="s3">} </span><span class="s2">catch </span><span class="s3">(</span><span class="s1">IllegalArgumentException e</span><span class="s3">) {</span>
+                <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s5">&quot;Skipping invalid line: &quot; </span><span class="s3">+ </span><span class="s1">line</span><span class="s3">);</span>
+                <span class="s1">System</span><span class="s3">.</span><span class="s1">out</span><span class="s3">.</span><span class="s1">println</span><span class="s3">(</span><span class="s5">&quot;Reason: &quot; </span><span class="s3">+ </span><span class="s1">e</span><span class="s3">.</span><span class="s1">getMessage</span><span class="s3">());</span>
+            <span class="s3">}</span>
+        <span class="s3">}</span>
+        <span class="s2">return </span><span class="s1">importedCards</span><span class="s3">;</span>
+    <span class="s3">}</span>
+<span class="s3">}</span>
+</pre>
+</body>
+</html>
