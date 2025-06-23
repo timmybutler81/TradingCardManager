@@ -24,25 +24,6 @@ A Java-based CLI application for managing a collection of trading cards. This pr
 
 ---
 
-## 📦 Project Structure
-
-src/
-├── main/
-│ ├── java/com/butlert/tradingcardmanager/
-│ │ ├── controller/
-│ │ ├── service/
-│ │ ├── db/
-│ │ ├── model/
-│ │ ├── utils/
-│ │ │ └── validator/
-│ │ └── gui/
-├── test/
-│ └── java/com/butlert/tradingcardmanager/
-│ └── validator/
-
-
----
-
 ## ✅ How to Run
 
 1. Clone the repository:
