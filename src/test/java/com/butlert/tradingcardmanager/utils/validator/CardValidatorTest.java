@@ -1,6 +1,7 @@
 package com.butlert.tradingcardmanager.utils.validator;
 
 import com.butlert.tradingcardmanager.utils.validation.CardValidator;
+import com.butlert.tradingcardmanager.utils.validation.ValidatorResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,121 +22,145 @@ public class CardValidatorTest {
 
     @Test
     void validCardNumber_returnsTrue() {
-        assertTrue(validator.validateCardNumber("123456"));
+        ValidatorResult result = validator.validateCardNumber("123456");
+        assertTrue(result.isValid());
     }
 
     @Test
     void zeroCardNumber_returnsFalse() {
-        assertFalse(validator.validateCardNumber("0"));
+        ValidatorResult result = validator.validateCardNumber("0");
+        assertFalse(result.isValid());
     }
 
     @Test
     void tooLargeCardNumber_returnsFalse() {
-        assertFalse(validator.validateCardNumber("999999"));
+        ValidatorResult result = validator.validateCardNumber("999999");
+        assertFalse(result.isValid());
     }
 
     @Test
     void invalidFormatCardNumber_returnsFalse() {
-        assertFalse(validator.validateCardNumber("abc"));
+        ValidatorResult result = validator.validateCardNumber("abc");
+        assertFalse(result.isValid());
     }
 
     @Test
     void validString_returnsTrue() {
-        assertTrue(validator.stringValidator("Magic Card"));
+        ValidatorResult result = validator.stringValidator("Magic Card");
+        assertTrue(result.isValid());
     }
 
     @Test
     void emptyString_returnsFalse() {
-        assertFalse(validator.stringValidator(""));
+        ValidatorResult result = validator.stringValidator("");
+        assertFalse(result.isValid());
     }
 
     @Test
     void nullString_returnsFalse() {
-        assertFalse(validator.stringValidator(null));
+        ValidatorResult result = validator.stringValidator(null);
+        assertFalse(result.isValid());
     }
 
     @Test
     void invalidCharactersString_returnsFalse() {
-        assertFalse(validator.stringValidator("Card#1"));
+        ValidatorResult result = validator.stringValidator("Card#1");
+        assertFalse(result.isValid());
     }
 
     @Test
     void validRarity_returnsTrue() {
-        assertTrue(validator.validateCardRarity("common"));
+        ValidatorResult result = validator.validateCardRarity("common");
+        assertTrue(result.isValid());
     }
 
     @Test
     void invalidRarity_returnsFalse() {
-        assertFalse(validator.validateCardRarity("epic"));
+        ValidatorResult result = validator.validateCardRarity("epic");
+        assertFalse(result.isValid());
     }
 
     @Test
     void nullRarity_returnsFalse() {
-        assertFalse(validator.validateCardRarity(null));
+        ValidatorResult result = validator.validateCardRarity(null);
+        assertFalse(result.isValid());
     }
 
     @Test
     void validDate_returnsTrue() {
-        assertTrue(validator.dateValidator("2024-05-01", formatter));
+        ValidatorResult result = validator.dateValidator("2024-05-01", formatter);
+        assertTrue(result.isValid());
     }
 
     @Test
     void tooOldDate_returnsFalse() {
-        assertFalse(validator.dateValidator("1899-12-31", formatter));
+        ValidatorResult result = validator.dateValidator("1899-12-31", formatter);
+        assertFalse(result.isValid());
     }
 
     @Test
     void futureTooFarDate_returnsFalse() {
-        assertFalse(validator.dateValidator("2100-01-01", formatter));
+        ValidatorResult result = validator.dateValidator("2100-01-01", formatter);
+        assertFalse(result.isValid());
     }
 
     @Test
     void invalidFormatDate_returnsFalse() {
-        assertFalse(validator.dateValidator("05/01/2024", formatter));
+        ValidatorResult result = validator.dateValidator("05/01/2024", formatter);
+        assertFalse(result.isValid());
     }
 
     @Test
     void validPrice_returnsTrue() {
-        assertTrue(validator.validatePurchasePrice("19.99"));
+        ValidatorResult result = validator.validatePurchasePrice("19.99");
+        assertTrue(result.isValid());
     }
 
     @Test
     void negativePrice_returnsFalse() {
-        assertFalse(validator.validatePurchasePrice("-5.00"));
+        ValidatorResult result = validator.validatePurchasePrice("-5.00");
+        assertFalse(result.isValid());
     }
 
     @Test
     void tooManyDecimals_returnsFalse() {
-        assertFalse(validator.validatePurchasePrice("5.123"));
+        ValidatorResult result = validator.validatePurchasePrice("5.123");
+        assertFalse(result.isValid());
     }
 
     @Test
     void tooLargePrice_returnsFalse() {
-        assertFalse(validator.validatePurchasePrice("1000000.01"));
+        ValidatorResult result = validator.validatePurchasePrice("1000000.01");
+        assertFalse(result.isValid());
     }
 
     @Test
     void nonNumericPrice_returnsFalse() {
-        assertFalse(validator.validatePurchasePrice("ten"));
+        ValidatorResult result = validator.validatePurchasePrice("ten");
+        assertFalse(result.isValid());
     }
 
     @Test
     void validBooleanTrue_returnsTrue() {
-        assertTrue(validator.validateIsFoiled("true"));
+        ValidatorResult result = validator.validateIsFoiled("true");
+        assertTrue(result.isValid());
     }
 
     @Test
     void validBooleanFalse_returnsTrue() {
-        assertTrue(validator.validateIsFoiled("false"));
+        ValidatorResult result = validator.validateIsFoiled("false");
+        assertTrue(result.isValid());
     }
 
     @Test
     void invalidBoolean_returnsFalse() {
-        assertFalse(validator.validateIsFoiled("yes"));
+        ValidatorResult result = validator.validateIsFoiled("yes");
+        assertFalse(result.isValid());
     }
 
     @Test
     void nullBoolean_returnsFalse() {
-        assertFalse(validator.validateIsFoiled(null));
+        ValidatorResult result = validator.validateIsFoiled(null);
+        assertFalse(result.isValid());
     }
 }

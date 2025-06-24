@@ -18,6 +18,7 @@ import java.util.Map;
 
 public class GuiSimulationCardDisplay {
     private final CardController controller;
+    private final NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
 
     public GuiSimulationCardDisplay(CardController controller) {
         this.controller = controller;
@@ -72,7 +73,6 @@ public class GuiSimulationCardDisplay {
      * purpose: Method to format currency by US standard
      */
     private String formatAsCurrency(BigDecimal value) {
-        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
         return formatter.format(value);
     }
 }

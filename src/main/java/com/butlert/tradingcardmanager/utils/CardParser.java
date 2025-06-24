@@ -11,6 +11,7 @@ package com.butlert.tradingcardmanager.utils;
 import com.butlert.tradingcardmanager.model.Card;
 import com.butlert.tradingcardmanager.model.CardRarity;
 import com.butlert.tradingcardmanager.utils.validation.CardValidator;
+import com.butlert.tradingcardmanager.utils.validation.ValidatorResult;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -36,31 +37,70 @@ public class CardParser {
         String[] parts = Arrays.stream(line.split(" - "))
                 .map(String::trim)
                 .toArray(String[]::new);
+
         if (parts.length != 8) {
-            throw new IllegalArgumentException("File must have all 8 fields");
+            throw new IllegalArgumentException("File must have all 8 fields. Found: " + parts.length);
         }
 
-        if (!cardValidator.validateCardNumber(parts[0])
-                || !cardValidator.stringValidator(parts[1])
-                || !cardValidator.stringValidator(parts[2])
-                || !cardValidator.validateCardRarity(parts[3])
-                || !cardValidator.dateValidator(parts[4], dateParser.getFormatter())
-                || !cardValidator.dateValidator(parts[5], dateParser.getFormatter())
-                || !cardValidator.validatePurchasePrice(parts[6])
-                || !cardValidator.validateIsFoiled(parts[7])) {
-            throw new IllegalArgumentException("Validation failed for line: " + line);
+        // Validate Card Number
+        ValidatorResult cardNumberResult = cardValidator.validateCardNumber(parts[0]);
+        if (!cardNumberResult.isValid()) {
+            throw new IllegalArgumentException("Card ID error: " + cardNumberResult.getMessage());
         }
 
-        int cardNumber = Integer.parseInt(parts[0].trim());
-        String cardGame = parts[1].trim();
-        String cardName = parts[2].trim();
-        CardRarity rarity = CardRarity.valueOf(parts[3].trim().toUpperCase());
-        LocalDate datePurchased = dateParser.parse(parts[4].trim());
-        LocalDate datePublished = dateParser.parse(parts[5].trim());
-        BigDecimal purchasePrice = new BigDecimal(parts[6].trim());
-        boolean isFoiled = Boolean.parseBoolean(parts[7].trim());
+        // Validate Card Game
+        ValidatorResult gameResult = cardValidator.stringValidator(parts[1]);
+        if (!gameResult.isValid()) {
+            throw new IllegalArgumentException("Card Game error: " + gameResult.getMessage());
+        }
 
-        return Optional.of(new Card(cardNumber, cardGame, cardName, rarity, datePurchased, datePublished, purchasePrice, isFoiled));
+        // Validate Card Name
+        ValidatorResult nameResult = cardValidator.stringValidator(parts[2]);
+        if (!nameResult.isValid()) {
+            throw new IllegalArgumentException("Card Name error: " + nameResult.getMessage());
+        }
+
+        // Validate Rarity
+        ValidatorResult rarityResult = cardValidator.validateCardRarity(parts[3]);
+        if (!rarityResult.isValid()) {
+            throw new IllegalArgumentException("Rarity error: " + rarityResult.getMessage());
+        }
+
+        // Validate Purchase Date
+        ValidatorResult purchaseDateResult = cardValidator.dateValidator(parts[4], dateParser.getFormatter());
+        if (!purchaseDateResult.isValid()) {
+            throw new IllegalArgumentException("Date Purchased error: " + purchaseDateResult.getMessage());
+        }
+
+        // Validate Set Date
+        ValidatorResult setDateResult = cardValidator.dateValidator(parts[5], dateParser.getFormatter());
+        if (!setDateResult.isValid()) {
+            throw new IllegalArgumentException("Date Set Published error: " + setDateResult.getMessage());
+        }
+
+        // Validate Purchase Price
+        ValidatorResult priceResult = cardValidator.validatePurchasePrice(parts[6]);
+        if (!priceResult.isValid()) {
+            throw new IllegalArgumentException("Purchase Price error: " + priceResult.getMessage());
+        }
+
+        // Validate Foiled
+        ValidatorResult foiledResult = cardValidator.validateIsFoiled(parts[7]);
+        if (!foiledResult.isValid()) {
+            throw new IllegalArgumentException("Is Foiled error: " + foiledResult.getMessage());
+        }
+
+        // Parse fields
+        int cardNumber = Integer.parseInt(parts[0]);
+        String cardGame = parts[1];
+        String cardName = parts[2];
+        CardRarity rarity = CardRarity.valueOf(parts[3].toUpperCase());
+        LocalDate datePurchased = dateParser.parse(parts[4]);
+        LocalDate dateSetPublished = dateParser.parse(parts[5]);
+        BigDecimal purchasePrice = new BigDecimal(parts[6]);
+        boolean isFoiled = Boolean.parseBoolean(parts[7]);
+
+        return Optional.of(new Card(cardNumber, cardGame, cardName, rarity, datePurchased, dateSetPublished, purchasePrice, isFoiled));
     }
 }
 

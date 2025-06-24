@@ -21,6 +21,7 @@ public class GuiSimulationCardInput {
     private final CardValidator validator;
     private final GuiSimulationPrompt prompt;
     private final GuiSimulationCardDisplay display;
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public GuiSimulationCardInput(CardController controller, CardValidator validator, GuiSimulationPrompt prompt, GuiSimulationCardDisplay display) {
         this.controller = controller;
@@ -43,26 +44,27 @@ public class GuiSimulationCardInput {
                 "Duplicate ID"
         ));
 
-        String game = prompt.promptAndValidate("Card Game", validator::stringValidator, null, null);
-        String name = prompt.promptAndValidate("Card Name", validator::stringValidator, null, null);
+        String game = prompt.promptAndValidate("Card Game", validator::stringValidator);
+        String name = prompt.promptAndValidate("Card Name", validator::stringValidator);
 
         String rarityStr = prompt.promptAndValidate("Card Rarity (COMMON, RARE, HERO, LEGENDARY)",
-                validator::validateCardRarity, null, null);
+                validator::validateCardRarity);
+        if (rarityStr == null || rarityStr.isBlank()) {
+            throw new IllegalArgumentException("Rarity must not be null or empty");
+        }
         CardRarity rarity = CardRarity.valueOf(rarityStr.toUpperCase());
 
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
         LocalDate datePurchased = LocalDate.parse(prompt.promptAndValidate(
-                "Date Purchased (yyyy-MM-dd)", s -> validator.dateValidator(s, fmt), null, null));
+                "Date Purchased (yyyy-MM-dd)", s -> validator.dateValidator(s, dateTimeFormatter)));
 
         LocalDate dateSet = LocalDate.parse(prompt.promptAndValidate(
-                "Date Set Published (yyyy-MM-dd)", s -> validator.dateValidator(s, fmt), null, null));
+                "Date Set Published (yyyy-MM-dd)", s -> validator.dateValidator(s, dateTimeFormatter)));
 
         BigDecimal price = new BigDecimal(prompt.promptAndValidate("Purchase Price",
-                validator::validatePurchasePrice, null, null));
+                validator::validatePurchasePrice));
 
         boolean foiled = Boolean.parseBoolean(prompt.promptAndValidate("Is Foiled (true/false)",
-                validator::validateIsFoiled, null, null));
+                validator::validateIsFoiled));
 
         controller.addCard(new Card(id, game, name, rarity, datePurchased, dateSet, price, foiled));
         System.out.println("Card added.");

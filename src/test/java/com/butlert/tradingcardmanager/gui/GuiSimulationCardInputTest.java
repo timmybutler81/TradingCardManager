@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.*;
 
 class GuiSimulationCardInputTest {
 
@@ -25,7 +25,7 @@ class GuiSimulationCardInputTest {
     @BeforeEach
     void setUp() {
         controller = mock(CardController.class);
-        validator = mock(CardValidator.class);
+        validator = new CardValidator(); // Real validator (not mocked, since we don't validate here)
         prompt = mock(GuiSimulationPrompt.class);
         display = mock(GuiSimulationCardDisplay.class);
         input = new GuiSimulationCardInput(controller, validator, prompt, display);
@@ -33,25 +33,40 @@ class GuiSimulationCardInputTest {
 
     @Test
     void simulateAddCard_shouldAddValidCard() {
-        when(prompt.promptAndValidate(eq("Card ID"), any(), any(), any())).thenReturn("1");
-        when(prompt.promptAndValidate(eq("Card Game"), any(), any(), any())).thenReturn("FFTCG");
-        when(prompt.promptAndValidate(eq("Card Name"), any(), any(), any())).thenReturn("Cloud");
-        when(prompt.promptAndValidate(eq("Card Rarity (COMMON, RARE, HERO, LEGENDARY)"), any(), any(), any())).thenReturn("HERO");
-        when(prompt.promptAndValidate(eq("Date Purchased (yyyy-MM-dd)"), any(), any(), any())).thenReturn("2023-01-01");
-        when(prompt.promptAndValidate(eq("Date Set Published (yyyy-MM-dd)"), any(), any(), any())).thenReturn("2022-06-01");
-        when(prompt.promptAndValidate(eq("Purchase Price"), any(), any(), any())).thenReturn("12.50");
-        when(prompt.promptAndValidate(eq("Is Foiled (true/false)"), any(), any(), any())).thenReturn("true");
+        when(prompt.promptAndValidate(eq("Card ID"), any(), any(), any()))
+                .thenReturn("1");
+
+        when(prompt.promptAndValidate(eq("Card Game"), any()))
+                .thenReturn("Pokemon");
+
+        when(prompt.promptAndValidate(eq("Card Name"), any()))
+                .thenReturn("Pikachu");
+
+        when(prompt.promptAndValidate(eq("Card Rarity (COMMON, RARE, HERO, LEGENDARY)"), any()))
+                .thenReturn("RARE");
+
+        when(prompt.promptAndValidate(eq("Date Purchased (yyyy-MM-dd)"), any()))
+                .thenReturn("2023-06-22");
+
+        when(prompt.promptAndValidate(eq("Date Set Published (yyyy-MM-dd)"), any()))
+                .thenReturn("2022-01-01");
+
+        when(prompt.promptAndValidate(eq("Purchase Price"), any()))
+                .thenReturn("10.50");
+
+        when(prompt.promptAndValidate(eq("Is Foiled (true/false)"), any()))
+                .thenReturn("true");
 
         input.simulateAddCard();
 
         verify(controller).addCard(argThat(card ->
                 card.getCardNumber() == 1 &&
-                        card.getCardGame().equals("FFTCG") &&
-                        card.getCardName().equals("Cloud") &&
-                        card.getRarity() == CardRarity.HERO &&
-                        card.getDatePurchased().equals(LocalDate.of(2023, 1, 1)) &&
-                        card.getDateSetPublished().equals(LocalDate.of(2022, 6, 1)) &&
-                        card.getPurchasePrice().compareTo(new BigDecimal("12.50")) == 0 &&
+                        card.getCardGame().equals("Pokemon") &&
+                        card.getCardName().equals("Pikachu") &&
+                        card.getRarity() == CardRarity.RARE &&
+                        card.getDatePurchased().equals(LocalDate.of(2023, 6, 22)) &&
+                        card.getDateSetPublished().equals(LocalDate.of(2022, 1, 1)) &&
+                        card.getPurchasePrice().compareTo(new BigDecimal("10.50")) == 0 &&
                         card.isFoiled()
         ));
 
@@ -60,8 +75,7 @@ class GuiSimulationCardInputTest {
 
     @Test
     void simulateDeleteCard_shouldDeleteExistingCard() {
-        when(prompt.promptAndValidate(eq("Card ID to delete"), any(), any(), any()))
-                .thenReturn("10");
+        when(prompt.promptAndValidate(eq("Card ID to delete"), any(), any(), any())).thenReturn("10");
 
         when(controller.getCardById(10)).thenReturn(new Card(
                 10, "FFTCG", "Tifa", CardRarity.RARE,
@@ -82,13 +96,13 @@ class GuiSimulationCardInputTest {
         when(prompt.promptAndValidate(eq("Card ID to modify"), any(), any(), any())).thenReturn("42");
         when(controller.getCardById(42)).thenReturn(card);
 
-        when(prompt.promptOptional(eq("Card Game"), any(), any())).thenReturn("Magic");
-        when(prompt.promptOptional(eq("Card Name"), any(), any())).thenReturn("Liliana");
-        when(prompt.promptOptional(eq("Rarity"), any(), any())).thenReturn("HERO");
-        when(prompt.promptOptional(eq("Date Purchased"), any(), any())).thenReturn("2023-01-01");
-        when(prompt.promptOptional(eq("Date Set Published"), any(), any())).thenReturn("2022-12-25");
-        when(prompt.promptOptional(eq("Purchase Price"), any(), any())).thenReturn("6.75");
-        when(prompt.promptOptional(eq("Is Foiled"), any(), any())).thenReturn("true");
+        when(prompt.promptOptional(eq("Card Game"), eq("Pokemon"), any())).thenReturn("Magic");
+        when(prompt.promptOptional(eq("Card Name"), eq("Charmander"), any())).thenReturn("Liliana");
+        when(prompt.promptOptional(eq("Rarity"), eq("COMMON"), any())).thenReturn("HERO");
+        when(prompt.promptOptional(eq("Date Purchased"), eq("2022-01-01"), any())).thenReturn("2023-01-01");
+        when(prompt.promptOptional(eq("Date Set Published"), eq("2021-06-01"), any())).thenReturn("2022-12-25");
+        when(prompt.promptOptional(eq("Purchase Price"), eq("2.00"), any())).thenReturn("6.75");
+        when(prompt.promptOptional(eq("Is Foiled"), eq("false"), any())).thenReturn("true");
 
         input.simulateModifyCard();
 

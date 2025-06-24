@@ -30,6 +30,8 @@ public class CardParserTest {
 
         assertTrue(result.isPresent());
         Card card = result.get();
+
+
         assertEquals(1, card.getCardNumber());
         assertEquals("Pokemon", card.getCardGame());
         assertEquals("Pikachu", card.getCardName());
@@ -51,27 +53,27 @@ public class CardParserTest {
     void parseLine_invalidRarity_throwsException() {
         String line = "1 - Pokemon - Pikachu - Unknown - 2023-06-22 - 2022-01-01 - 10.50 - true";
         Exception exception = assertThrows(IllegalArgumentException.class, () -> parser.parseLine(line));
-        assertTrue(exception.getMessage().contains("Validation failed"));
+        assertTrue(exception.getMessage().contains("Rarity error:"));
     }
 
     @Test
     void parseLine_invalidDate_throwsException() {
         String line = "1 - Pokemon - Pikachu - Rare - not-a-date - 2022-01-01 - 10.50 - true";
         Exception exception = assertThrows(IllegalArgumentException.class, () -> parser.parseLine(line));
-        assertTrue(exception.getMessage().contains("Validation failed"));
+        assertTrue(exception.getMessage().contains("Date Purchased error: "));
     }
 
     @Test
     void parseLine_invalidPrice_throwsException() {
         String line = "1 - Pokemon - Pikachu - Rare - 2023-06-22 - 2022-01-01 - not-a-price - true";
         Exception exception = assertThrows(IllegalArgumentException.class, () -> parser.parseLine(line));
-        assertTrue(exception.getMessage().contains("Validation failed"));
+        assertTrue(exception.getMessage().contains("Purchase Price error: "));
     }
 
     @Test
     void parseLine_invalidFoil_throwsException() {
         String line = "1 - Pokemon - Pikachu - Rare - 2023-06-22 - 2022-01-01 - 10.50 - not-a-boolean";
         Exception exception = assertThrows(IllegalArgumentException.class, () -> parser.parseLine(line));
-        assertTrue(exception.getMessage().contains("Validation failed"));
+        assertTrue(exception.getMessage().contains("Is Foiled error: "));
     }
 }

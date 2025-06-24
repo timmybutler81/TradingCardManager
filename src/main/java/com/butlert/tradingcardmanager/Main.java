@@ -21,7 +21,7 @@ public class Main {
 
         CardService cardService = new CardServiceImpl(repository, cardParser, readTextFile);
         CardController controller = new CardController(cardService);
-        GuiSimulationPrompt prompt = new GuiSimulationPrompt();
+        GuiSimulationPrompt prompt = new GuiSimulationPrompt(validator);
 
         GuiSimulationCardDisplay display = new GuiSimulationCardDisplay(controller);
         GuiSimulationFileImport fileImport = new GuiSimulationFileImport(controller);

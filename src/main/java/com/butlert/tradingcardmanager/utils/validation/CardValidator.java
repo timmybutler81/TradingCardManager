@@ -23,21 +23,22 @@ public class CardValidator {
      * return: boolean
      * purpose: validates the card ID follows expected formatting
      */
-    public boolean validateCardNumber(String cardNumberString) {
+    public ValidatorResult validateCardNumber(String cardNumberString) {
+        if (cardNumberString == null || cardNumberString.isBlank()) {
+            return ValidatorResult.fail("Card ID cannot be empty");
+        }
+
         try {
             int id = Integer.parseInt(cardNumberString);
             if (id <= 0) {
-                System.out.println("Card ID must be a positive integer.");
-                return false;
+                return ValidatorResult.fail("Card ID must be a positive integer.");
             }
             if (id >= 999999) {
-                System.out.println("Card ID must only be six digits.");
-                return false;
+                return ValidatorResult.fail("Card ID must only be six digits.");
             }
-            return true;
+            return ValidatorResult.success();
         } catch (NumberFormatException e) {
-            System.out.println("Invalid Card ID format. Please enter a valid number.");
-            return false;
+            return ValidatorResult.fail("Card ID must be numeric");
         }
     }
 
@@ -47,17 +48,15 @@ public class CardValidator {
      * return: boolean
      * purpose: validates the string for names are formatted in the expected way
      */
-    public boolean stringValidator(String string) {
+    public ValidatorResult stringValidator(String string) {
         if (string == null || string.trim().isEmpty()) {
-            System.out.println("Name cannot be empty.");
-            return false;
+            return ValidatorResult.fail("Name cannot be empty.");
         }
 
         if (!string.matches("[A-Za-z ]+")) {
-            System.out.println("Name must contain only letters and spaces.");
-            return false;
+            return ValidatorResult.fail("Name must contain only letters and spaces.");
         }
-        return true;
+        return ValidatorResult.success();
     }
 
     /**
@@ -66,20 +65,15 @@ public class CardValidator {
      * return: boolean
      * purpose: validates the enum is an accepted value
      */
-    public boolean validateCardRarity(String enumString) {
-        if (enumString == null || enumString.trim().isEmpty()) {
-            System.out.println("Rarity cannot be empty");
-            return false;
+    public ValidatorResult validateCardRarity(String rarity) {
+        if (rarity == null || rarity.isBlank()) {
+            return ValidatorResult.fail("Rarity cannot be empty.");
         }
         try {
-            CardRarity.valueOf(enumString.trim().toUpperCase());
-            return true;
+            CardRarity.valueOf(rarity.trim().toUpperCase());
+            return ValidatorResult.success();
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid rarity. Valid options are: ");
-            for (CardRarity rarity : CardRarity.values()) {
-                System.out.print(rarity + ", ");
-            }
-            return false;
+            return ValidatorResult.fail("Invalid rarity type. Must be COMMON, RARE, HERO, or LEGENDARY.");
         }
     }
 
@@ -89,7 +83,7 @@ public class CardValidator {
      * return: boolean
      * purpose: validates the date is properly formatted and within reasonable bounds
      */
-    public boolean dateValidator(String dateString, DateTimeFormatter dateTimeFormatter) {
+    public ValidatorResult dateValidator(String dateString, DateTimeFormatter dateTimeFormatter) {
         try {
             LocalDate date = LocalDate.parse(dateString, dateTimeFormatter);
 
@@ -97,14 +91,11 @@ public class CardValidator {
             LocalDate latest = LocalDate.now().plusYears(5);
 
             if (date.isBefore(earliest) || date.isAfter(latest)) {
-                System.out.println("Date is not within a valid range (1900 to " + latest.getYear() + ").");
-                return false;
+                return ValidatorResult.fail("Date is not within a valid range (1900 to " + latest.getYear() + ").");
             }
-
-            return true;
+            return ValidatorResult.success();
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
-            return false;
+            return ValidatorResult.fail("Invalid date format. Please use yyyy-MM-dd.");
         }
     }
 
@@ -114,25 +105,21 @@ public class CardValidator {
      * return: boolean
      * purpose: validates the purchase price is formatted correctly and within bounds
      */
-    public boolean validatePurchasePrice(String purchasePriceString) {
+    public ValidatorResult validatePurchasePrice(String purchasePriceString) {
         try {
             BigDecimal price = new BigDecimal(purchasePriceString);
             if (price.compareTo(BigDecimal.ZERO) < 0) {
-                System.out.println("Price must be non-negative.");
-                return false;
+                return ValidatorResult.fail("Price must be non-negative.");
             }
             if (price.scale() > 2) {
-                System.out.println("Price can have at most two decimal places.");
-                return false;
+                return ValidatorResult.fail("Price can have at most two decimal places.");
             }
             if (price.compareTo(new BigDecimal("1000000")) > 0) {
-                System.out.println("Price exceeds the maximum allowed value.");
-                return false;
+                return ValidatorResult.fail("Price exceeds the maximum allowed value.");
             }
-            return true;
+            return ValidatorResult.success();
         } catch (NumberFormatException e) {
-            System.out.println("Invalid price format. Please enter a numeric value.");
-            return false;
+            return ValidatorResult.fail("Invalid price format. Please enter a numeric value.");
         }
     }
 
@@ -142,19 +129,16 @@ public class CardValidator {
      * return: boolean
      * purpose: validates entered text is a valid boolean
      */
-    public boolean validateIsFoiled(String isFoiledString) {
+    public ValidatorResult validateIsFoiled(String isFoiledString) {
         if (isFoiledString == null) {
-            System.out.println("Input cannot be null.");
-            return false;
+            return ValidatorResult.fail("Input cannot be null.");
         }
 
         String normalized = isFoiledString.trim().toLowerCase();
         if (normalized.equals("true") || normalized.equals("false")) {
-            return true;
+            return ValidatorResult.success();
         }
-
-        System.out.println("Invalid input. Please enter 'true' or 'false'.");
-        return false;
+        return ValidatorResult.fail("Invalid input. Please enter 'true' or 'false'.");
     }
 }
 

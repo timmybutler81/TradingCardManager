@@ -1,12 +1,14 @@
 package com.butlert.tradingcardmanager.gui;
 
+import com.butlert.tradingcardmanager.utils.validation.CardValidator;
+import com.butlert.tradingcardmanager.utils.validation.ValidatorResult;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.function.Predicate;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,25 +18,11 @@ public class GuiSimulationPromptTest {
 
     @BeforeEach
     void setUp() {
-        // Nothing needed for setup here
     }
 
     @AfterEach
     void tearDown() {
-        System.setIn(originalIn);  // Restore original System.in after each test
-    }
-
-    @Test
-    void promptAndValidate_validWithCondition_shouldPassBothChecks() {
-        String input = "TestInput\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-
-        GuiSimulationPrompt prompt = new GuiSimulationPrompt();
-        Predicate<String> validator = val -> val.length() > 3;
-        Predicate<String> additionalCheck = val -> val.startsWith("T");
-
-        String result = prompt.promptAndValidate("Enter input", validator, additionalCheck, "Must start with T");
-        assertEquals("TestInput", result);
+        System.setIn(originalIn);
     }
 
     @Test
@@ -42,10 +30,13 @@ public class GuiSimulationPromptTest {
         String input = "bad\nValidInput\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        GuiSimulationPrompt prompt = new GuiSimulationPrompt();
-        Predicate<String> validator = val -> val.length() >= 5;
+        GuiSimulationPrompt prompt = new GuiSimulationPrompt(new CardValidator());
+        Function<String, ValidatorResult> validator = val -> {
+            if (val.length() >= 5) return ValidatorResult.success();
+            return ValidatorResult.fail("Input too short");
+        };
 
-        String result = prompt.promptAndValidate("Enter input", validator, null, null);
+        String result = prompt.promptAndValidate("Enter input", validator);
         assertEquals("ValidInput", result);
     }
 
@@ -54,8 +45,10 @@ public class GuiSimulationPromptTest {
         String input = "\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        GuiSimulationPrompt prompt = new GuiSimulationPrompt();
-        String result = prompt.promptOptional("Enter value", "CurrentValue", val -> true);
+        GuiSimulationPrompt prompt = new GuiSimulationPrompt(new CardValidator());
+        Function<String, ValidatorResult> validator = val -> ValidatorResult.success();
+
+        String result = prompt.promptOptional("Enter value", "CurrentValue", validator);
         assertEquals("CurrentValue", result);
     }
 
@@ -64,8 +57,13 @@ public class GuiSimulationPromptTest {
         String input = "NewValue\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        GuiSimulationPrompt prompt = new GuiSimulationPrompt();
-        String result = prompt.promptOptional("Enter value", "CurrentValue", val -> val.length() >= 3);
+        GuiSimulationPrompt prompt = new GuiSimulationPrompt(new CardValidator());
+        Function<String, ValidatorResult> validator = val -> {
+            if (val.length() >= 3) return ValidatorResult.success();
+            return ValidatorResult.fail("Too short");
+        };
+
+        String result = prompt.promptOptional("Enter value", "CurrentValue", validator);
         assertEquals("NewValue", result);
     }
 }
