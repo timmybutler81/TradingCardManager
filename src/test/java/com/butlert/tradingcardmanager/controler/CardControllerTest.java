@@ -2,13 +2,11 @@ package com.butlert.tradingcardmanager.controler;
 
 import com.butlert.tradingcardmanager.controller.CardController;
 import com.butlert.tradingcardmanager.model.Card;
-import com.butlert.tradingcardmanager.model.CardRarity;
 import com.butlert.tradingcardmanager.service.CardService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 

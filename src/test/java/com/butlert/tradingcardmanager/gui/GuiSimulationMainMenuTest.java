@@ -99,8 +99,6 @@ public class GuiSimulationMainMenuTest {
         System.setIn(new ByteArrayInputStream("9\n8\n".getBytes()));
         GuiSimulationMainMenu menu = new GuiSimulationMainMenu(mockCardInput, mockCardDisplay, mockFileImport);
         menu.start();
-
-        // No exception means it handled invalid input
     }
 
     @Test

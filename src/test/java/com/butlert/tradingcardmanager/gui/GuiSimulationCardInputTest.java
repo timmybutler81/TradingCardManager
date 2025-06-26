@@ -12,7 +12,6 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.ArgumentMatchers.*;
 
 class GuiSimulationCardInputTest {
 
@@ -25,7 +24,7 @@ class GuiSimulationCardInputTest {
     @BeforeEach
     void setUp() {
         controller = mock(CardController.class);
-        validator = new CardValidator(); // Real validator (not mocked, since we don't validate here)
+        validator = new CardValidator();
         prompt = mock(GuiSimulationPrompt.class);
         display = mock(GuiSimulationCardDisplay.class);
         input = new GuiSimulationCardInput(controller, validator, prompt, display);

@@ -31,7 +31,6 @@ class GuiSimulationFileImportTest {
 
     @Test
     void simulateFileImport_shouldPrintCardDetails_whenValidFilePathGiven() {
-        // Arrange
         File tempFile = new File("temp-card-file.txt");
         try (PrintWriter writer = new PrintWriter(tempFile)) {
             writer.println("dummy"); // content doesn't matter for this test
@@ -42,18 +41,12 @@ class GuiSimulationFileImportTest {
         Card mockCard = new Card(1, "FFTCG", "Cloud", CardRarity.HERO,
                 LocalDate.now(), LocalDate.now(), new BigDecimal("5.0"), true);
         when(controller.importCardsFromFile(tempFile.getPath())).thenReturn(List.of(mockCard));
-
         System.setIn(new ByteArrayInputStream((tempFile.getPath() + System.lineSeparator()).getBytes()));
-
-        // Act
         fileImport.simulateFileImport();
 
-        // Assert
         String output = outContent.toString();
         assertTrue(output.contains("Imported 1 cards:"));
         assertTrue(output.contains("Cloud"));
-
-        // Cleanup
         tempFile.delete();
     }
 
