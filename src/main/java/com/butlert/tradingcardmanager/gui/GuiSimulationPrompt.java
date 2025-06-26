@@ -50,6 +50,13 @@ public class GuiSimulationPrompt {
         }
     }
 
+    /**
+     * method: promptAndValidate
+     * parameters: prompt, validator
+     * return: String
+     * purpose: Serves as a way to call prompting and validating. This is overloaded to prevent unnecessary calls
+     * with nulls.
+     */
     public String promptAndValidate(String prompt, Function<String, ValidatorResult> validator) {
         return promptAndValidate(prompt, validator, null, null);
     }
