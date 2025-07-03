@@ -1,0 +1,79 @@
+<!-- card-dashboard.component.html -->
+<div class="dashboard-container">
+  <div class="title-bar">
+    <h1>Trading Card Manager</h1>
+  </div>
+
+  <div class="top-buttons">
+    <button mat-raised-button color="primary" (click)="openAddDialog()">+ Add Card</button>
+    <input type="file" #fileInput hidden (change)="uploadFile($event)" />
+    <button mat-raised-button color="primary" (click)="fileInput.click()">Import List</button>
+    <button mat-raised-button color="primary" (click)="showCollectionValue()">Collection Value</button>
+  </div>
+
+  <div class="main-content">
+    <!-- Table Section -->
+    <div class="card-table-container">
+      <table mat-table [dataSource]="cards" class="mat-elevation-z8 full-width-table">
+
+        <!-- Card Columns -->
+        <ng-container matColumnDef="cardNumber">
+          <th mat-header-cell *matHeaderCellDef>Card #</th>
+          <td mat-cell *matCellDef="let card">{{ card.cardNumber }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cardName">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let card">{{ card.cardName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cardGame">
+          <th mat-header-cell *matHeaderCellDef>Game</th>
+          <td mat-cell *matCellDef="let card">{{ card.cardGame }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="rarity">
+          <th mat-header-cell *matHeaderCellDef>Rarity</th>
+          <td mat-cell *matCellDef="let card">{{ card.rarity }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="datePurchased">
+          <th mat-header-cell *matHeaderCellDef>Purc Date</th>
+          <td mat-cell *matCellDef="let card">{{ card.datePurchased }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="purchasePrice">
+          <th mat-header-cell *matHeaderCellDef>Purc Price</th>
+          <td mat-cell *matCellDef="let card"> ${{ card.purchasePrice }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="foiled">
+          <th mat-header-cell *matHeaderCellDef>Foil</th>
+          <td mat-cell *matCellDef="let card">{{ card.foiled ? 'Yes' : 'No' }}</td>
+        </ng-container>
+
+        <!-- Table Header and Rows -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            (click)="onRowClick(row)"
+            [class.selected]="selectedCard?.cardNumber === row.cardNumber">
+        </tr>
+      </table>
+    </div>
+
+    <!-- Stats Panel -->
+    <mat-card class="stats-panel">
+      <h3>Stats</h3>
+      <p>Total Spent: <strong>${{ stats.totalSpent || 0 }}</strong></p>
+      <p>Total Cards: <strong>{{ stats.totalCards || 0 }}</strong></p>
+      <p>Foiled Cards: <strong>{{ stats.totalFoiled || 0 }}</strong></p>
+      <p>Foiled Percentage: <strong>% {{ stats.foiledPercentage || 0 }}</strong></p>
+    </mat-card>
+  </div>
+
+  <!-- Footer Buttons -->
+  <div class="footer-buttons">
+    <button mat-raised-button color="primary" (click)="openModifyDialog()" [disabled]="!selectedCard">Modify Card</button>
+    <button mat-raised-button color="primary" (click)="deleteSelectedCard()" [disabled]="!selectedCard">Delete Card</button>
+  </div>
+</div>

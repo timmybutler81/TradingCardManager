@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TradingCardManager:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TradingCardManager_jar</output-path>
+    <root id="archive" name="TradingCardManager.jar">
+      <element id="module-output" name="TradingCardManager" />
+    </root>
+  </artifact>
+</component>

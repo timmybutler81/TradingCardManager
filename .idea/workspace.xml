@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="TradingCardManager:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e6cb79f1-99de-46ac-917c-93a3e78d6b8e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/TradingCardManagerApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/controller/CardController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/repository/CardRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/angular.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/app.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/app.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/app.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/app.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/app.config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/app.routes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/models/card.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/services/card.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/tsconfig.app.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/tsconfig.spec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/TradingCardManager_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.idea/artifacts/TradingCardManager_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/TradingCardManager_jar/TradingCardManager.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/controller/CardController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/gui/GuiSimulationCardDisplay.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/gui/GuiSimulationCardInput.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/gui/GuiSimulationFileImport.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/gui/GuiSimulationMainMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/gui/GuiSimulationPrompt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/model/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/model/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/model/CardRarity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/model/CardRarity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/repository/CardRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/repository/CardRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/service/CardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/service/CardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/service/CardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/service/CardServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/utils/CardDateUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/CardDateUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/utils/CardParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/CardParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/utils/DateParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/DateParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/utils/ReadTextFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/ReadTextFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/utils/exception/CardImportException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/exception/CardImportException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/utils/validation/CardValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/validation/CardValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/butlert/tradingcardmanager/utils/validation/ValidatorResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/validation/ValidatorResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/controler/CardControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/gui/GuiSimulationCardDisplayTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/gui/GuiSimulationCardInputTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/gui/GuiSimulationFileImportTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/gui/GuiSimulationMainMenuTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/gui/GuiSimulationPromptTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/repository/CardRepositoryImplTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/service/CardServiceImplTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/utils/CardDateUtilTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/utils/CardParserTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/utils/DateParserTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/utils/ReadTextFileTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/butlert/tradingcardmanager/utils/validator/CardValidatorTest.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2yrhRMK5CrXgGfcZutYWlU8OhNw" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in TradingCardManager.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardParserTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardParserTest.parseLine_invalidRarity_throwsException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardParserTest.parseLine_validLine_returnsCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardValidatorTest.invalidFormatDate_returnsFalse.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DateParserTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DateParserTest.getFormatter_shouldNotBeNull.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GuiSimulationCardDisplayTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GuiSimulationCardInputTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GuiSimulationCardInputTest.simulateAddCard_shouldAddValidCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GuiSimulationMainMenuTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GuiSimulationPromptTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ReadTextFileTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ReadTextFileTest.readLines_nonexistentFile_returnsEmptyList.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.java in TradingCardManager.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.TradingCardManagerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;springboot-migration&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Tim/Development/TradingCardManager/frontend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Tim\Development\TradingCardManager\backend" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.butlert.tradingcardmanager.repository" />
+      <recent name="com.butlert.tradingcardmanager" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.TradingCardManagerApplication">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.butlert.tradingcardmanager.Main" />
+      <module name="TradingCardManager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.butlert.tradingcardmanager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CardParserTest.parseLine_invalidRarity_throwsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TradingCardManager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.butlert.tradingcardmanager.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.butlert.tradingcardmanager.utils" />
+      <option name="MAIN_CLASS_NAME" value="com.butlert.tradingcardmanager.utils.CardParserTest" />
+      <option name="METHOD_NAME" value="parseLine_invalidRarity_throwsException" />
+      <option name="TEST_OBJECT" value="method" />
+      <dir value="$PROJECT_DIR$/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CardValidatorTest.invalidFormatDate_returnsFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TradingCardManager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.butlert.tradingcardmanager.utils.validator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.butlert.tradingcardmanager.utils.validator" />
+      <option name="MAIN_CLASS_NAME" value="com.butlert.tradingcardmanager.utils.validator.CardValidatorTest" />
+      <option name="METHOD_NAME" value="invalidFormatDate_returnsFalse" />
+      <option name="TEST_OBJECT" value="method" />
+      <dir value="$PROJECT_DIR$/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GuiSimulationCardInputTest.simulateAddCard_shouldAddValidCard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TradingCardManager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.butlert.tradingcardmanager.gui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.butlert.tradingcardmanager.gui" />
+      <option name="MAIN_CLASS_NAME" value="com.butlert.tradingcardmanager.gui.GuiSimulationCardInputTest" />
+      <option name="METHOD_NAME" value="simulateAddCard_shouldAddValidCard" />
+      <option name="TEST_OBJECT" value="method" />
+      <dir value="$PROJECT_DIR$/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="java in TradingCardManager" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TradingCardManager" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TradingCardManagerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="TradingCardManager" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.butlert.tradingcardmanager.TradingCardManagerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.java in TradingCardManager" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.CardParserTest.parseLine_invalidRarity_throwsException" />
+        <item itemvalue="JUnit.CardValidatorTest.invalidFormatDate_returnsFalse" />
+        <item itemvalue="JUnit.GuiSimulationCardInputTest.simulateAddCard_shouldAddValidCard" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e6cb79f1-99de-46ac-917c-93a3e78d6b8e" name="Changes" comment="" />
+      <created>1750598593181</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750598593181</updated>
+      <workItem from="1750598594156" duration="25049000" />
+      <workItem from="1750873315767" duration="3980000" />
+      <workItem from="1750947024199" duration="18085000" />
+      <workItem from="1751565863912" duration="102000" />
+      <workItem from="1751565973682" duration="138000" />
+      <workItem from="1751566158563" duration="272000" />
+      <workItem from="1751566463651" duration="18000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="name" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

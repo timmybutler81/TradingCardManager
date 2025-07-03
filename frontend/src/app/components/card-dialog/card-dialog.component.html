@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>{{ data ? 'Modify Card' : 'Add Card' }}</h2>
+
+<form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Card Number</mat-label>
+    <input matInput formControlName="cardNumber" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Card Name</mat-label>
+    <input matInput formControlName="cardName" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Card Game</mat-label>
+    <input matInput formControlName="cardGame" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Rarity</mat-label>
+    <mat-select formControlName="rarity">
+      <mat-option value="Legendary">Legendary</mat-option>
+      <mat-option value="Hero">Hero</mat-option>
+      <mat-option value="Rare">Rare</mat-option>
+      <mat-option value="Uncommon">Uncommon</mat-option>
+      <mat-option value="Common">Common</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Purchase Date</mat-label>
+    <input matInput type="date" formControlName="datePurchased" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Set Published Date</mat-label>
+    <input matInput type="date" formControlName="dateSetPublished" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Purchase Price</mat-label>
+    <input matInput type="number" formControlName="purchasePrice" />
+  </mat-form-field>
+
+  <mat-checkbox formControlName="foiled">Foil</mat-checkbox>
+
+  <div class="button-row">
+    <button mat-stroked-button color="primary" type="submit">Save</button>
+    <button mat-stroked-button color="warn" type="button" (click)="cancel()">Cancel</button>
+  </div>
+</form>
+
