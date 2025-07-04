@@ -2,7 +2,7 @@
 
 This project is a full-stack Trading Card Management application built with Angular (frontend) and Spring Boot (backend).
 
-## 📁 Project Structure
+## Project Structure
 
 /TradingCardManager
 │
@@ -10,11 +10,7 @@ This project is a full-stack Trading Card Management application built with Angu
 ├── backend/ → Spring Boot application (REST API)
 └── README.md → This file
 
-markdown
-Copy
-Edit
-
-## ⚙️ Prerequisites
+## Prerequisites
 
 - **Java 17+**
 - **Node.js + npm** (https://nodejs.org)
@@ -23,7 +19,7 @@ Edit
 
 ---
 
-## 🚀 How to Run the Application
+## How to Run the Application
 
 ### 1. Start the Backend
 
@@ -45,4 +41,6 @@ In a terminal:
 cd frontend
 npm install
 ng serve
+```
+
 The Angular app will run at http://localhost:4200
