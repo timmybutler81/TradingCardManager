@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Collection Value</h2>
+<mat-dialog-content>
+  <p><strong>Owner Value:</strong> {{ ownerValue | currency:'USD':'symbol':'1.0-0' }}</p>
+  <p><strong>Market Value:</strong> {{ marketValue | currency:'USD':'symbol':'1.0-0' }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button color="primary" (click)="close()">Close</button>
+</mat-dialog-actions>

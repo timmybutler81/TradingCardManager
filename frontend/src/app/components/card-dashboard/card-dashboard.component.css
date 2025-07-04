@@ -83,3 +83,13 @@ tbody tr:hover {
   font-size: 28px;
   margin: 0;
 }
+
+::ng-deep .mat-mdc-button.mat-mdc-button-disabled,
+::ng-deep .mat-mdc-raised-button.mat-mdc-button-disabled {
+  background-color: #e0e0e0 !important;
+  color: #444 !important;
+  opacity: 1 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  border: 1px solid #999 !important;
+}

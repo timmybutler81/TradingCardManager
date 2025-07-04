@@ -11,6 +11,7 @@ import { MatCardModule }   from '@angular/material/card';
 import { MatIconModule }   from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {CollectionValueDialogComponent} from '../../collection-value-dialog/collection-value-dialog.component';
 
 @Component({
   selector: 'app-card-dashboard',
@@ -24,35 +25,31 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatDialogModule
   ],
   templateUrl: './card-dashboard.component.html',
-  styleUrls: ['./card-dashboard.component.css']   // ← plural
+  styleUrls: ['./card-dashboard.component.css']
 })
 export class CardDashboardComponent implements OnInit {
 
-  /* ------------------ Data ------------------ */
   cards: Card[] = [];
   displayedColumns: string[] = [
     'cardNumber', 'cardName', 'cardGame',
-    'rarity', 'datePurchased', 'purchasePrice', 'foiled'
+    'rarity', 'datePurchased', 'dateSetPublished', 'purchasePrice', 'foiled'
   ];
 
   selectedCard: Card | null = null;
   stats: any = {};
   collectionValue: any = {};
 
-  /* ------------------ Ctor ------------------ */
   constructor(
     private cardService: CardService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar) {}
 
-  /* ------------------ Lifecycle ------------- */
   ngOnInit(): void {
     this.loadCards();
     this.loadStats();
     this.loadCollectionValue();
   }
 
-  /* ------------------ Loaders --------------- */
   loadCards(): void {
     this.cardService.getAllCards()
       .subscribe(data => {
@@ -71,7 +68,6 @@ export class CardDashboardComponent implements OnInit {
       .subscribe(data => this.collectionValue = data);
   }
 
-  /* ------------------ UI Actions ------------ */
   onRowClick(card: Card): void {
     this.selectedCard = card;
   }
@@ -85,7 +81,8 @@ export class CardDashboardComponent implements OnInit {
           this.snackBar.open('Card deleted successfully!', 'Close', { duration: 3000 });
           this.selectedCard = null;
           this.loadCards();
-          this.loadStats(); // Refresh stats
+          this.loadStats();
+          this.loadCollectionValue();
         },
         error: (err) => {
           this.snackBar.open(err.error?.error || 'Delete failed', 'Close', { duration: 3000 });
@@ -94,7 +91,6 @@ export class CardDashboardComponent implements OnInit {
     }
   }
 
-  /* Stubs – we will implement these next */
   openAddDialog(): void {
     const dialogRef = this.dialog.open(CardDialogComponent, {
       width: '400px',
@@ -121,6 +117,7 @@ export class CardDashboardComponent implements OnInit {
       if (result) {
         this.loadCards();
         this.loadStats();
+        this.loadCollectionValue();
         this.selectedCard = result;
       }
     });
@@ -155,6 +152,18 @@ export class CardDashboardComponent implements OnInit {
       error: (err) => {
         this.snackBar.open(err.error?.error || 'Failed to fetch values', 'Close', { duration: 3000 });
       }
+    });
+  }
+
+  openStatsDialog(): void {
+    this.cardService.getCollectionValue().subscribe(value => {
+      this.dialog.open(CollectionValueDialogComponent, {
+        data: {
+          ownerValue: value.ownerValue,
+          marketValue: value.marketValue
+        },
+        width: '400px'
+      });
     });
   }
 }

@@ -23,6 +23,9 @@ public class CardValidator {
     public ValidatorResult validateCard(Card card) {
         StringBuilder errors = new StringBuilder();
 
+        ValidatorResult numberResult = validateCardNumber(String.valueOf(card.getCardNumber()));
+        if (!numberResult.isValid()) errors.append(numberResult.getMessage()).append(" ");
+
         ValidatorResult nameResult = stringValidator(card.getCardName());
         if (!nameResult.isValid()) errors.append(nameResult.getMessage()).append(" ");
 

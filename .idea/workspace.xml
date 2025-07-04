@@ -5,45 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea9c397f-2ffc-44c5-a132-12a22ec54e47" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/TradingCardManager.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/untitled/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/untitled/src/main/resources/META-INF/maven/archetype.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/untitled/src/main/resources/archetype-resources/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/untitled/src/main/resources/archetype-resources/src/main/java/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/untitled/src/main/resources/archetype-resources/src/test/java/AppTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/exception/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.idea/artifacts/TradingCardManager_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/TradingCardManagerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/TradingCardManagerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/TradingCardManagerApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/TradingCardManagerApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/config/WebConfig$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/config/WebConfig$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/controller/CardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/controller/CardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/model/Card.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/model/Card.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/model/CardRarity.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/model/CardRarity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/repository/CardRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/repository/CardRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/service/CardService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/service/CardService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/service/CardServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/service/CardServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/CardDateUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/CardDateUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/CardParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/CardParser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/DateParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/DateParser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/ReadTextFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/ReadTextFile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/exception/CardImportException.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/exception/CardImportException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/validation/CardValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/validation/CardValidator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/validation/ValidatorResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/validation/ValidatorResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/controller/CardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/controller/CardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/service/CardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/service/CardServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/validation/CardValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/validation/CardValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/card-dialog/card-dialog.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dialog/card-dialog.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/card-dialog/card-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dialog/card-dialog.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/untitled/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/untitled/src/main/resources/META-INF/maven/archetype.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/untitled/src/main/resources/archetype-resources/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/untitled/src/main/resources/archetype-resources/src/main/java/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/untitled/src/main/resources/archetype-resources/src/test/java/AppTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -60,10 +49,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.TradingCardManagerApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "collection-value-modal",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Tim/Development/TradingCardManager",
@@ -107,7 +100,9 @@
       <workItem from="1751569634223" duration="905000" />
       <workItem from="1751570607430" duration="213000" />
       <workItem from="1751570882656" duration="62000" />
-      <workItem from="1751570975929" duration="376000" />
+      <workItem from="1751570975929" duration="527000" />
+      <workItem from="1751571514094" duration="129000" />
+      <workItem from="1751633970141" duration="7215000" />
     </task>
     <servers />
   </component>

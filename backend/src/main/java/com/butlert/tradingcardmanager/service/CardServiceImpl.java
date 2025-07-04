@@ -92,6 +92,12 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public Optional<Card> updateCard(int cardNumber, Card updatedCard) {
+        ValidatorResult result = cardValidator.validateCard(updatedCard);
+
+        if (!result.isValid()) {
+            throw new IllegalArgumentException("Validation failed: " + result.getMessage());
+        }
+
         Optional<Card> existingCard = cardRepository.findByCardNumber(cardNumber);
         if (existingCard.isEmpty()) {
             return Optional.empty();
@@ -178,11 +184,9 @@ public class CardServiceImpl implements CardService {
 
             CardRarity rarity = card.getRarity();
 
-            // Calculate intervals
             long marketIntervals = cardDateUtil.calculateDayInterval(card.getDateSetPublished());
             long ownerIntervals = cardDateUtil.calculateDayInterval(card.getDatePurchased());
 
-            // Compute multipliers
             double marketRate = rarity.getMarketRate();
             double ownerRate = rarity.getOwnerRate();
 
@@ -192,7 +196,6 @@ public class CardServiceImpl implements CardService {
             BigDecimal marketValue = basePrice.multiply(marketMultiplier);
             BigDecimal ownerValue = basePrice.multiply(ownerMultiplier);
 
-            // Apply floor for COMMON rarity
             if (rarity == CardRarity.COMMON) {
                 BigDecimal floor = new BigDecimal("0.20");
                 if (marketValue.compareTo(floor) < 0) marketValue = floor;
@@ -201,6 +204,7 @@ public class CardServiceImpl implements CardService {
 
             totalMarketValue = totalMarketValue.add(marketValue);
             totalOwnerValue = totalOwnerValue.add(ownerValue);
+
         }
 
         return Map.of(

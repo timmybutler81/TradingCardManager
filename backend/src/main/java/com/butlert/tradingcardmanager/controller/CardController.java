@@ -38,21 +38,15 @@ public class CardController {
      */
     @PostMapping
     public ResponseEntity<?> addCard(@RequestBody Card card) {
-        try {
-            Optional<Card> saved = cardService.addCard(card);
+        Optional<Card> saved = cardService.addCard(card);
 
-            if (saved.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.CONFLICT)
-                        .body(Map.of("error", "Card already exists"));
-            }
-
-            URI location = URI.create("/api/cards/" + saved.get().getCardNumber());
-            return ResponseEntity.created(location).body(saved.get());
-
-        } catch (IllegalArgumentException ex) {
-            return ResponseEntity.badRequest()
-                    .body(Map.of("error", ex.getMessage()));
+        if (saved.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("error", "Card already exists"));
         }
+
+        URI location = URI.create("/api/cards/" + saved.get().getCardNumber());
+        return ResponseEntity.created(location).body(saved.get());
     }
 
     /**

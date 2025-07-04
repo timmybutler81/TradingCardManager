@@ -54,6 +54,7 @@ export class CardDialogComponent {
   }
 
   onSubmit(): void {
+    this.cardForm.markAllAsTouched();
     if (this.cardForm.invalid) return;
 
     const card: Card = this.cardForm.value;

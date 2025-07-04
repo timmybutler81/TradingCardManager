@@ -8,11 +8,12 @@
     <button mat-raised-button color="primary" (click)="openAddDialog()">+ Add Card</button>
     <input type="file" #fileInput hidden (change)="uploadFile($event)" />
     <button mat-raised-button color="primary" (click)="fileInput.click()">Import List</button>
-    <button mat-raised-button color="primary" (click)="showCollectionValue()">Collection Value</button>
+    <button mat-raised-button color="primary" (click)="openStatsDialog()">View Collection Value</button>
+    <button mat-raised-button color="primary" (click)="openModifyDialog()" [disabled]="!selectedCard">Modify Card</button>
+    <button mat-raised-button color="primary" (click)="deleteSelectedCard()" [disabled]="!selectedCard">Delete Card</button>
   </div>
 
   <div class="main-content">
-    <!-- Table Section -->
     <div class="card-table-container">
       <table mat-table [dataSource]="cards" class="mat-elevation-z8 full-width-table">
 
@@ -38,12 +39,17 @@
         </ng-container>
 
         <ng-container matColumnDef="datePurchased">
-          <th mat-header-cell *matHeaderCellDef>Purc Date</th>
+          <th mat-header-cell *matHeaderCellDef>Purchase Date</th>
           <td mat-cell *matCellDef="let card">{{ card.datePurchased }}</td>
         </ng-container>
 
+        <ng-container matColumnDef="dateSetPublished">
+          <th mat-header-cell *matHeaderCellDef>Set Publish Date</th>
+          <td mat-cell *matCellDef="let card">{{ card.dateSetPublished }}</td>
+        </ng-container>
+
         <ng-container matColumnDef="purchasePrice">
-          <th mat-header-cell *matHeaderCellDef>Purc Price</th>
+          <th mat-header-cell *matHeaderCellDef>Purchase Price</th>
           <td mat-cell *matCellDef="let card"> ${{ card.purchasePrice }}</td>
         </ng-container>
 
@@ -61,19 +67,12 @@
       </table>
     </div>
 
-    <!-- Stats Panel -->
     <mat-card class="stats-panel">
       <h3>Stats</h3>
       <p>Total Spent: <strong>${{ stats.totalSpent || 0 }}</strong></p>
       <p>Total Cards: <strong>{{ stats.totalCards || 0 }}</strong></p>
       <p>Foiled Cards: <strong>{{ stats.totalFoiled || 0 }}</strong></p>
-      <p>Foiled Percentage: <strong>% {{ stats.percentFoiled || 0 }}</strong></p>
+      <p>Foiled Percentage: <strong>% {{ stats.percentFoiled | number:'1.2-2' }}</strong></p>
     </mat-card>
-  </div>
-
-  <!-- Footer Buttons -->
-  <div class="footer-buttons">
-    <button mat-raised-button color="primary" (click)="openModifyDialog()" [disabled]="!selectedCard">Modify Card</button>
-    <button mat-raised-button color="primary" (click)="deleteSelectedCard()" [disabled]="!selectedCard">Delete Card</button>
   </div>
 </div>
