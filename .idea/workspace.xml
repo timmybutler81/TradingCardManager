@@ -5,30 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea9c397f-2ffc-44c5-a132-12a22ec54e47" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/exception/GlobalExceptionHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/collection-value-dialog/collection-value-dialog.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/collection-value-dialog/collection-value-dialog.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/collection-value-dialog/collection-value-dialog.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/collection-value-dialog/collection-value-dialog.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/controller/CardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/controller/CardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/service/CardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/service/CardServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/validation/CardValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/validation/CardValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/controller/CardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/controller/CardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/service/CardServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/service/CardServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/validation/CardValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/butlert/tradingcardmanager/utils/validation/CardValidator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/collection-value-dialog/collection-value-dialog.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/collection-value-dialog/collection-value-dialog.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/collection-value-dialog/collection-value-dialog.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/collection-value-dialog/collection-value-dialog.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/collection-value-dialog/collection-value-dialog.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/collection-value-dialog/collection-value-dialog.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/collection-value-dialog/collection-value-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/collection-value-dialog/collection-value-dialog.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/card-dialog/card-dialog.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dialog/card-dialog.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/card-dialog/card-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dialog/card-dialog.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/untitled/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/untitled/src/main/resources/META-INF/maven/archetype.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/untitled/src/main/resources/archetype-resources/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/untitled/src/main/resources/archetype-resources/src/main/java/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/untitled/src/main/resources/archetype-resources/src/test/java/AppTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,10 +46,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.TradingCardManagerApplication.executor": "Run",
-    "git-widget-placeholder": "collection-value-modal",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Tim/Development/TradingCardManager",
+    "last_opened_file_path": "C:/Users/Tim/Development/TradingCardManager/frontend/src/app/components",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -111,6 +93,7 @@
       <workItem from="1751570975929" duration="527000" />
       <workItem from="1751571514094" duration="129000" />
       <workItem from="1751633970141" duration="8125000" />
+      <workItem from="1751659906155" duration="327000" />
     </task>
     <servers />
   </component>

@@ -11,7 +11,7 @@ import { MatCardModule }   from '@angular/material/card';
 import { MatIconModule }   from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {CollectionValueDialogComponent} from '../../collection-value-dialog/collection-value-dialog.component';
+import {CollectionValueDialogComponent} from '../collection-value-dialog/collection-value-dialog.component';
 
 @Component({
   selector: 'app-card-dashboard',
