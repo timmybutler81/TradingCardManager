@@ -10,6 +10,7 @@ package com.butlert.tradingcardmanager.controller;
 
 import com.butlert.tradingcardmanager.model.Card;
 import com.butlert.tradingcardmanager.service.CardService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class CardController {
      * purpose: access point to add card from GUI
      */
     @PostMapping
-    public ResponseEntity<?> addCard(@RequestBody Card card) {
+    public ResponseEntity<?> addCard(@Valid @RequestBody Card card) {
         Optional<Card> saved = cardService.addCard(card);
 
         if (saved.isEmpty()) {
@@ -65,7 +66,7 @@ public class CardController {
     }
 
     @PutMapping("/put/{cardNumber}")
-    public ResponseEntity<?> updateCard(@PathVariable("cardNumber") int cardNumber, @RequestBody Card updatedCard) {
+    public ResponseEntity<?> updateCard(@PathVariable("cardNumber") int cardNumber, @Valid @RequestBody Card updatedCard) {
         Optional<Card> updated = cardService.updateCard(cardNumber, updatedCard);
         return updated.isPresent()
                 ? ResponseEntity.ok(updated.get())

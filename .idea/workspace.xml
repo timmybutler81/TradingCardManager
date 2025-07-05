@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ea9c397f-2ffc-44c5-a132-12a22ec54e47" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/controller/CardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/controller/CardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/butlert/tradingcardmanager/utils/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dashboard/card-dashboard.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/card-dialog/card-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/card-dialog/card-dialog.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +101,7 @@
       <workItem from="1751662228968" duration="15000" />
       <workItem from="1751714405911" duration="991000" />
       <workItem from="1751717025110" duration="1626000" />
+      <workItem from="1751720107506" duration="982000" />
     </task>
     <servers />
   </component>

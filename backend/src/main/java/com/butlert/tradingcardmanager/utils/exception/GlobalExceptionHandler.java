@@ -11,6 +11,8 @@ import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
@@ -100,5 +102,22 @@ public class GlobalExceptionHandler {
                 "error", "Invalid card number: must be a numeric value.",
                 "details", ex.getMessage()
         );
+    }
+
+    /**
+     * method: handleValidationError
+     * parameters: exception thrown
+     * return: response entity contain the error
+     * purpose: handles incorrect arguments on date
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> handleValidationError(MethodArgumentNotValidException ex) {
+        FieldError firstError = ex.getBindingResult().getFieldErrors().stream().findFirst().orElse(null);
+
+        String message = (firstError != null)
+                ? firstError.getField() + " " + firstError.getDefaultMessage()
+                : "Validation failed";
+
+        return ResponseEntity.badRequest().body(Map.of("error", message));
     }
 }
