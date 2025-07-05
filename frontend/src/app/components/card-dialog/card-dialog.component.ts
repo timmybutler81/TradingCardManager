@@ -113,6 +113,7 @@ export class CardDialogComponent {
    */
   private extractBackendMessage(err: any, fallback: string): string {
     if (err?.error?.error) return `${fallback}: ${err.error.error}`;
+    if (err?.error?.details) return `${fallback}: ${err.error.details}`;
     if (err?.message) return `${fallback}: ${err.message}`;
     return fallback;
   }

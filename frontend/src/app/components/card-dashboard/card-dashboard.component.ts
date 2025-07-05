@@ -144,6 +144,7 @@ export class CardDashboardComponent implements OnInit {
       if (result) {
           this.loadCards();
           this.loadStats();
+        this.loadCollectionValue();
       }
     })
   }
