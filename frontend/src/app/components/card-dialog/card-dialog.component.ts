@@ -1,3 +1,10 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * July 5, 2025
+ * card-dialog.component.ts
+ * This component displays a list of fields to add or edit for the card selected.
+ */
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -53,6 +60,12 @@ export class CardDialogComponent {
     });
   }
 
+  /**
+   * Method: onSubmit
+   * Purpose: Logic to submit a card to the backend
+   * Parameters: none
+   * Returns: void
+   */
   onSubmit(): void {
     this.cardForm.markAllAsTouched();
     if (this.cardForm.invalid) return;
@@ -92,6 +105,12 @@ export class CardDialogComponent {
     this.dialogRef.close();
   }
 
+  /**
+   * Method: extractBackendMessage
+   * Purpose: Handles returning errors from the backend to the front end
+   * Parameters: error and fallback
+   * Returns: string
+   */
   private extractBackendMessage(err: any, fallback: string): string {
     if (err?.error?.error) return `${fallback}: ${err.error.error}`;
     if (err?.message) return `${fallback}: ${err.message}`;

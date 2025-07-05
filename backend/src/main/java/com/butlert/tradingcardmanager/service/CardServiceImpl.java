@@ -84,10 +84,10 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * method: getAllCards
-     * parameters: none
-     * return: List of Cards
-     * purpose: Returns all cards from the repository
+     * method: updateCard
+     * parameters: cardNumber, Card
+     * return: Card
+     * purpose: Finds and updates a card in the repository
      */
 
     @Override

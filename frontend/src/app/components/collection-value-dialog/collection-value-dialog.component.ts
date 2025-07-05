@@ -1,3 +1,10 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * July 5, 2025
+ * card-value-dialog.component.ts
+ * This component displays the value of the collection from the backend.
+ */
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';

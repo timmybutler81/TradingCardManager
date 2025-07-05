@@ -1,3 +1,10 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * July 5, 2025
+ * card-display.component.ts
+ * This component displays a list of trading cards and allows the user to select one to modify or delete.
+ */
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Card } from '../../models/card';
@@ -50,6 +57,12 @@ export class CardDashboardComponent implements OnInit {
     this.loadCollectionValue();
   }
 
+  /**
+   * Method: loadCards
+   * Purpose: Loads the cards from the backend
+   * Parameters: none
+   * Returns: void
+   */
   loadCards(): void {
     this.cardService.getAllCards()
       .subscribe(data => {
@@ -58,20 +71,44 @@ export class CardDashboardComponent implements OnInit {
       });
   }
 
+  /**
+   * Method: loadStats
+   * Purpose: Loads the stats from the backend
+   * Parameters: none
+   * Returns: void
+   */
   loadStats(): void {
     this.cardService.getStats()
       .subscribe(data => this.stats = data);
   }
 
+  /**
+   * Method: loadCollectionValue
+   * Purpose: Loads the collection values from backend
+   * Parameters: none
+   * Returns: void
+   */
   loadCollectionValue(): void {
     this.cardService.getCollectionValue()
       .subscribe(data => this.collectionValue = data);
   }
 
+  /**
+   * Method: onRowClick
+   * Purpose: Captures the card selected in the table
+   * Parameters: Card
+   * Returns: void
+   */
   onRowClick(card: Card): void {
     this.selectedCard = card;
   }
 
+  /**
+   * Method: deleteSelectedCard
+   * Purpose: Handles card deletion called by the delete card button
+   * Parameters: none
+   * Returns: void
+   */
   deleteSelectedCard(): void {
     if (!this.selectedCard) return;
 
@@ -91,6 +128,12 @@ export class CardDashboardComponent implements OnInit {
     }
   }
 
+  /**
+   * Method: openAddDialog
+   * Purpose: opens the dialog box for entering new cards
+   * Parameters: none
+   * Returns: void
+   */
   openAddDialog(): void {
     const dialogRef = this.dialog.open(CardDialogComponent, {
       width: '400px',
@@ -105,6 +148,12 @@ export class CardDashboardComponent implements OnInit {
     })
   }
 
+  /**
+   * Method: openModifyDialog
+   * Purpose: opens and loads the card into the dialog box
+   * Parameters: none
+   * Returns: void
+   */
   openModifyDialog(): void {
     if (!this.selectedCard) return;
 
@@ -123,6 +172,13 @@ export class CardDashboardComponent implements OnInit {
     });
   }
 
+  /**
+   * Method: uploadFile
+   * Purpose: Reads the uploaded text file and imports cards
+   * Parameters:
+   *   - event: Event - the file input event triggered by the user
+   * Returns: void
+   */
   uploadFile(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
@@ -143,18 +199,12 @@ export class CardDashboardComponent implements OnInit {
     });
   }
 
-  showCollectionValue(): void {
-    this.cardService.getCollectionValue().subscribe({
-      next: (value) => {
-        const message = `Owner Value: $${value.ownerValue} | Market Value: $${value.marketValue}`;
-        this.snackBar.open(message, 'Close', { duration: 5000 });
-      },
-      error: (err) => {
-        this.snackBar.open(err.error?.error || 'Failed to fetch values', 'Close', { duration: 3000 });
-      }
-    });
-  }
-
+  /**
+   * Method: openStatsDialog
+   * Purpose: Opens the collection value modal
+   * Parameters: none
+   * Returns: void
+   */
   openStatsDialog(): void {
     this.cardService.getCollectionValue().subscribe(value => {
       this.dialog.open(CollectionValueDialogComponent, {
