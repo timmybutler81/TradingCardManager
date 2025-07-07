@@ -9,6 +9,7 @@
 package com.butlert.tradingcardmanager.service;
 
 import com.butlert.tradingcardmanager.model.Card;
+import com.butlert.tradingcardmanager.model.CardDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
@@ -17,7 +18,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface CardService {
-    Optional<Card> addCard(Card card);
+    Optional<CardDTO> addCard(CardDTO cardDTO);
 
     boolean deleteCard(int cardId);
 
@@ -31,6 +32,6 @@ public interface CardService {
 
     List<Card> addAllCardsFromFile(MultipartFile file);
 
-    Optional<Card> updateCard(int cardNumber, Card updatedCard);
+    Optional<Card> updateCard(int cardNumber, CardDTO cardDTO);
 }
 

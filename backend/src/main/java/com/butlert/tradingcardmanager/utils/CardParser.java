@@ -9,6 +9,7 @@
 package com.butlert.tradingcardmanager.utils;
 
 import com.butlert.tradingcardmanager.model.Card;
+import com.butlert.tradingcardmanager.model.CardDTO;
 import com.butlert.tradingcardmanager.model.CardRarity;
 import com.butlert.tradingcardmanager.utils.validation.CardValidator;
 import com.butlert.tradingcardmanager.utils.validation.ValidatorResult;
@@ -35,7 +36,7 @@ public class CardParser {
      * return: Optional Card
      * purpose: parses and separates the lines into pieces to be validated and processed
      */
-    public Optional<Card> parseLine(String line) {
+    public Optional<CardDTO> parseLine(String line) {
         String[] parts = Arrays.stream(line.split(" - "))
                 .map(String::trim)
                 .toArray(String[]::new);
@@ -93,7 +94,17 @@ public class CardParser {
         BigDecimal purchasePrice = new BigDecimal(parts[6]);
         boolean isFoiled = Boolean.parseBoolean(parts[7]);
 
-        return Optional.of(new Card(cardNumber, cardGame, cardName, rarity, datePurchased, dateSetPublished, purchasePrice, isFoiled));
+        return Optional.of(new CardDTO(
+                null,
+                cardNumber,
+                cardGame,
+                cardName,
+                rarity.name(),
+                datePurchased.toString(),
+                dateSetPublished.toString(),
+                purchasePrice.toPlainString(),
+                isFoiled
+        ));
     }
 }
 

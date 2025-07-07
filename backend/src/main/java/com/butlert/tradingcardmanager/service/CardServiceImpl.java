@@ -8,7 +8,9 @@
  */
 package com.butlert.tradingcardmanager.service;
 
+import com.butlert.tradingcardmanager.mapper.CardMapper;
 import com.butlert.tradingcardmanager.model.Card;
+import com.butlert.tradingcardmanager.model.CardDTO;
 import com.butlert.tradingcardmanager.model.CardRarity;
 import com.butlert.tradingcardmanager.repository.CardRepository;
 import com.butlert.tradingcardmanager.utils.CardDateUtil;
@@ -58,18 +60,20 @@ public class CardServiceImpl implements CardService {
      * purpose: Adds card to repository if it doesn't already exist by cardNumber
      */
     @Override
-    public Optional<Card> addCard(Card card) {
+    public Optional<CardDTO> addCard(CardDTO cardDTO) {
+        Card card = CardMapper.toEntity(cardDTO);
         ValidatorResult result = cardValidator.validateCard(card);
 
         if (!result.isValid()) {
             throw new IllegalArgumentException("Validation failed: " + result.getMessage());
         }
 
-        if (cardRepository.existsByCardNumber(card.getCardNumber())) {
+        if (cardRepository.existsByCardNumber(cardDTO.getCardNumber())) {
             return Optional.empty();
         }
 
-        return Optional.of(cardRepository.save(card));
+        Card saved = cardRepository.save(card);
+        return Optional.of(CardMapper.toDto(saved));
     }
 
     /**
@@ -91,7 +95,15 @@ public class CardServiceImpl implements CardService {
      */
 
     @Override
-    public Optional<Card> updateCard(int cardNumber, Card updatedCard) {
+    public Optional<Card> updateCard(int cardNumber, CardDTO cardDTO) {
+        Card updatedCard;
+
+        try {
+            updatedCard = CardMapper.toEntity(cardDTO); // Convert DTO to entity
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid data: " + e.getMessage());
+        }
+
         ValidatorResult result = cardValidator.validateCard(updatedCard);
 
         if (!result.isValid()) {
@@ -227,11 +239,14 @@ public class CardServiceImpl implements CardService {
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
-                    Optional<Card> tempCard = cardParser.parseLine(line);
-                    tempCard.ifPresent(card -> {
-                        Optional<Card> saved = addCard(card);
-                        saved.ifPresent(importedCards::add);
-                    });
+                    Optional<CardDTO> tempDto = cardParser.parseLine(line);
+
+                    if (tempDto.isPresent()) {
+                        Optional<CardDTO> savedDto = addCard(tempDto.get());
+                        savedDto
+                                .map(CardMapper::toEntity)
+                                .ifPresent(importedCards::add);
+                    }
                 } catch (IllegalArgumentException e) {
                     System.out.println("Skipping invalid line: " + line);
                     System.out.println("Reason: " + e.getMessage());
@@ -243,4 +258,5 @@ public class CardServiceImpl implements CardService {
 
         return importedCards;
     }
+
 }

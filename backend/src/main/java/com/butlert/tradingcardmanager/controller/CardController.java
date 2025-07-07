@@ -8,7 +8,9 @@
  */
 package com.butlert.tradingcardmanager.controller;
 
+import com.butlert.tradingcardmanager.mapper.CardMapper;
 import com.butlert.tradingcardmanager.model.Card;
+import com.butlert.tradingcardmanager.model.CardDTO;
 import com.butlert.tradingcardmanager.service.CardService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -38,16 +40,21 @@ public class CardController {
      * purpose: access point to add card from GUI
      */
     @PostMapping
-    public ResponseEntity<?> addCard(@Valid @RequestBody Card card) {
-        Optional<Card> saved = cardService.addCard(card);
+    public ResponseEntity<?> addCard(@Valid @RequestBody CardDTO cardDTO) {
+        System.out.println("Received DTO: " + cardDTO);
+        try {
+            Optional<CardDTO> saved = cardService.addCard(cardDTO);
 
-        if (saved.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(Map.of("error", "Card already exists"));
+            if (saved.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body(Map.of("error", "Card already exists"));
+            }
+
+            URI location = URI.create("/api/cards/" + saved.get().getCardNumber());
+            return ResponseEntity.created(location).body(saved.get());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
-
-        URI location = URI.create("/api/cards/" + saved.get().getCardNumber());
-        return ResponseEntity.created(location).body(saved.get());
     }
 
     /**
@@ -66,12 +73,18 @@ public class CardController {
     }
 
     @PutMapping("/put/{cardNumber}")
-    public ResponseEntity<?> updateCard(@PathVariable("cardNumber") int cardNumber, @Valid @RequestBody Card updatedCard) {
-        Optional<Card> updated = cardService.updateCard(cardNumber, updatedCard);
-        return updated.isPresent()
-                ? ResponseEntity.ok(updated.get())
-                : ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Map.of("error", "Card not found"));
+    public ResponseEntity<?> updateCard(@PathVariable("cardNumber") int cardNumber, @Valid @RequestBody CardDTO cardDTO) {
+        System.out.println("Received DTO: " + cardDTO);
+
+        try {
+            Optional<Card> updated = cardService.updateCard(cardNumber, cardDTO);
+            return updated.isPresent()
+                    ? ResponseEntity.ok(updated.get())
+                    : ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "Card not found"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
     }
 
     /**

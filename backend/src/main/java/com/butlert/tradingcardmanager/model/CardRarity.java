@@ -35,6 +35,6 @@ public enum CardRarity {
 
     @JsonValue
     public String getLabel() {
-        return name().substring(0,1) + name().substring(1).toLowerCase();
+        return name().charAt(0) + name().substring(1).toLowerCase();
     }
 }

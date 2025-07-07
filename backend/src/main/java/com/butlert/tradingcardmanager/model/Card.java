@@ -1,5 +1,6 @@
 package com.butlert.tradingcardmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -11,31 +12,39 @@ import java.util.Objects;
 public class Card {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Positive
+    @Column(name = "card_number")
     private int cardNumber;
 
     @NotBlank
+    @Column(name = "card_game")
     private String cardGame;
 
     @NotBlank
+    @Column(name = "card_name")
     private String cardName;
 
     @Enumerated(EnumType.STRING)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @Column(name = "rarity")
     private CardRarity rarity;
 
     @PastOrPresent
+    @Column(name = "date_purchased")
     private LocalDate datePurchased;
 
     @PastOrPresent
+    @Column(name = "date_set_published")
     private LocalDate dateSetPublished;
 
-    @Column(precision = 12, scale = 2)
+    @Column(name = "purchase_Price", precision = 12, scale = 2)
     @Positive
     private BigDecimal purchasePrice;
 
+    @Column(name = "foiled")
     private boolean foiled;
 
     public Card() {
