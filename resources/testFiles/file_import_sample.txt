@@ -1,0 +1,20 @@
+326 - FFTCG - Cloud of Darkness - HERO - 2024-04-05 - 2017-03-01 - 72.00 - true
+327 - FFTCG - Garland - LEGENDARY - 2024-01-18 - 2018-05-10 - 110.00 - false
+328 - FFTCG - Exdeath - RARE - 2023-11-30 - 2018-05-10 - 44.00 - true
+329 - FFTCG - Golbez - HERO - 2023-12-20 - 2019-04-15 - 65.00 - false
+330 - FFTCG - Rydia - HERO - 2024-03-02 - 2018-01-22 - 68.00 - true
+331 - FFTCG - Edge - UNCOMMON - 2023-10-09 - 2018-01-22 - 23.00 - false
+332 - FFTCG - Cecil Harvey - LEGENDARY - 2023-08-12 - 2017-06-18 - 125.00 - true
+333 - FFTCG - Kain Highwind - RARE - 2023-09-01 - 2017-06-18 - 39.00 - false
+334 - FFTCG - Palom - UNCOMMON - 2023-07-18 - 2019-07-11 - 21.00 - false
+335 - FFTCG - Porom - UNCOMMON - 2023-08-23 - 2019-07-11 - 20.00 - false
+336 - FFTCG - Rubicante - RARE - 2024-02-08 - 2019-07-11 - 32.00 - true
+337 - FFTCG - Zemus - LEGENDARY - 2024-01-03 - 2018-09-14 - 130.00 - false
+338 - FFTCG - Luneth - HERO - 2024-04-27 - 2019-03-03 - 70.00 - true
+339 - FFTCG - Refia - HERO - 2023-10-31 - 2019-03-03 - 66.00 - false
+340 - FFTCG - Ignis Scientia - RARE - 2023-06-22 - 2020-10-01 - 41.00 - true
+341 - FFTCG - Prompto Argentum - UNCOMMON - 2023-07-05 - 2020-10-01 - 24.00 - false
+342 - FFTCG - Aranea Highwind - RARE - 2023-11-08 - 2020-10-01 - 37.00 - false
+343 - FFTCG - Lilisette - HERO - 2024-03-18 - 2018-04-04 - 59.00 - true
+344 - FFTCG - Prishe - LEGENDARY - 2023-12-25 - 2018-04-04 - 135.00 - true
+345 - FFTCG - Shantotto - LEGENDARY - 2024-02-26 - 2017-02-02 - 148.00 - true

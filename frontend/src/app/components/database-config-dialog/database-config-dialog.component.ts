@@ -8,6 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { AppStateService } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-database-config-dialog',
@@ -37,7 +38,8 @@ export class DatabaseConfigDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<DatabaseConfigDialogComponent>,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private appState: AppStateService
   ) {
   }
 
@@ -52,6 +54,7 @@ export class DatabaseConfigDialogComponent {
 
     this.http.post('/api/configure-database', payload, {responseType: 'text'}).subscribe({
       next: () => {
+        this.appState.setDbReady(true);
         this.dialogRef.close(true);
         this.router.navigate(['']); // Navigate to the default path
       },

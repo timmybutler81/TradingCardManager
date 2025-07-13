@@ -122,7 +122,7 @@ public class CardValidator {
             CardRarity.valueOf(rarity.trim().toUpperCase());
             return ValidatorResult.success();
         } catch (IllegalArgumentException e) {
-            return ValidatorResult.fail("Invalid rarity type. Must be COMMON, RARE, HERO, or LEGENDARY.");
+            return ValidatorResult.fail("Invalid rarity type. Must be COMMON, UNCOMMON, HERO, or LEGENDARY.");
         }
     }
 

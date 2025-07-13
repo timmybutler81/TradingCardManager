@@ -3,7 +3,7 @@ export interface Card {
   cardNumber: number;
   cardName: string;
   cardGame: string;
-  rarity: 'COMMON' | 'RARE' | 'HERO' | 'LEGENDARY';
+  rarity: 'COMMON' | 'UNCOMMON' | 'HERO' | 'LEGENDARY';
   datePurchased: string;
   dateSetPublished: string;
   purchasePrice: number;

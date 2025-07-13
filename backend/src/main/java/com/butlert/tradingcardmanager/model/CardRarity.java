@@ -11,7 +11,8 @@ package com.butlert.tradingcardmanager.model;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum CardRarity {
-    COMMON(-0.05, -0.02),
+    COMMON(-0.05, -0.03),
+    UNCOMMON(-0.03, -0.02),
     RARE(-0.02, -0.01),
     HERO(0.03, 0.015),
     LEGENDARY(0.05, 0.025);

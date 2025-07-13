@@ -19,6 +19,8 @@ import { MatIconModule }   from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {CollectionValueDialogComponent} from '../collection-value-dialog/collection-value-dialog.component';
+import {AppStateService} from '../../services/app-state.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-card-dashboard',
@@ -36,6 +38,7 @@ import {CollectionValueDialogComponent} from '../collection-value-dialog/collect
 })
 export class CardDashboardComponent implements OnInit {
 
+  private dbSub!: Subscription;
   cards: Card[] = [];
   displayedColumns: string[] = [
     'cardNumber', 'cardName', 'cardGame',
@@ -49,9 +52,22 @@ export class CardDashboardComponent implements OnInit {
   constructor(
     private cardService: CardService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar) {}
+    private snackBar: MatSnackBar,
+    private appState: AppStateService) {}
 
   ngOnInit(): void {
+    this.dbSub = this.appState.dbReady$.subscribe(ready => {
+      if (ready) {
+        this.loadDashboardData();
+      }
+    })
+  }
+
+  ngOnDestry(): void {
+    this.dbSub.unsubscribe();
+  }
+
+  loadDashboardData(): void {
     this.loadCards();
     this.loadStats();
     this.loadCollectionValue();
