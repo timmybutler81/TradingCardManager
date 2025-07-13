@@ -8,7 +8,6 @@
  */
 package com.butlert.tradingcardmanager.controller;
 
-import com.butlert.tradingcardmanager.mapper.CardMapper;
 import com.butlert.tradingcardmanager.model.Card;
 import com.butlert.tradingcardmanager.model.CardDTO;
 import com.butlert.tradingcardmanager.service.CardService;
@@ -36,7 +35,7 @@ public class CardController {
     /**
      * method: addCard
      * parameters: card
-     * return: boolean
+     * return: Card
      * purpose: access point to add card from GUI
      */
     @PostMapping
@@ -60,7 +59,7 @@ public class CardController {
     /**
      * method: deleteCard
      * parameters: card
-     * return: boolean
+     * return: completion message or error message
      * purpose: access point to delete card from GUI
      */
     @DeleteMapping("/delete/{cardNumber}")
@@ -72,6 +71,12 @@ public class CardController {
                 .body(Map.of("error", "Card not found"));
     }
 
+    /**
+     * method: updateCard
+     * parameters: cardNumber, cardDTO
+     * return: Card
+     * purpose: updating a specific card
+     */
     @PutMapping("/put/{cardNumber}")
     public ResponseEntity<?> updateCard(@PathVariable("cardNumber") int cardNumber, @Valid @RequestBody CardDTO cardDTO) {
         System.out.println("Received DTO: " + cardDTO);
@@ -138,7 +143,7 @@ public class CardController {
     /**
      * method: importCardsFromFile
      * parameters: filePath
-     * return: List of cards
+     * return: completion message or error message
      * purpose: access point to import cards from file for the GUI
      */
     @PostMapping("/import")

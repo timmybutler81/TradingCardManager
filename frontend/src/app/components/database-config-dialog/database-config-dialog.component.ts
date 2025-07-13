@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatDialogRef } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatDialogModule } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { AppStateService } from '../../services/app-state.service';
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * July 13, 2025
+ * database-config-dialog.component.ts
+ * This component displays a modal dialog allowing the user to enter MySql connection settings
+ */
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {FormsModule} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {HttpClient} from '@angular/common/http';
+import {CommonModule} from '@angular/common';
+import {MatButtonModule} from '@angular/material/button';
+import {AppStateService} from '../../services/app-state.service';
 
 @Component({
   selector: 'app-database-config-dialog',
@@ -43,6 +49,12 @@ export class DatabaseConfigDialogComponent {
   ) {
   }
 
+  /**
+   * Method: connectToDatabase
+   * Purpose: Attempts to connect to the MySql database with provided credentials
+   * Parameters: none
+   * Returns: void
+   */
   connectToDatabase(): void {
     const payload = {
       host: this.dbConfig.host,

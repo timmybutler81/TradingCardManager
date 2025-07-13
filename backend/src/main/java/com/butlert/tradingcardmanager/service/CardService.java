@@ -3,8 +3,8 @@
  * CEN 3024 - Software Development 1
  * June 18, 2025
  * CardService.java
- * This interface defines the behaviors of the service and what the service implementation must do. It is useful
- * to have this class when swapping out implementations.
+ * This interface defines the contract for the service layer responsible for managing card related actions. It
+ * separates business logic from controller and persistence layers.
  */
 package com.butlert.tradingcardmanager.service;
 

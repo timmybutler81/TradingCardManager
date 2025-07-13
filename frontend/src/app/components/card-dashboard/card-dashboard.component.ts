@@ -5,19 +5,18 @@
  * card-display.component.ts
  * This component displays a list of trading cards and allows the user to select one to modify or delete.
  */
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Card } from '../../models/card';
-import { CardService } from '../../services/card.service';
-import { MatDialog } from '@angular/material/dialog';
-import { CardDialogComponent } from '../card-dialog/card-dialog.component';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Card} from '../../models/card';
+import {CardService} from '../../services/card.service';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {CardDialogComponent} from '../card-dialog/card-dialog.component';
 
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule }   from '@angular/material/card';
-import { MatIconModule }   from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {CollectionValueDialogComponent} from '../collection-value-dialog/collection-value-dialog.component';
 import {AppStateService} from '../../services/app-state.service';
 import {Subscription} from 'rxjs';
@@ -38,22 +37,22 @@ import {Subscription} from 'rxjs';
 })
 export class CardDashboardComponent implements OnInit {
 
-  private dbSub!: Subscription;
   cards: Card[] = [];
   displayedColumns: string[] = [
     'cardNumber', 'cardName', 'cardGame',
     'rarity', 'datePurchased', 'dateSetPublished', 'purchasePrice', 'foiled'
   ];
-
   selectedCard: Card | null = null;
   stats: any = {};
   collectionValue: any = {};
+  private dbSub!: Subscription;
 
   constructor(
     private cardService: CardService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private appState: AppStateService) {}
+    private appState: AppStateService) {
+  }
 
   ngOnInit(): void {
     this.dbSub = this.appState.dbReady$.subscribe(ready => {
@@ -131,14 +130,14 @@ export class CardDashboardComponent implements OnInit {
     if (confirm(`Delete card #${this.selectedCard.cardNumber}?`)) {
       this.cardService.deleteCard(this.selectedCard.cardNumber).subscribe({
         next: () => {
-          this.snackBar.open('Card deleted successfully!', 'Close', { duration: 3000 });
+          this.snackBar.open('Card deleted successfully!', 'Close', {duration: 3000});
           this.selectedCard = null;
           this.loadCards();
           this.loadStats();
           this.loadCollectionValue();
         },
         error: (err) => {
-          this.snackBar.open(err.error?.error || 'Delete failed', 'Close', { duration: 3000 });
+          this.snackBar.open(err.error?.error || 'Delete failed', 'Close', {duration: 3000});
         }
       });
     }
@@ -158,8 +157,8 @@ export class CardDashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-          this.loadCards();
-          this.loadStats();
+        this.loadCards();
+        this.loadStats();
         this.loadCollectionValue();
       }
     })
@@ -206,12 +205,12 @@ export class CardDashboardComponent implements OnInit {
 
     this.cardService.uploadFile(formData).subscribe({
       next: (imported) => {
-        this.snackBar.open(`Imported ${imported.length} cards`, 'Close', { duration: 3000 });
+        this.snackBar.open(`Imported ${imported.length} cards`, 'Close', {duration: 3000});
         this.loadCards();
         this.loadStats();
       },
       error: (err) => {
-        this.snackBar.open(err.error?.error || 'Import failed', 'Close', { duration: 3000 });
+        this.snackBar.open(err.error?.error || 'Import failed', 'Close', {duration: 3000});
       }
     });
   }

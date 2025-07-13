@@ -1,6 +1,12 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * July 13, 2025
+ * CardMapper.java
+ * This class is used for converting entities to DTOs and vice versa.
+ */
 package com.butlert.tradingcardmanager.mapper;
 
-import com.butlert.tradingcardmanager.controller.DatabaseConnectionController;
 import com.butlert.tradingcardmanager.model.Card;
 import com.butlert.tradingcardmanager.model.CardDTO;
 import com.butlert.tradingcardmanager.model.CardRarity;
@@ -14,6 +20,12 @@ import java.time.format.DateTimeParseException;
 public class CardMapper {
     private static final Logger logger = LoggerFactory.getLogger(CardMapper.class);
 
+    /**
+     * method: toEntity
+     * parameters: CardDTO
+     * return: Card
+     * purpose: converts CardDTO to Card entity
+     */
     public static Card toEntity(CardDTO cardDTO) {
         Card card = new Card();
 
@@ -43,11 +55,16 @@ public class CardMapper {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid purchase price format");
         }
-        logger.info("Card created from mapper {}", card.toString());
+        logger.info("Card created from mapper {}", card);
         return card;
     }
 
-
+    /**
+     * method: toDto
+     * parameters: Card
+     * return: CardDTO
+     * purpose: converts Card to CardDTO object
+     */
     public static CardDTO toDto(Card card) {
         return new CardDTO(
                 card.getId(),

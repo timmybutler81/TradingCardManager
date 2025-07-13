@@ -1,32 +1,32 @@
 <h2 mat-dialog-title>Connect to MySQL</h2>
 <mat-dialog-content>
-  <mat-form-field class="w-100" appearance="fill">
+  <mat-form-field appearance="fill" class="w-100">
     <mat-label>Host</mat-label>
-    <input matInput [(ngModel)]="dbConfig.host" required autocomplete="off" />
+    <input [(ngModel)]="dbConfig.host" autocomplete="off" matInput required/>
   </mat-form-field>
 
-  <mat-form-field class="w-100" appearance="fill">
+  <mat-form-field appearance="fill" class="w-100">
     <mat-label>Port</mat-label>
-    <input matInput [(ngModel)]="dbConfig.port" required autocomplete="off" />
+    <input [(ngModel)]="dbConfig.port" autocomplete="off" matInput required/>
   </mat-form-field>
 
-  <mat-form-field class="w-100" appearance="fill">
+  <mat-form-field appearance="fill" class="w-100">
     <mat-label>Database Name</mat-label>
-    <input matInput [(ngModel)]="dbConfig.databaseName" required autocomplete="off" />
+    <input [(ngModel)]="dbConfig.databaseName" autocomplete="off" matInput required/>
   </mat-form-field>
 
-  <mat-form-field class="w-100" appearance="fill">
+  <mat-form-field appearance="fill" class="w-100">
     <mat-label>Username</mat-label>
-    <input matInput [(ngModel)]="dbConfig.dbUser" required autocomplete="off" />
+    <input [(ngModel)]="dbConfig.dbUser" autocomplete="off" matInput required/>
   </mat-form-field>
 
-  <mat-form-field class="w-100" appearance="fill">
+  <mat-form-field appearance="fill" class="w-100">
     <mat-label>Password</mat-label>
-    <input matInput
-           [(ngModel)]="dbConfig.dbPass"
-           type="password"
+    <input [(ngModel)]="dbConfig.dbPass"
+           autocomplete="new-password"
+           matInput
            required
-           autocomplete="new-password" />
+           type="password"/>
   </mat-form-field>
 
   <div *ngIf="errorMessage" style="color: red; margin-top: 8px;">
@@ -35,10 +35,10 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button
-          type="button"
-          (click)="connectToDatabase()"
-          [disabled]="!dbConfig.host || !dbConfig.port || !dbConfig.databaseName || !dbConfig.dbUser">
+  <button (click)="connectToDatabase()"
+          [disabled]="!dbConfig.host || !dbConfig.port || !dbConfig.databaseName || !dbConfig.dbUser"
+          mat-button
+          type="button">
     Connect
   </button>
 </mat-dialog-actions>

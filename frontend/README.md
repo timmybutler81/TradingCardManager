@@ -27,6 +27,7 @@ ng serve
 Visit http://localhost:4200
 
 Notes
+
 - This project uses standalone components (Angular 17+)
 - A proxy configuration is included to route API calls to the backend
 - No environment file setup is needed — it works automatically with the backend

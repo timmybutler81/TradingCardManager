@@ -1,3 +1,11 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * July 13, 2025
+ * DatabaseCredentialsDTO.java
+ * This dto encapsulates the credentials required to connect to an external data source. It is used to receive
+ * configuration data from the client.-
+ */
 package com.butlert.tradingcardmanager.model;
 
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CollectionValueDialogComponent } from './collection-value-dialog.component';
+import {CollectionValueDialogComponent} from './collection-value-dialog.component';
 
 describe('CollectionValueDialogComponent', () => {
   let component: CollectionValueDialogComponent;
@@ -10,7 +10,7 @@ describe('CollectionValueDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CollectionValueDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CollectionValueDialogComponent);
     component = fixture.componentInstance;

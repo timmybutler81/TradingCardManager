@@ -20,6 +20,12 @@ import java.time.format.DateTimeParseException;
 @Component
 public class CardValidator {
 
+    /**
+     * method: validateCard
+     * parameters: Card
+     * return: ValidatorResult
+     * purpose: validates each field of the card individually
+     */
     public ValidatorResult validateCard(Card card) {
         StringBuilder errors = new StringBuilder();
 
@@ -42,7 +48,7 @@ public class CardValidator {
         LocalDate buy = card.getDatePurchased();
 
         LocalDate earliest = LocalDate.of(1900, 1, 1);
-        LocalDate latest   = LocalDate.now().plusYears(5);
+        LocalDate latest = LocalDate.now().plusYears(5);
 
         if (pub == null) {
             errors.append("Set-published date is required. ");

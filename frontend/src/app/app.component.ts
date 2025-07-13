@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { DatabaseConfigDialogComponent } from './components/database-config-dialog/database-config-dialog.component';
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {DatabaseConfigDialogComponent} from './components/database-config-dialog/database-config-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,8 @@ import { DatabaseConfigDialogComponent } from './components/database-config-dial
 export class AppComponent {
   title = 'Trading Card Manager';
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.dialog.open(DatabaseConfigDialogComponent, {

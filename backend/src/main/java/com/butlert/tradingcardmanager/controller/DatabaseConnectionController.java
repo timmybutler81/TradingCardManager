@@ -1,3 +1,11 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * July 13, 2025
+ * DatabaseConnectionController.java
+ * This class exposes and endpoint for switching the applications database connection dynamically at runtime
+ * from h2 to MySql.
+ */
 package com.butlert.tradingcardmanager.controller;
 
 import com.butlert.tradingcardmanager.config.DynamicDataSource;
@@ -9,7 +17,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -20,20 +31,26 @@ import java.util.Map;
 @RequestMapping("/api")
 public class DatabaseConnectionController {
 
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseConnectionController.class);
     private final DynamicDataSource routingDs;
     private final LocalContainerEntityManagerFactoryBean emfBean;
     private final ConfigurableApplicationContext configurableApplicationContext;
-    private static final Logger logger = LoggerFactory.getLogger(DatabaseConnectionController.class);
 
     @Autowired
     public DatabaseConnectionController(DataSource dynamicDataSource,
                                         LocalContainerEntityManagerFactoryBean emfBean,
                                         ConfigurableApplicationContext configurableApplicationContext) {
         this.routingDs = (DynamicDataSource) dynamicDataSource;
-        this.emfBean   = emfBean;
+        this.emfBean = emfBean;
         this.configurableApplicationContext = configurableApplicationContext;
     }
 
+    /**
+     * method: switchToMySql
+     * parameters: DatabaseCredentialsDTO
+     * return: Response of pass or fail with message
+     * purpose: Swaps the connection from h2 to mysql and tests the connection credentials
+     */
     @PostMapping("/configure-database")
     public ResponseEntity<?> switchToMySql(@RequestBody DatabaseCredentialsDTO creds) {
         try {
@@ -46,21 +63,16 @@ public class DatabaseConnectionController {
             mysqlDs.setPassword(creds.getPassword());
             mysqlDs.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
-            /* 1️⃣  Test connection */
             try (Connection ignored = mysqlDs.getConnection()) {
-                /* 2️⃣  Add new target */
                 Map<Object, Object> targets = new HashMap<>(routingDs.getResolvedDataSources());
                 targets.put("mysql", mysqlDs);
                 routingDs.setTargetDataSources(targets);
                 routingDs.setDefaultTargetDataSource(mysqlDs);
-                routingDs.afterPropertiesSet();        // refresh internal map
+                routingDs.afterPropertiesSet();
 
-                /* 3️⃣  Point lookup key to MySQL */
                 DynamicDataSource.setCurrentKey("mysql");
-
-                /* 4️⃣  Re-initialize EntityManagerFactory so Hibernate picks up the new dialect */
-                emfBean.setDataSource(routingDs);      // same bean, new DS lookup
-                emfBean.afterPropertiesSet();          // rebuild the factory
+                emfBean.setDataSource(routingDs);
+                emfBean.afterPropertiesSet();
                 logger.info("Successfully connected to database {}", creds.getDatabaseName());
 
                 return ResponseEntity.ok("Connected to MySQL.");

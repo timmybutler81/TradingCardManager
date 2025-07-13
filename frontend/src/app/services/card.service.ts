@@ -5,11 +5,10 @@
  * card.service.ts
  * This service handles HTTP requests to the backend API for crud operations
  */
-
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Card } from '../models/card';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Card} from '../models/card';
 
 @Injectable({
   providedIn: 'root'

@@ -1,3 +1,11 @@
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * July 13, 2025
+ * CardDTO.java
+ * This dto is used to pass card related data between different layers of the application. It is focused on
+ * client-server communication.
+ */
 package com.butlert.tradingcardmanager.model;
 
 public class CardDTO {

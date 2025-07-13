@@ -4,5 +4,5 @@
   <p><strong>Market Value:</strong> {{ marketValue | currency:'USD':'symbol':'1.0-0' }}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-stroked-button color="primary" (click)="close()">Close</button>
+  <button (click)="close()" color="primary" mat-stroked-button>Close</button>
 </mat-dialog-actions>

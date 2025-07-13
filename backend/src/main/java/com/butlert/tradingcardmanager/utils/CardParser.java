@@ -8,7 +8,6 @@
  */
 package com.butlert.tradingcardmanager.utils;
 
-import com.butlert.tradingcardmanager.model.Card;
 import com.butlert.tradingcardmanager.model.CardDTO;
 import com.butlert.tradingcardmanager.model.CardRarity;
 import com.butlert.tradingcardmanager.utils.validation.CardValidator;

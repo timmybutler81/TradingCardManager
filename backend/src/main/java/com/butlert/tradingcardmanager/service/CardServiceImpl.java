@@ -93,13 +93,12 @@ public class CardServiceImpl implements CardService {
      * return: Card
      * purpose: Finds and updates a card in the repository
      */
-
     @Override
     public Optional<Card> updateCard(int cardNumber, CardDTO cardDTO) {
         Card updatedCard;
 
         try {
-            updatedCard = CardMapper.toEntity(cardDTO); // Convert DTO to entity
+            updatedCard = CardMapper.toEntity(cardDTO);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid data: " + e.getMessage());
         }
@@ -128,6 +127,12 @@ public class CardServiceImpl implements CardService {
         return Optional.of(cardRepository.save(cardToUpdate));
     }
 
+    /**
+     * method: getAllCards
+     * parameters: none
+     * return: List of Cards
+     * purpose: Returns list of all cards in the data source
+     */
     @Override
     public List<Card> getAllCards() {
         return cardRepository.findAll();

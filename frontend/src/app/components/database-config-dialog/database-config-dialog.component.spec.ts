@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DatabaseConfigDialogComponent } from './database-config-dialog.component';
+import {DatabaseConfigDialogComponent} from './database-config-dialog.component';
 
 describe('DatabaseConfigDialogComponent', () => {
   let component: DatabaseConfigDialogComponent;
@@ -10,7 +10,7 @@ describe('DatabaseConfigDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [DatabaseConfigDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DatabaseConfigDialogComponent);
     component = fixture.componentInstance;
