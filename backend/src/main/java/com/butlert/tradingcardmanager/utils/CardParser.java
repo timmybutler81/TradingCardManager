@@ -1,11 +1,3 @@
-/**
- * Timothy Butler
- * CEN 3024 - Software Development 1
- * June 18, 2025
- * CardParser.java
- * This class is used to parse through the file attempting to be imported. It is separate to provide some abstraction
- * for easier changes in the future.
- */
 package com.butlert.tradingcardmanager.utils;
 
 import com.butlert.tradingcardmanager.model.CardDTO;
@@ -19,21 +11,47 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * Parses individual lines from an imported card data file into {@link CardDTO} objects.
+ *
+ * <p>This utility class provides a centralized location for parsing and validating
+ * card data fields before transformation and persistence. By abstracting the logic,
+ * future adjustments to format or validation are localized here.</p>
+ *
+ * <p>Expected file format per line:</p>
+ * <pre>
+ * cardNumber - cardGame - cardName - rarity - datePurchased - dateSetPublished - purchasePrice - isFoiled
+ * </pre>
+ *
+ * @author Timothy Butler
+ * @version 1.0
+ * @since June 18, 2025
+ */
 @Component
 public class CardParser {
     private final DateParser dateParser;
     private final CardValidator cardValidator;
 
+    /**
+     * Constructs a CardParser with the provided date parser and card validator.
+     *
+     * @param dateParser the utility to parse date strings
+     * @param validator the validator used for each field
+     */
     public CardParser(DateParser dateParser, CardValidator validator) {
         this.dateParser = dateParser;
         this.cardValidator = validator;
     }
 
     /**
-     * method: parseLine
-     * parameters: line
-     * return: Optional Card
-     * purpose: parses and separates the lines into pieces to be validated and processed
+     * Parses a single line of text into a {@link CardDTO} object after validating all fields.
+     *
+     * <p>Each field is trimmed, validated, and converted to its appropriate type. If any field fails
+     * validation, an {@link IllegalArgumentException} is thrown with an appropriate message.</p>
+     *
+     * @param line a string representing a line from the import file
+     * @return an Optional containing the constructed {@link CardDTO}, or empty if invalid
+     * @throws IllegalArgumentException if the line format is incorrect or any field fails validation
      */
     public Optional<CardDTO> parseLine(String line) {
         String[] parts = Arrays.stream(line.split(" - "))

@@ -1,11 +1,3 @@
-/**
- * Timothy Butler
- * CEN 3024 - Software Development 1
- * June 18, 2025,
- * CardValidator.java
- * This class is the main validator of data. Any class needing to validate data will need to pass through this
- * class to ensure all data is formatted correctly.
- */
 package com.butlert.tradingcardmanager.utils.validation;
 
 import com.butlert.tradingcardmanager.model.Card;
@@ -17,14 +9,42 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Validates the fields of a {@link Card} object to ensure data integrity before processing or persistence.
+ *
+ * <p>This class is responsible for field-level validation including:</p>
+ * <ul>
+ *   <li>Card number format and range</li>
+ *   <li>String validation for names and games</li>
+ *   <li>Rarity enum validation</li>
+ *   <li>Purchase price formatting and limits</li>
+ *   <li>Date boundaries and consistency between dates</li>
+ *   <li>Boolean parsing for "foiled" status</li>
+ * </ul>
+ *
+ * <p>Used as a shared component for input validation across services and utilities.</p>
+ */
 @Component
 public class CardValidator {
 
     /**
-     * method: validateCard
-     * parameters: Card
-     * return: ValidatorResult
-     * purpose: validates each field of the card individually
+     * Default constructor for {@link CardValidator}.
+     * <p>
+     * Since this class is managed by Spring as a {@code @Component},
+     * explicit construction is typically handled by the Spring container.
+     * This constructor exists for clarity and potential future extension.
+     * </p>
+     */
+    public CardValidator() {
+
+    }
+
+    /**
+     * Validates all fields of a {@link Card} object including ID, name, game, rarity, price, and dates.
+     * Aggregates all validation errors and returns a failure if any exist.
+     *
+     * @param card the card object to validate
+     * @return a {@link ValidatorResult} indicating success or listing error messages
      */
     public ValidatorResult validateCard(Card card) {
         StringBuilder errors = new StringBuilder();
@@ -73,10 +93,10 @@ public class CardValidator {
     }
 
     /**
-     * method: validateCardNumber
-     * parameters: cardNumberString
-     * return: boolean
-     * purpose: validates the card ID follows expected formatting
+     * Validates the card number to ensure it is a positive integer and within a 6-digit range.
+     *
+     * @param cardNumberString the card number as a string
+     * @return a {@link ValidatorResult} indicating if the card number is valid
      */
     public ValidatorResult validateCardNumber(String cardNumberString) {
         if (cardNumberString == null || cardNumberString.isBlank()) {
@@ -98,10 +118,10 @@ public class CardValidator {
     }
 
     /**
-     * method: stringValidator
-     * parameters: string
-     * return: boolean
-     * purpose: validates the string for names are formatted in the expected way
+     * Validates that a name or game string is non-empty and contains only letters and spaces.
+     *
+     * @param string the input string to validate
+     * @return a {@link ValidatorResult} indicating if the string is valid
      */
     public ValidatorResult stringValidator(String string) {
         if (string == null || string.trim().isEmpty()) {
@@ -115,10 +135,10 @@ public class CardValidator {
     }
 
     /**
-     * method: validateCardRarity
-     * parameters: enumString
-     * return: boolean
-     * purpose: validates the enum is an accepted value
+     * Validates that the rarity string corresponds to a valid {@link CardRarity} enum constant.
+     *
+     * @param rarity the input rarity string
+     * @return a {@link ValidatorResult} indicating if the rarity is valid
      */
     public ValidatorResult validateCardRarity(String rarity) {
         if (rarity == null || rarity.isBlank()) {
@@ -133,10 +153,11 @@ public class CardValidator {
     }
 
     /**
-     * method: dateValidator
-     * parameters: dateString, dateTimeFormatter
-     * return: boolean
-     * purpose: validates the date is properly formatted and within reasonable bounds
+     * Validates that a date string can be parsed and falls within a reasonable range (1900 to 5 years in the future).
+     *
+     * @param dateString the date string to validate
+     * @param dateTimeFormatter the formatter to use for parsing the date
+     * @return a {@link ValidatorResult} indicating if the date is valid
      */
     public ValidatorResult dateValidator(String dateString, DateTimeFormatter dateTimeFormatter) {
         try {
@@ -155,10 +176,11 @@ public class CardValidator {
     }
 
     /**
-     * method: validatePurchasePrice
-     * parameters: purchasePriceString
-     * return: boolean
-     * purpose: validates the purchase price is formatted correctly and within bounds
+     * Validates the purchase price format and range.
+     * Ensures it is numeric, non-negative, no more than two decimal places, and below 1,000,000.
+     *
+     * @param purchasePriceString the price as a string
+     * @return a {@link ValidatorResult} indicating if the price is valid
      */
     public ValidatorResult validatePurchasePrice(String purchasePriceString) {
         try {
@@ -179,10 +201,10 @@ public class CardValidator {
     }
 
     /**
-     * method: validateIsFoiled
-     * parameters: purchasePriceString
-     * return: boolean
-     * purpose: validates entered text is a valid boolean
+     * Validates whether the input string can be interpreted as a boolean ('true' or 'false').
+     *
+     * @param isFoiledString the string representation of a boolean value
+     * @return a {@link ValidatorResult} indicating if the value is valid
      */
     public ValidatorResult validateIsFoiled(String isFoiledString) {
         if (isFoiledString == null) {

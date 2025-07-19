@@ -1,11 +1,3 @@
-/**
- * Timothy Butler
- * CEN 3024 - Software Development 1
- * June 18, 2025
- * CardServiceImpl.java
- * This is the current implementation of the service logic. This contains the majority of the business logic that
- * should be meeting the user requirements.
- */
 package com.butlert.tradingcardmanager.service;
 
 import com.butlert.tradingcardmanager.mapper.CardMapper;
@@ -33,19 +25,60 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Implementation of the {@link CardService} interface containing business logic
+ * for managing cards in the Trading Card Manager application.
+ * <p>
+ * This service handles validation, mapping, statistics, and value calculations,
+ * and acts as the main logic layer between the controller and the repository.
+ * </p>
+ *
+ * <p><b>Author:</b> Timothy Butler<br>
+ * <b>Course:</b> CEN 3024 - Software Development 1<br>
+ * <b>Date:</b> June 18, 2025</p>
+ */
 @Service
 @Transactional
 public class CardServiceImpl implements CardService {
+    /**
+     * Repository interface for performing CRUD operations on cards.
+     */
     private final CardRepository cardRepository;
+
+    /**
+     * Utility for parsing text input into card DTOs.
+     */
     private final CardParser cardParser;
+
+    /**
+     * Utility for reading raw text file content.
+     */
     private final ReadTextFile readTextFile;
+
+    /**
+     * Validates card fields and structure before persistence.
+     */
     private final CardValidator cardValidator;
+
+    /**
+     * Spring MVC handler mapping, injected by qualifier.
+     * Used for file resource resolution (not directly used in this class).
+     */
     private final HandlerMapping resourceHandlerMapping;
 
+    /**
+     * Constructs a CardServiceImpl with all required dependencies for card operations.
+     *
+     * @param cardRepository           the repository used to access card data
+     * @param cardParser               utility for parsing cards from raw input
+     * @param readTextFile             utility for reading text file contents
+     * @param cardValidator            validates card data before persistence
+     * @param resourceHandlerMapping   Spring MVC handler mapping, injected by qualifier
+     */
     public CardServiceImpl(CardRepository cardRepository,
                            CardParser cardParser,
                            ReadTextFile readTextFile,
-                           CardValidator cardValidator, CardValidator cardValidator1, @Qualifier("resourceHandlerMapping") HandlerMapping resourceHandlerMapping) {
+                           CardValidator cardValidator, @Qualifier("resourceHandlerMapping") HandlerMapping resourceHandlerMapping) {
         this.cardRepository = cardRepository;
         this.cardParser = cardParser;
         this.readTextFile = readTextFile;
@@ -54,10 +87,12 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * method: addCard
-     * parameters: card
-     * return: Optional<Card>
-     * purpose: Adds card to repository if it doesn't already exist by cardNumber
+     * Adds a new card to the repository if it does not already exist.
+     * Validates the card before saving.
+     *
+     * @param cardDTO the card data to add
+     * @return an {@link Optional} containing the created {@link CardDTO}, or empty if the card already exists
+     * @throws IllegalArgumentException if validation fails
      */
     @Override
     public Optional<CardDTO> addCard(CardDTO cardDTO) {
@@ -77,10 +112,10 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * method: deleteCard
-     * parameters: cardId (cardNumber)
-     * return: boolean
-     * purpose: Deletes card by cardNumber and returns whether deletion occurred
+     * Deletes a card by its card number.
+     *
+     * @param cardId the card number of the card to delete
+     * @return true if the card was deleted, false if it did not exist
      */
     @Override
     public boolean deleteCard(int cardId) {
@@ -88,10 +123,12 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * method: updateCard
-     * parameters: cardNumber, Card
-     * return: Card
-     * purpose: Finds and updates a card in the repository
+     * Updates an existing card with new values from the provided DTO.
+     *
+     * @param cardNumber the number of the card to update
+     * @param cardDTO    the updated card data
+     * @return an {@link Optional} containing the updated {@link Card}, or empty if not found
+     * @throws IllegalArgumentException if validation fails or input is invalid
      */
     @Override
     public Optional<Card> updateCard(int cardNumber, CardDTO cardDTO) {
@@ -128,10 +165,9 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * method: getAllCards
-     * parameters: none
-     * return: List of Cards
-     * purpose: Returns list of all cards in the data source
+     * Retrieves all cards stored in the repository.
+     *
+     * @return a list of all {@link Card} entities
      */
     @Override
     public List<Card> getAllCards() {
@@ -139,10 +175,10 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * method: findByCardId
-     * parameters: cardId (cardNumber)
-     * return: Card
-     * purpose: Returns card matching given cardNumber or null if not found
+     * Finds a card by its card number.
+     *
+     * @param cardId the card number to search
+     * @return the matching {@link Card}, or null if not found
      */
     @Override
     public Card findByCardId(int cardId) {
@@ -150,10 +186,13 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * method: calculateCollectionStatistics
-     * parameters: none
-     * return: Map of Stat and value
-     * purpose: Calculates statistics about cards in the repository
+     * Calculates statistics on the card collection, including:
+     * - Total spent
+     * - Total cards
+     * - Foiled card count
+     * - Percentage of foiled cards
+     *
+     * @return a map containing statistical keys and their corresponding values
      */
     @Override
     public Map<String, Object> calculateCollectionStatistics() {
@@ -182,10 +221,10 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * method: calculateCollectionValues
-     * parameters: none
-     * return: Map of market/owner and the value
-     * purpose: Calculates the value of the entire collection based on market increase and decrease
+     * Calculates the total market and owner value of all cards in the collection.
+     * Value adjustments are based on rarity and time since purchase/publication.
+     *
+     * @return a map containing "marketValue" and "ownerValue" totals
      */
     @Override
     public Map<String, BigDecimal> calculateCollectionValues() {
@@ -231,10 +270,12 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * method: addAllCardsFromFile
-     * parameters: filePath
-     * return: List of Cards
-     * purpose: Processes the read lines from util classes and calls the repository to insert them
+     * Imports multiple cards from a provided text file.
+     * Each line is parsed and validated; valid cards are saved and added to the system.
+     *
+     * @param file the uploaded file containing card data
+     * @return a list of successfully imported {@link Card} entities
+     * @throws RuntimeException if the file cannot be read
      */
     @Override
     public List<Card> addAllCardsFromFile(MultipartFile file) {
@@ -263,5 +304,4 @@ public class CardServiceImpl implements CardService {
 
         return importedCards;
     }
-
 }

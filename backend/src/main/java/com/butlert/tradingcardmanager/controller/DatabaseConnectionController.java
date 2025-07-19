@@ -1,11 +1,3 @@
-/**
- * Timothy Butler
- * CEN 3024 - Software Development 1
- * July 13, 2025
- * DatabaseConnectionController.java
- * This class exposes and endpoint for switching the applications database connection dynamically at runtime
- * from h2 to MySql.
- */
 package com.butlert.tradingcardmanager.controller;
 
 import com.butlert.tradingcardmanager.config.DynamicDataSource;
@@ -27,15 +19,52 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Controller responsible for switching the application's database connection at runtime.
+ * <p>
+ * This allows the Trading Card Manager to dynamically connect to a MySQL database using
+ * credentials provided by the GUI frontend, replacing the default in-memory H2 connection.
+ * </p>
+ *
+ * <p><b>Author:</b> Timothy Butler<br>
+ * <b>Course:</b> CEN 3024 - Software Development 1<br>
+ * <b>Date:</b> July 18, 2025</p>
+ */
 @RestController
 @RequestMapping("/api")
 public class DatabaseConnectionController {
 
+    /**
+     * Logger instance for recording application events and errors in the
+     * {@link com.butlert.tradingcardmanager.controller.DatabaseConnectionController}.
+     * <p>
+     * Uses SLF4J's {@link org.slf4j.LoggerFactory} for standardized logging.
+     * Helps in debugging and tracing database connection handling.
+     */
     private static final Logger logger = LoggerFactory.getLogger(DatabaseConnectionController.class);
+
+    /**
+     * Dynamic data source router used to switch between data sources.
+     */
     private final DynamicDataSource routingDs;
+
+    /**
+     * JPA EntityManager factory used to reconfigure the active data source.
+     */
     private final LocalContainerEntityManagerFactoryBean emfBean;
+
+    /**
+     * Spring application context, required to refresh bean configuration if needed.
+     */
     private final ConfigurableApplicationContext configurableApplicationContext;
 
+    /**
+     * Constructs a new DatabaseConnectionController with the required configuration components.
+     *
+     * @param dynamicDataSource              the dynamic data source used for routing
+     * @param emfBean                        the JPA entity manager factory bean
+     * @param configurableApplicationContext the Spring application context
+     */
     @Autowired
     public DatabaseConnectionController(DataSource dynamicDataSource,
                                         LocalContainerEntityManagerFactoryBean emfBean,
@@ -46,10 +75,11 @@ public class DatabaseConnectionController {
     }
 
     /**
-     * method: switchToMySql
-     * parameters: DatabaseCredentialsDTO
-     * return: Response of pass or fail with message
-     * purpose: Swaps the connection from h2 to mysql and tests the connection credentials
+     * Switches the application's active database connection to MySQL using the provided credentials.
+     * Also verifies the connection before switching and resets the EntityManagerFactory to apply changes.
+     *
+     * @param creds the database credentials (host, port, database name, username, and password)
+     * @return a ResponseEntity indicating success or failure of the database switch
      */
     @PostMapping("/configure-database")
     public ResponseEntity<?> switchToMySql(@RequestBody DatabaseCredentialsDTO creds) {
@@ -63,6 +93,7 @@ public class DatabaseConnectionController {
             mysqlDs.setPassword(creds.getPassword());
             mysqlDs.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
+            // Test connection
             try (Connection ignored = mysqlDs.getConnection()) {
                 Map<Object, Object> targets = new HashMap<>(routingDs.getResolvedDataSources());
                 targets.put("mysql", mysqlDs);

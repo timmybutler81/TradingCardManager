@@ -1,10 +1,3 @@
-/**
- * Timothy Butler
- * CEN 3024 - Software Development 1
- * July 13, 2025
- * CardMapper.java
- * This class is used for converting entities to DTOs and vice versa.
- */
 package com.butlert.tradingcardmanager.mapper;
 
 import com.butlert.tradingcardmanager.model.Card;
@@ -17,14 +10,44 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Utility class for mapping between {@link Card} entities and {@link CardDTO} data transfer objects.
+ * <p>
+ * Provides static methods to convert domain entities to DTOs and vice versa,
+ * applying validation and format transformations during the process.
+ * </p>
+ *
+ * <p><b>Author:</b> Timothy Butler<br>
+ * <b>Course:</b> CEN 3024 - Software Development 1<br>
+ * <b>Date:</b> July 13, 2025</p>
+ */
 public class CardMapper {
+    /**
+     * Logger instance for recording application events and errors in the
+     * {@link com.butlert.tradingcardmanager.controller.DatabaseConnectionController}.
+     * <p>
+     * Uses SLF4J's {@link org.slf4j.LoggerFactory} for standardized logging.
+     * Helps in debugging and tracing database connection handling.
+     */
     private static final Logger logger = LoggerFactory.getLogger(CardMapper.class);
 
     /**
-     * method: toEntity
-     * parameters: CardDTO
-     * return: Card
-     * purpose: converts CardDTO to Card entity
+     * Private constructor to prevent instantiation of this utility class.
+     */
+    private CardMapper() {
+        throw new UnsupportedOperationException("CardMapper is a utility class and cannot be instantiated.");
+    }
+
+    /**
+     * Converts a {@link CardDTO} into a {@link Card} entity.
+     * <p>
+     * Performs field mapping, enum parsing for rarity, and string-to-date/decimal conversions.
+     * Throws {@link IllegalArgumentException} if any values are invalid or improperly formatted.
+     * </p>
+     *
+     * @param cardDTO the DTO containing card data to convert
+     * @return the corresponding {@link Card} entity
+     * @throws IllegalArgumentException if the input data is invalid
      */
     public static Card toEntity(CardDTO cardDTO) {
         Card card = new Card();
@@ -60,10 +83,13 @@ public class CardMapper {
     }
 
     /**
-     * method: toDto
-     * parameters: Card
-     * return: CardDTO
-     * purpose: converts Card to CardDTO object
+     * Converts a {@link Card} entity into a {@link CardDTO} object.
+     * <p>
+     * Transforms all fields, including dates and BigDecimal, into string representations suitable for the frontend.
+     * </p>
+     *
+     * @param card the {@link Card} entity to convert
+     * @return the corresponding {@link CardDTO}
      */
     public static CardDTO toDto(Card card) {
         return new CardDTO(

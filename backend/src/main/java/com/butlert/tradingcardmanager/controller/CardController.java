@@ -1,11 +1,3 @@
-/**
- * Timothy Butler
- * CEN 3024 - Software Development 1
- * June 18, 2025
- * CardController.java
- * This class is the main access point for the GUI and uses this exclusively to call the back end part of the
- * application. It has methods for all functionality of the app.
- */
 package com.butlert.tradingcardmanager.controller;
 
 import com.butlert.tradingcardmanager.model.Card;
@@ -23,20 +15,40 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Main controller for the Trading Card Manager application.
+ * <p>
+ * This class acts as the REST API access point used by the GUI frontend to interact
+ * with the backend. It includes endpoints for adding, updating, deleting, retrieving,
+ * and importing cards, as well as generating statistics and value reports.
+ * </p>
+ *
+ * <p><b>Author:</b> Timothy Butler<br>
+ * <b>Course:</b> CEN 3024 - Software Development 1<br>
+ * <b>Date:</b> July 18, 2025</p>
+ */
 @RestController
 @RequestMapping("/api/cards")
 public class CardController {
+    /**
+     * The service layer used to handle all business logic for card operations.
+     */
     private final CardService cardService;
 
+    /**
+     * Constructs a new CardController with the specified CardService.
+     *
+     * @param cardService the service to handle card-related operations
+     */
     public CardController(CardService cardService) {
         this.cardService = cardService;
     }
 
     /**
-     * method: addCard
-     * parameters: card
-     * return: Card
-     * purpose: access point to add card from GUI
+     * Adds a new card to the system using the data provided in the CardDTO.
+     *
+     * @param cardDTO the data transfer object containing card information to be added; must be valid
+     * @return a ResponseEntity containing the result of the add operation, typically the created Card or an error response
      */
     @PostMapping
     public ResponseEntity<?> addCard(@Valid @RequestBody CardDTO cardDTO) {
@@ -57,10 +69,10 @@ public class CardController {
     }
 
     /**
-     * method: deleteCard
-     * parameters: card
-     * return: completion message or error message
-     * purpose: access point to delete card from GUI
+     * Deletes a card from the system by its card number.
+     *
+     * @param cardNumber the unique identifier of the card to be deleted
+     * @return a ResponseEntity containing a completion message or an error response
      */
     @DeleteMapping("/delete/{cardNumber}")
     public ResponseEntity<?> deleteCard(@PathVariable("cardNumber") int cardNumber) {
@@ -72,10 +84,11 @@ public class CardController {
     }
 
     /**
-     * method: updateCard
-     * parameters: cardNumber, cardDTO
-     * return: Card
-     * purpose: updating a specific card
+     * Updates the details of an existing card based on the provided card number and new data.
+     *
+     * @param cardNumber the unique identifier of the card to be updated
+     * @param cardDTO the new data for the card; must be valid
+     * @return a ResponseEntity containing the updated card or an error response
      */
     @PutMapping("/put/{cardNumber}")
     public ResponseEntity<?> updateCard(@PathVariable("cardNumber") int cardNumber, @Valid @RequestBody CardDTO cardDTO) {
@@ -93,10 +106,9 @@ public class CardController {
     }
 
     /**
-     * method: getAllCards
-     * parameters: none
-     * return: List of Cards
-     * purpose: access point to list all cards from GUI
+     * Retrieves all cards from the system.
+     *
+     * @return a ResponseEntity containing a list of all stored cards
      */
     @GetMapping
     public ResponseEntity<List<Card>> getAllCards() {
@@ -104,10 +116,10 @@ public class CardController {
     }
 
     /**
-     * method: getCardById
-     * parameters: cardId
-     * return: Card
-     * purpose: access point to look up a card by ID from GUI
+     * Retrieves a card by its card number.
+     *
+     * @param cardNumber the unique identifier of the card to retrieve
+     * @return a ResponseEntity containing the card if found, or an error message if not
      */
     @GetMapping("/get/{cardNumber}")
     public ResponseEntity<?> getCardById(@PathVariable("cardNumber") int cardNumber) {
@@ -119,10 +131,9 @@ public class CardController {
     }
 
     /**
-     * method: calculateCollectionStatistics
-     * parameters: none
-     * return: Map of Stats and values
-     * purpose: access point to retrieve card statistics for the GUI
+     * Calculates and retrieves various statistics about the current card collection.
+     *
+     * @return a ResponseEntity containing a map of statistical values
      */
     @GetMapping("/stats")
     public ResponseEntity<Map<String, Object>> calculateCollectionStatistics() {
@@ -130,10 +141,9 @@ public class CardController {
     }
 
     /**
-     * method: calculateCollectionValue
-     * parameters: none
-     * return: Map of owner/market and values
-     * purpose: access point to retrieve collection value for the GUI
+     * Calculates and retrieves the total value of the card collection.
+     *
+     * @return a ResponseEntity containing a map with owner and market value data
      */
     @GetMapping("/values")
     public ResponseEntity<Map<String, BigDecimal>> calculateCollectionValue() {
@@ -141,10 +151,10 @@ public class CardController {
     }
 
     /**
-     * method: importCardsFromFile
-     * parameters: filePath
-     * return: completion message or error message
-     * purpose: access point to import cards from file for the GUI
+     * Imports cards from the provided file and adds them to the system.
+     *
+     * @param file the uploaded text file containing card data
+     * @return a ResponseEntity containing the imported cards or an error message if upload fails
      */
     @PostMapping("/import")
     public ResponseEntity<?> importCardsFromFile(@RequestParam("file") MultipartFile file) {

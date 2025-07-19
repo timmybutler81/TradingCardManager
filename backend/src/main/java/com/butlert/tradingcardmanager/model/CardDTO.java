@@ -1,13 +1,16 @@
-/**
- * Timothy Butler
- * CEN 3024 - Software Development 1
- * July 13, 2025
- * CardDTO.java
- * This dto is used to pass card related data between different layers of the application. It is focused on
- * client-server communication.
- */
 package com.butlert.tradingcardmanager.model;
 
+/**
+ * Data Transfer Object (DTO) for transferring card data between layers of the application.
+ * <p>
+ * Used primarily for client-server communication to encapsulate card-related fields
+ * as simple strings and primitives to simplify validation and serialization.
+ * </p>
+ *
+ * <p><b>Author:</b> Timothy Butler<br>
+ * <b>Course:</b> CEN 3024 - Software Development 1<br>
+ * <b>Date:</b> July 13, 2025</p>
+ */
 public class CardDTO {
     private Long id;
     private int cardNumber;
@@ -23,6 +26,19 @@ public class CardDTO {
 
     }
 
+    /**
+     * Constructs a fully initialized CardDTO.
+     *
+     * @param id                the unique database ID of the card
+     * @param cardNumber        the card number within the collection
+     * @param cardGame          the name of the card game (e.g., Pokémon, Magic)
+     * @param cardName          the name of the card
+     * @param rarity            the rarity as a string (e.g., "COMMON", "RARE")
+     * @param datePurchased     the purchase date as a string (yyyy-MM-dd)
+     * @param dateSetPublished  the set publication date as a string (yyyy-MM-dd)
+     * @param purchasePrice     the purchase price as a string (e.g., "3.50")
+     * @param foiled            true if the card is foiled, false otherwise
+     */
     public CardDTO(Long id, int cardNumber, String cardGame, String cardName, String rarity, String datePurchased, String dateSetPublished, String purchasePrice, boolean foiled) {
         this.id = id;
         this.cardNumber = cardNumber;

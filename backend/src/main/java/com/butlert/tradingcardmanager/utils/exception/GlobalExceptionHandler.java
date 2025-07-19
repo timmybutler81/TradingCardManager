@@ -1,10 +1,3 @@
-/**
- * Timothy Butler
- * CEN 3024 - Software Development 1
- * July 7, 2025,
- * GlobalExceptionHandler.java
- * This class handles global exceptions to catch and respond to validation errors.
- */
 package com.butlert.tradingcardmanager.utils.exception;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
@@ -24,13 +17,44 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Timothy Butler
+ * CEN 3024 - Software Development 1
+ * July 7, 2025
+ * GlobalExceptionHandler.java
+ *
+ * This class provides centralized exception handling across the application.
+ * It captures and formats validation, input, and runtime exceptions into structured HTTP responses
+ * for the client, improving API usability and debugging.
+ *
+ * <p>Handled exceptions include:</p>
+ * <ul>
+ *   <li>{@link IllegalArgumentException}</li>
+ *   <li>{@link com.butlert.tradingcardmanager.utils.exception.CardImportException}</li>
+ *   <li>{@link HttpMessageNotReadableException}</li>
+ *   <li>{@link MethodArgumentNotValidException}</li>
+ *   <li>{@link MethodArgumentTypeMismatchException}</li>
+ *   <li>{@link ConstraintViolationException}</li>
+ *   <li>Generic {@link Exception}</li>
+ * </ul>
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     /**
-     * method: handleIllegalArgument
-     * parameters: exception thrown
-     * return: response entity containing the error
-     * purpose: handles exceptions from 400 responses
+     * Default constructor for {@code GlobalExceptionHandler}.
+     * <p>
+     * No arguments are needed since all exception handling logic is defined via annotations
+     * and Spring manages this bean automatically.
+     */
+    public GlobalExceptionHandler() {
+
+    }
+
+    /**
+     * Handles {@link IllegalArgumentException} typically thrown from validation or business logic.
+     *
+     * @param ex the thrown IllegalArgumentException
+     * @return a 400 Bad Request response with error message
      */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<?> handleIllegalArgument(IllegalArgumentException ex) {
@@ -40,10 +64,10 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * method: handleImport
-     * parameters: exception thrown
-     * return: response entity containing the error
-     * purpose: handles custom exceptions related to invalid import actions
+     * Handles {@link CardImportException} thrown during file import processing.
+     *
+     * @param ex the thrown CardImportException
+     * @return a 400 Bad Request response with error details
      */
     @ExceptionHandler(CardImportException.class)
     public ResponseEntity<?> handleImport(CardImportException ex) {
@@ -53,10 +77,10 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * method: handleGenericException
-     * parameters: exception thrown
-     * return: response entity containing the error
-     * purpose: handles uncaught exceptions in a standard way
+     * Handles any uncaught {@link Exception} that is not specifically handled by other methods.
+     *
+     * @param ex the thrown exception
+     * @return a 500 Internal Server Error response with a generic error message and exception details
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGenericException(Exception ex) {
@@ -67,10 +91,12 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * method: handleJsonParseException
-     * parameters: exception thrown
-     * return: response entity containing the error
-     * purpose: handles parsing errors in json
+     * Handles malformed JSON payloads or data type mismatches during deserialization.
+     * Specifically catches {@link HttpMessageNotReadableException} and attempts to extract
+     * field-specific errors (e.g., invalid number format).
+     *
+     * @param ex the thrown HttpMessageNotReadableException
+     * @return a 400 Bad Request response with field-specific parsing error (if available)
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<?> handleJsonParseException(HttpMessageNotReadableException ex) {
@@ -93,10 +119,11 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * method: handleTypeMismatch
-     * parameters: exception thrown
-     * return: Map of string for errors
-     * purpose: handles incorrect arguments passed directly into the url
+     * Handles incorrect types passed as path or query parameters, such as non-numeric
+     * strings where an integer is expected.
+     *
+     * @param ex the thrown MethodArgumentTypeMismatchException
+     * @return a 400 Bad Request response with explanation of the type mismatch
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -109,10 +136,10 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * method: handleValidationError
-     * parameters: exception thrown
-     * return: response entity contain the error
-     * purpose: handles incorrect arguments on date
+     * Handles validation errors triggered by invalid request bodies using {@link MethodArgumentNotValidException}.
+     *
+     * @param ex the validation exception
+     * @return a 400 Bad Request with a user-friendly field-specific error message
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationError(MethodArgumentNotValidException ex) {
@@ -126,10 +153,11 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * method: handleConstraintViolationException
-     * parameters: exception thrown
-     * return: response entity contain the error
-     * purpose: handles data violates from the entity
+     * Handles validation errors caused by constraint violations outside of request body validation,
+     * such as path variables, query parameters, or method-level constraints.
+     *
+     * @param ex the thrown ConstraintViolationException
+     * @return a 400 Bad Request response with the first constraint violation message
      */
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<?> handleConstraintViolationException(ConstraintViolationException ex) {

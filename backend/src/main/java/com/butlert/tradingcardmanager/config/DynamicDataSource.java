@@ -1,25 +1,35 @@
-/**
- * Timothy Butler
- * CEN 3024 - Software Development 1
- * July 13, 2025
- * DynamicDataSource.java
- * This class handles the configuration for the data source. It handles run time initialization and switching
- * over to a mysql database.
- */
 package com.butlert.tradingcardmanager.config;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
+/**
+ * Dynamic data source that allows runtime switching between multiple databases.
+ * <p>
+ * Extends {@link org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource}
+ * and uses a thread-local key to route database calls to either H2 or MySQL based on the current context.
+ * </p>
+ *
+ * <p><b>Author:</b> Timothy Butler<br>
+ * <b>Course:</b> CEN 3024 - Software Development 1<br>
+ * <b>Date:</b> July 13, 2025</p>
+ */
 public class DynamicDataSource extends AbstractRoutingDataSource {
 
     private static final ThreadLocal<String> threadKey = new ThreadLocal<>();
     private static volatile String globalKey = "h2";
 
     /**
-     * method: setCurrentKey
-     * parameters: key
-     * return: void
-     * purpose: Sets the current context-specific look up key for selecting data source
+     * Default constructor for DynamicDataSource.
+     * Initializes the routing logic using the built-in AbstractRoutingDataSource behavior.
+     */
+    public DynamicDataSource() {
+        super();
+    }
+
+    /**
+     * Sets the current context-specific lookup key for selecting the data source.
+     *
+     * @param key the data source key (e.g., "h2" or "mysql")
      */
     public static void setCurrentKey(String key) {
         threadKey.set(key);
@@ -27,20 +37,16 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
     }
 
     /**
-     * method: clear
-     * parameters: none
-     * return: void
-     * purpose: Clears the thread local key for the current thread
+     * Clears the thread-local key for the current thread.
      */
     public static void clear() {
         threadKey.remove();
     }
 
     /**
-     * method: determineCurrentLookupKey
-     * parameters: none
-     * return: Object
-     * purpose: Determines which data source key to use for the current operation
+     * Determines which data source key to use for the current operation.
+     *
+     * @return the current data source key, falling back to the global key if none is set
      */
     @Override
     protected Object determineCurrentLookupKey() {

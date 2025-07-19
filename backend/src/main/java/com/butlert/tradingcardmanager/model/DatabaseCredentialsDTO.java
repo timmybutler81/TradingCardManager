@@ -1,15 +1,18 @@
-/**
- * Timothy Butler
- * CEN 3024 - Software Development 1
- * July 13, 2025
- * DatabaseCredentialsDTO.java
- * This dto encapsulates the credentials required to connect to an external data source. It is used to receive
- * configuration data from the client.-
- */
 package com.butlert.tradingcardmanager.model;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Data Transfer Object (DTO) for encapsulating database connection credentials.
+ * <p>
+ * Used to receive configuration details from the client when switching
+ * the application's active data source at runtime.
+ * </p>
+ *
+ * <p><b>Author:</b> Timothy Butler<br>
+ * <b>Course:</b> CEN 3024 - Software Development 1<br>
+ * <b>Date:</b> July 13, 2025</p>
+ */
 @Component
 public class DatabaseCredentialsDTO {
     private String host;
@@ -21,6 +24,15 @@ public class DatabaseCredentialsDTO {
     public DatabaseCredentialsDTO() {
     }
 
+    /**
+     * Constructs a new DatabaseCredentialsDTO with all necessary connection details.
+     *
+     * @param host         the database host (e.g., "localhost")
+     * @param port         the port number (e.g., "3306")
+     * @param databaseName the name of the target database
+     * @param username     the username used to authenticate
+     * @param password     the password used to authenticate
+     */
     public DatabaseCredentialsDTO(String host, String port, String databaseName, String username, String password) {
         this.host = host;
         this.port = port;

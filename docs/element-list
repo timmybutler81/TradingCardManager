@@ -1,0 +1,10 @@
+com.butlert.tradingcardmanager
+com.butlert.tradingcardmanager.config
+com.butlert.tradingcardmanager.controller
+com.butlert.tradingcardmanager.mapper
+com.butlert.tradingcardmanager.model
+com.butlert.tradingcardmanager.repository
+com.butlert.tradingcardmanager.service
+com.butlert.tradingcardmanager.utils
+com.butlert.tradingcardmanager.utils.exception
+com.butlert.tradingcardmanager.utils.validation
