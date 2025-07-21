@@ -58,8 +58,12 @@ public class CardValidator {
         ValidatorResult gameResult = stringValidator(card.getCardGame());
         if (!gameResult.isValid()) errors.append(gameResult.getMessage()).append(" ");
 
-        ValidatorResult rarityResult = validateCardRarity(card.getRarity().name());
-        if (!rarityResult.isValid()) errors.append(rarityResult.getMessage()).append(" ");
+        if (card.getRarity() == null) {
+            errors.append("Rarity cannot be empty. ");
+        } else {
+            ValidatorResult rarityResult = validateCardRarity(card.getRarity().name());
+            if (!rarityResult.isValid()) errors.append(rarityResult.getMessage()).append(" ");
+        }
 
         ValidatorResult priceResult = validatePurchasePrice(card.getPurchasePrice().toPlainString());
         if (!priceResult.isValid()) errors.append(priceResult.getMessage()).append(" ");

@@ -1,5 +1,8 @@
 package com.butlert.tradingcardmanager.model;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 /**
  * Data Transfer Object (DTO) for transferring card data between layers of the application.
  * <p>
@@ -41,6 +44,17 @@ public class CardDTO {
      */
     public CardDTO(Long id, int cardNumber, String cardGame, String cardName, String rarity, String datePurchased, String dateSetPublished, String purchasePrice, boolean foiled) {
         this.id = id;
+        this.cardNumber = cardNumber;
+        this.cardGame = cardGame;
+        this.cardName = cardName;
+        this.rarity = rarity;
+        this.datePurchased = datePurchased;
+        this.dateSetPublished = dateSetPublished;
+        this.purchasePrice = purchasePrice;
+        this.foiled = foiled;
+    }
+
+    public CardDTO(int cardNumber, String cardName, String cardGame, String rarity, String purchasePrice, String datePurchased, String dateSetPublished, boolean foiled) {
         this.cardNumber = cardNumber;
         this.cardGame = cardGame;
         this.cardName = cardName;

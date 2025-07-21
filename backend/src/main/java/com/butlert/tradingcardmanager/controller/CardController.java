@@ -4,6 +4,8 @@ import com.butlert.tradingcardmanager.model.Card;
 import com.butlert.tradingcardmanager.model.CardDTO;
 import com.butlert.tradingcardmanager.service.CardService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,15 @@ import java.util.Optional;
 @RequestMapping("/api/cards")
 public class CardController {
     /**
+     * Logger instance for recording application events and errors in the
+     * {@link com.butlert.tradingcardmanager.controller.CardController}.
+     * <p>
+     * Uses SLF4J's {@link org.slf4j.LoggerFactory} for standardized logging.
+     * Helps in debugging and tracing database connection handling.
+     */
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseConnectionController.class);
+
+    /**
      * The service layer used to handle all business logic for card operations.
      */
     private final CardService cardService;
@@ -52,7 +63,7 @@ public class CardController {
      */
     @PostMapping
     public ResponseEntity<?> addCard(@Valid @RequestBody CardDTO cardDTO) {
-        System.out.println("Received DTO: " + cardDTO);
+        logger.info("Received DTO {}", cardDTO);
         try {
             Optional<CardDTO> saved = cardService.addCard(cardDTO);
 

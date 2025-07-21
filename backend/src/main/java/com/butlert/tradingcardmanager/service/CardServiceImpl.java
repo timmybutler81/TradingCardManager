@@ -295,7 +295,7 @@ public class CardServiceImpl implements CardService {
                     }
                 } catch (IllegalArgumentException e) {
                     System.out.println("Skipping invalid line: " + line);
-                    System.out.println("Reason: " + e.getMessage());
+                    System.out.println("Reason: " + e);
                 }
             }
         } catch (Exception e) {

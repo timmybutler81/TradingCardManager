@@ -46,12 +46,12 @@ public class DatabaseConnectionController {
     /**
      * Dynamic data source router used to switch between data sources.
      */
-    private final DynamicDataSource routingDs;
+    final DynamicDataSource routingDs;
 
     /**
      * JPA EntityManager factory used to reconfigure the active data source.
      */
-    private final LocalContainerEntityManagerFactoryBean emfBean;
+    final LocalContainerEntityManagerFactoryBean emfBean;
 
     /**
      * Spring application context, required to refresh bean configuration if needed.
